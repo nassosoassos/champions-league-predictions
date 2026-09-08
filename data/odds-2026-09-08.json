@@ -1,0 +1,239 @@
+{
+  "generated_at": "2026-09-08T13:32:54.117485+00:00",
+  "matches": [
+    {
+      "match": "AEK Athens vs LASK",
+      "home_team": "AEK Athens",
+      "away_team": "LASK",
+      "commence_time": "2026-09-08T16:45:00Z",
+      "books_counted": 39,
+      "prob": {
+        "home": 0.5514,
+        "draw": 0.2368,
+        "away": 0.2117
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Club Brugge vs Aston Villa",
+      "home_team": "Club Brugge",
+      "away_team": "Aston Villa",
+      "commence_time": "2026-09-08T16:45:00Z",
+      "books_counted": 39,
+      "prob": {
+        "home": 0.3798,
+        "draw": 0.268,
+        "away": 0.3522
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Borussia Dortmund vs Villarreal",
+      "home_team": "Borussia Dortmund",
+      "away_team": "Villarreal",
+      "commence_time": "2026-09-08T19:00:00Z",
+      "books_counted": 40,
+      "prob": {
+        "home": 0.5316,
+        "draw": 0.2368,
+        "away": 0.2316
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Real Madrid vs Inter Milan",
+      "home_team": "Real Madrid",
+      "away_team": "Inter Milan",
+      "commence_time": "2026-09-08T19:00:00Z",
+      "books_counted": 40,
+      "prob": {
+        "home": 0.6008,
+        "draw": 0.2143,
+        "away": 0.185
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Lille vs Real Betis",
+      "home_team": "Lille",
+      "away_team": "Real Betis",
+      "commence_time": "2026-09-08T19:00:00Z",
+      "books_counted": 40,
+      "prob": {
+        "home": 0.4361,
+        "draw": 0.2763,
+        "away": 0.2876
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Porto vs Manchester City",
+      "home_team": "Porto",
+      "away_team": "Manchester City",
+      "commence_time": "2026-09-08T19:00:00Z",
+      "books_counted": 40,
+      "prob": {
+        "home": 0.1911,
+        "draw": 0.2352,
+        "away": 0.5737
+      },
+      "market_favorite": "away"
+    },
+    {
+      "match": "Barcelona vs Feyenoord",
+      "home_team": "Barcelona",
+      "away_team": "Feyenoord",
+      "commence_time": "2026-09-09T16:45:00Z",
+      "books_counted": 40,
+      "prob": {
+        "home": 0.881,
+        "draw": 0.0772,
+        "away": 0.0418
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "VfB Stuttgart vs Viking FK",
+      "home_team": "VfB Stuttgart",
+      "away_team": "Viking FK",
+      "commence_time": "2026-09-09T16:45:00Z",
+      "books_counted": 40,
+      "prob": {
+        "home": 0.7736,
+        "draw": 0.1362,
+        "away": 0.0901
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Napoli vs Arsenal",
+      "home_team": "Napoli",
+      "away_team": "Arsenal",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "books_counted": 39,
+      "prob": {
+        "home": 0.1936,
+        "draw": 0.2564,
+        "away": 0.5501
+      },
+      "market_favorite": "away"
+    },
+    {
+      "match": "Liverpool vs Atl\u00e9tico Madrid",
+      "home_team": "Liverpool",
+      "away_team": "Atl\u00e9tico Madrid",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "books_counted": 40,
+      "prob": {
+        "home": 0.5585,
+        "draw": 0.2357,
+        "away": 0.2058
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Sporting Lisbon vs Galatasaray",
+      "home_team": "Sporting Lisbon",
+      "away_team": "Galatasaray",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "books_counted": 38,
+      "prob": {
+        "home": 0.5203,
+        "draw": 0.2463,
+        "away": 0.2334
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Paris Saint Germain vs \u0160K Slovan Bratislava",
+      "home_team": "Paris Saint Germain",
+      "away_team": "\u0160K Slovan Bratislava",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "books_counted": 38,
+      "prob": {
+        "home": 0.9214,
+        "draw": 0.0547,
+        "away": 0.024
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Fenerbahce vs AS Roma",
+      "home_team": "Fenerbahce",
+      "away_team": "AS Roma",
+      "commence_time": "2026-09-10T16:45:00Z",
+      "books_counted": 39,
+      "prob": {
+        "home": 0.2889,
+        "draw": 0.2734,
+        "away": 0.4378
+      },
+      "market_favorite": "away"
+    },
+    {
+      "match": "PSV Eindhoven vs Shakhtar Donetsk",
+      "home_team": "PSV Eindhoven",
+      "away_team": "Shakhtar Donetsk",
+      "commence_time": "2026-09-10T16:45:00Z",
+      "books_counted": 39,
+      "prob": {
+        "home": 0.6676,
+        "draw": 0.1885,
+        "away": 0.1439
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Bayern Munich vs Bod\u00f8/Glimt",
+      "home_team": "Bayern Munich",
+      "away_team": "Bod\u00f8/Glimt",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "books_counted": 38,
+      "prob": {
+        "home": 0.8642,
+        "draw": 0.0843,
+        "away": 0.0515
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Como vs RB Leipzig",
+      "home_team": "Como",
+      "away_team": "RB Leipzig",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "books_counted": 30,
+      "prob": {
+        "home": 0.5164,
+        "draw": 0.2427,
+        "away": 0.2408
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Manchester United vs Sabah FK",
+      "home_team": "Manchester United",
+      "away_team": "Sabah FK",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "books_counted": 35,
+      "prob": {
+        "home": 0.8508,
+        "draw": 0.1054,
+        "away": 0.0438
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Slavia Praha vs RC Lens",
+      "home_team": "Slavia Praha",
+      "away_team": "RC Lens",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "books_counted": 39,
+      "prob": {
+        "home": 0.3741,
+        "draw": 0.2748,
+        "away": 0.3511
+      },
+      "market_favorite": "home"
+    }
+  ]
+}

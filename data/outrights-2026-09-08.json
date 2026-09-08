@@ -1,0 +1,69 @@
+{
+  "lock_deadline": "2026-09-08T16:45:00Z",
+  "generated_at": "2026-09-08",
+  "markets": [
+    {
+      "key": "winner",
+      "question": "Champions League winner",
+      "pick": "Paris Saint Germain",
+      "confidence": 3,
+      "note": "Market favorite: DraftKings has PSG at +500 (captured 31 Aug 2026), clear of a four-way knot at +600 (Bayern Munich, Barcelona, Arsenal) and Real Madrid at +650. PSG are the two-time defending champion and the shortest price on the board, so this is a straight market read rather than a hunch. Worth flagging the market and the leading model disagree here: Opta's supercomputer (10,000 simulations) has Arsenal top at 20.9% and Bayern second at 19.4%, with PSG only fifth at 7.1% behind Man City too — the model thinks the market is overrating a two-time-in-a-row winner's chances of a three-peat. Going with the market as the system's default; confidence held to 3 (not higher) precisely because of that disagreement.",
+      "alternatives": [
+        "Bayern Munich (+600)",
+        "Barcelona (+600)",
+        "Arsenal (+600)",
+        "Real Madrid (+650)",
+        "Manchester City (+900)"
+      ],
+      "result": null
+    },
+    {
+      "key": "top_8",
+      "question": "Top 8 (direct to round of 16)",
+      "picks": [
+        "Paris Saint Germain",
+        "Bayern Munich",
+        "Barcelona",
+        "Arsenal",
+        "Real Madrid",
+        "Manchester City",
+        "Liverpool",
+        "Manchester United"
+      ],
+      "confidence": 3,
+      "note": "The eight shortest-priced clubs on the DraftKings winner market (PSG +500 through Manchester United +2000), used as a proxy for overall squad strength across the 8-game league phase. Opta's model broadly agrees on the top of this list (Man City given 86.9% to reach the last 16, Arsenal 93.8% to progress) but rates Liverpool's chances of a deep run higher than the market does and is cooler on Manchester United; kept United in on market pricing since a top-8 pick set is inherently noisy across 36 teams and 8 slots.",
+      "result": null
+    },
+    {
+      "key": "top_scorer",
+      "question": "Champions League top scorer",
+      "pick": "Kylian Mbappé (Real Madrid)",
+      "confidence": 3,
+      "note": "Consensus favorite across books: BetJets has him at 4.50, bet365 at 7/2, both clear of Harry Kane (8.00 / 7/1) and Erling Haaland (9.00). Mbappé is the reigning Champions League top scorer, having scored 15 in 11 appearances last season including a competition-record 13 in the league phase alone, so the market price matches recent, repeated form rather than reputation alone.",
+      "alternatives": [
+        "Harry Kane (8.00)",
+        "Erling Haaland (9.00)"
+      ],
+      "result": null
+    },
+    {
+      "key": "finalists",
+      "question": "The two finalists",
+      "picks": [
+        "Paris Saint Germain",
+        "Arsenal"
+      ],
+      "confidence": 2,
+      "note": "PSG as the outright market favorite (+500) is the straightforward pick. For the second finalist, going with Arsenal over the co-priced Bayern Munich/Barcelona (all +600): Arsenal is Opta's single highest-rated team to win the whole thing (20.9%, ahead of Bayern's 19.4%), which as a proxy suggests the model likes their route to the final specifically, not just their overall squad. Confidence is low (2) because picking 2 exact finalists from a 36-team field eight-plus months out is inherently a low-hit-rate market regardless of read quality.",
+      "result": null
+    },
+    {
+      "key": "dark_horse",
+      "question": "Dark horse — a club outside the favourites that over-performs",
+      "pick": "Napoli",
+      "confidence": 2,
+      "note": "Napoli sit well outside the market's outright top tier (not among the DraftKings top 11 favorites found in research) despite entering as reigning Serie A champions with a squad built for a deep continental run. Uncertainty flagged: this pick is a qualitative read on squad quality relative to price rather than a specific researched outright quote for Napoli, since the sources checked did not surface their exact winner odds.",
+      "result": null
+    }
+  ]
+}

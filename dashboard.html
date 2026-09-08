@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Champions League 2026-27 — Predictions</title>
+<style>
+  :root{
+    --bg:#04060f; --bg2:#080b1b; --panel:#0d1229; --panel2:#131a3a;
+    --line:#212a55; --line2:#2f3a72;
+    --ink:#eef2ff; --muted:#98a2cf; --faint:#69719f;
+    --star:#9dbcff; --star2:#4a7bf0; --silver:#cfd9f7;
+    --home:#6ea8ff; --draw:#8b95c4; --away:#ff7fa3;
+    --gold:#f2cd7a; --win:#57e0a5; --loss:#ff6f8e;
+    --f-ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,system-ui,sans-serif;
+    --f-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,"Cascadia Mono",Consolas,monospace;
+    --shadow:0 24px 55px -30px rgba(0,0,0,.95);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--f-ui);
+    font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  /* stadium glow: floodlights over a midnight ground */
+  body::before{content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(1100px 620px at 50% -14%, rgba(74,123,240,.20), transparent 62%),
+      radial-gradient(760px 520px at 92% 6%, rgba(157,188,255,.08), transparent 60%),
+      radial-gradient(680px 460px at 2% 22%, rgba(46,78,168,.12), transparent 62%),
+      var(--bg);}
+  /* starfield — pure CSS, tiles so it covers any page height */
+  body::after{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.55;
+    background-repeat:repeat; background-size:820px 620px;
+    background-image:
+      radial-gradient(1.5px 1.5px at 6% 12%, rgba(255,255,255,.85), transparent 60%),
+      radial-gradient(1.2px 1.2px at 23% 41%, rgba(207,217,247,.7), transparent 60%),
+      radial-gradient(1px 1px at 38% 8%, rgba(255,255,255,.6), transparent 60%),
+      radial-gradient(1.6px 1.6px at 52% 63%, rgba(157,188,255,.75), transparent 60%),
+      radial-gradient(1.1px 1.1px at 67% 26%, rgba(255,255,255,.55), transparent 60%),
+      radial-gradient(1.4px 1.4px at 81% 71%, rgba(207,217,247,.6), transparent 60%),
+      radial-gradient(1px 1px at 94% 34%, rgba(255,255,255,.5), transparent 60%),
+      radial-gradient(1.3px 1.3px at 14% 78%, rgba(157,188,255,.55), transparent 60%),
+      radial-gradient(1px 1px at 45% 91%, rgba(255,255,255,.45), transparent 60%),
+      radial-gradient(1.2px 1.2px at 73% 96%, rgba(207,217,247,.5), transparent 60%),
+      radial-gradient(1px 1px at 88% 15%, rgba(255,255,255,.4), transparent 60%);}
+  .wrap{max-width:1150px; margin:0 auto; padding:0 22px 96px;}
+  a{color:inherit;}
+
+  /* ---- header ---- */
+  header{position:sticky; top:0; z-index:40; margin:0 -22px; padding:15px 22px 13px;
+    background:linear-gradient(180deg, rgba(4,6,15,.97), rgba(4,6,15,.86) 68%, transparent);
+    backdrop-filter:blur(9px); display:flex; align-items:center; justify-content:space-between;
+    gap:16px; flex-wrap:wrap;}
+  .brand{display:flex; align-items:center; gap:14px; min-width:0;}
+  .crest{width:46px; height:46px; flex:none; filter:drop-shadow(0 6px 16px rgba(74,123,240,.5));}
+  .wordmark{line-height:1.05; min-width:0;}
+  .wordmark .l1{font-family:var(--f-mono); font-size:10.5px; letter-spacing:3.2px;
+    text-transform:uppercase; color:var(--star);}
+  .wordmark .l2{font-size:25px; font-weight:800; letter-spacing:-.4px;}
+  .hgen{font-family:var(--f-mono); font-size:11px; color:var(--muted); text-align:right;
+    display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
+  .livepill{display:inline-flex; align-items:center; gap:8px; font-family:var(--f-mono);
+    font-size:12px; color:var(--ink); background:var(--panel); border:1px solid var(--line);
+    padding:5px 12px; border-radius:999px;}
+  .livepill b{color:var(--star);}
+  .dot{width:7px; height:7px; border-radius:50%; background:var(--star);
+    box-shadow:0 0 0 0 rgba(157,188,255,.6); animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(157,188,255,.55)}70%{box-shadow:0 0 0 8px rgba(157,188,255,0)}100%{box-shadow:0 0 0 0 rgba(157,188,255,0)}}
+
+  /* ---- stat ribbon ---- */
+  .ribbon{display:flex; flex-wrap:wrap; margin:22px 0 12px; border:1px solid var(--line);
+    border-radius:16px; overflow:hidden; box-shadow:var(--shadow);
+    background:linear-gradient(180deg,var(--panel),var(--bg2));}
+  .rcell{flex:1 1 0; min-width:132px; padding:16px 18px; border-right:1px solid var(--line);}
+  .rcell:last-child{border-right:none;}
+  .rcell .v{font-size:32px; font-weight:800; line-height:1; letter-spacing:-1px;}
+  .rcell .v small{font-size:16px; font-weight:600; color:var(--muted); letter-spacing:0;}
+  .rcell .k{font-family:var(--f-mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--muted); margin-top:8px;}
+  .rcell.hero .v{color:var(--star);}
+
+  /* ---- deep vs quick: is the research earning its keep? ---- */
+  .splitwrap{border:1px solid var(--line); border-radius:16px; padding:16px 18px 18px;
+    background:linear-gradient(180deg,var(--panel),var(--bg2)); box-shadow:var(--shadow); margin-bottom:12px;}
+  .splith{font-family:var(--f-mono); font-size:10.5px; letter-spacing:1.6px; text-transform:uppercase;
+    color:var(--star); margin-bottom:13px; display:flex; align-items:center; gap:11px;}
+  .splith::after{content:""; flex:1; height:1px; background:var(--line);}
+  .split{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:11px;}
+  .sp{background:var(--panel2); border:1px solid var(--line2); border-radius:13px; padding:14px 16px;}
+  .sp .spk{font-family:var(--f-mono); font-size:10px; letter-spacing:1.3px; text-transform:uppercase;
+    color:var(--muted); display:flex; align-items:center; gap:7px;}
+  .sp .spv{font-size:33px; font-weight:800; letter-spacing:-1px; line-height:1.15;}
+  .sp .spm{font-family:var(--f-mono); font-size:11px; color:var(--faint);}
+  .sp.deep{border-color:rgba(157,188,255,.42);}
+  .sp.deep .spv{color:var(--star);}
+  .sp.quick .spv{color:var(--silver);}
+  .sp.edge .spv.up{color:var(--win);} .sp.edge .spv.down{color:var(--loss);}
+  .sp.edge .spv.flat{color:var(--muted);}
+
+  /* ---- outrights ---- */
+  .outs{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:11px; margin-bottom:6px;}
+  .out{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px 16px;
+    display:flex; flex-direction:column; gap:7px; position:relative; overflow:hidden;}
+  .out::before{content:""; position:absolute; inset:0 0 auto 0; height:1px;
+    background:linear-gradient(90deg,transparent,rgba(157,188,255,.5),transparent);}
+  .out .ok{font-family:var(--f-mono); font-size:10px; letter-spacing:1.4px; text-transform:uppercase;
+    color:var(--muted);}
+  .out .op{font-size:21px; font-weight:800; letter-spacing:-.3px; line-height:1.15;}
+  .out .oc{font-family:var(--f-mono); font-size:11px; color:var(--gold); letter-spacing:1.5px;}
+  .out .onote{font-size:12px; color:var(--muted); line-height:1.5;}
+  .out .oalt{font-family:var(--f-mono); font-size:10.5px; color:var(--faint);}
+  .chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{font-size:12px; font-weight:600; background:var(--panel2); border:1px solid var(--line2);
+    border-radius:999px; padding:3px 10px; display:inline-flex; align-items:center; gap:5px;}
+  .chip.hit{border-color:rgba(87,224,165,.45); color:var(--win); background:rgba(87,224,165,.1);}
+  .chip.miss{border-color:rgba(255,111,142,.4); color:var(--loss); background:rgba(255,111,142,.08);}
+
+  /* ---- view switch ---- */
+  .switch{display:inline-flex; gap:4px; margin:30px 0 8px; padding:5px; border-radius:13px;
+    background:var(--panel); border:1px solid var(--line);}
+  .switch button{font-family:var(--f-ui); font-weight:700; font-size:13px; letter-spacing:.2px;
+    color:var(--muted); background:none; border:none; padding:9px 18px; border-radius:9px;
+    cursor:pointer; display:flex; align-items:center; gap:7px; transition:.18s;}
+  .switch button:hover{color:var(--ink);}
+  .switch button.on{background:linear-gradient(150deg,var(--star),var(--star2)); color:#050914;}
+
+  .secline{display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    flex-wrap:wrap; margin:24px 0 14px;}
+  .secline h2{font-size:20px; font-weight:800; letter-spacing:-.3px; margin:0;}
+  .sectools{display:flex; align-items:center; gap:18px;}
+  .toolbtn{font-family:var(--f-mono); font-size:12px; color:var(--muted); cursor:pointer;
+    border-bottom:1px dashed transparent; transition:.15s; white-space:nowrap;}
+  .toolbtn:hover{color:var(--star); border-color:rgba(157,188,255,.45);}
+
+  /* ---- matchday rail ---- */
+  .rail{display:flex; gap:8px; overflow-x:auto; padding:3px 2px 11px; margin:0 -2px;
+    scrollbar-width:thin;}
+  .rail::-webkit-scrollbar{height:5px;}
+  .rail::-webkit-scrollbar-thumb{background:var(--line2); border-radius:9px;}
+  .mdchip{flex:none; cursor:pointer; background:var(--panel); border:1px solid var(--line);
+    border-radius:11px; padding:8px 13px; display:flex; flex-direction:column; gap:2px;
+    transition:.16s; min-width:78px;}
+  .mdchip:hover{border-color:var(--star2); transform:translateY(-2px);}
+  .mdchip.on{border-color:var(--star); background:linear-gradient(180deg,rgba(74,123,240,.22),var(--panel));}
+  .mdchip .cl{font-size:13px; font-weight:800; letter-spacing:.2px; white-space:nowrap;}
+  .mdchip .cs{font-family:var(--f-mono); font-size:9.5px; color:var(--muted); white-space:nowrap;}
+  .mdchip.on .cs{color:var(--star);}
+
+  /* ---- matchday sections ---- */
+  .mdsec{border:1px solid var(--line); border-radius:16px; margin-bottom:12px; overflow:hidden;
+    background:linear-gradient(180deg,rgba(19,26,58,.55),rgba(8,11,27,.35));}
+  .mdsec>summary{list-style:none; cursor:pointer; padding:14px 18px; display:flex;
+    align-items:center; gap:13px; flex-wrap:wrap;}
+  .mdsec>summary::-webkit-details-marker{display:none;}
+  .mdsec>summary:hover{background:rgba(157,188,255,.04);}
+  .mdsec>summary:focus-visible{outline:2px solid var(--star); outline-offset:-3px;}
+  .mdsec .mdname{font-size:18px; font-weight:800; letter-spacing:-.2px;}
+  .mdsec .mdsub{font-family:var(--f-mono); font-size:11px; color:var(--muted);}
+  .mdsec .mdcount{font-family:var(--f-mono); font-size:10px; letter-spacing:1.2px; text-transform:uppercase;
+    color:var(--faint); border:1px solid var(--line2); border-radius:999px; padding:2px 9px;}
+  .mdsec .chev{margin-left:auto; color:var(--muted); font-size:12px; font-family:var(--f-mono);
+    transition:.2s;}
+  .mdsec[open] .chev{transform:rotate(90deg);}
+  .mdsec[open]>summary{border-bottom:1px solid var(--line);}
+  .mdbody{padding:14px 16px 18px; display:flex; flex-direction:column; gap:12px;}
+  .daydiv{font-family:var(--f-mono); font-size:10.5px; letter-spacing:1.6px; text-transform:uppercase;
+    color:var(--star); display:flex; align-items:center; gap:11px; margin:6px 2px 0;}
+  .daydiv:first-child{margin-top:0;}
+  .daydiv::after{content:""; flex:1; height:1px; background:var(--line);}
+
+  /* ---- deep match cards ---- */
+  .match{background:linear-gradient(180deg,var(--panel),var(--bg2)); border:1px solid var(--line);
+    border-radius:17px; overflow:hidden; box-shadow:var(--shadow);
+    opacity:0; transform:translateY(9px); animation:rise .45s cubic-bezier(.2,.7,.3,1) forwards;}
+  @keyframes rise{to{opacity:1; transform:none;}}
+  .sb{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px;
+    padding:18px 20px 16px;
+    background:radial-gradient(130% 150% at 50% -50%, rgba(74,123,240,.16), transparent 62%);}
+  .side{display:flex; flex-direction:column; gap:4px; min-width:0;}
+  .side.away{align-items:flex-end; text-align:right;}
+  .side .fl{font-size:26px; line-height:1;}
+  .side .name{font-size:21px; font-weight:800; letter-spacing:-.4px; line-height:1.1;}
+  .side .sub{font-family:var(--f-mono); font-size:10px; color:var(--muted); letter-spacing:1.1px;}
+  .mid{text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px; padding:0 4px;}
+  .mid .vs{font-family:var(--f-mono); font-size:12px; color:var(--faint); letter-spacing:2px;}
+  .mid .fin{font-size:30px; font-weight:800; letter-spacing:-.5px;}
+  .mid .kick{font-family:var(--f-mono); font-size:10px; color:var(--muted); white-space:nowrap;}
+  .mdchipsm{font-family:var(--f-mono); font-size:9.5px; letter-spacing:1.2px; color:var(--star);
+    border:1px solid rgba(157,188,255,.32); border-radius:6px; padding:1px 7px; cursor:default;}
+
+  .callrow{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    padding:11px 20px; background:var(--panel2); border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);}
+  .call{display:flex; align-items:center; gap:10px; font-size:13px;}
+  .call .lab{font-family:var(--f-mono); font-size:9.5px; letter-spacing:1.5px; color:var(--faint);
+    text-transform:uppercase;}
+  .call .pk{font-size:16px; font-weight:800; letter-spacing:-.2px;}
+  .call .sl{font-family:var(--f-mono); font-size:13px; color:var(--ink); background:var(--bg);
+    border:1px solid var(--line2); border-radius:6px; padding:2px 8px;}
+  .conf{display:flex; gap:3px; align-items:center;}
+  .conf .lab{font-family:var(--f-mono); font-size:9.5px; letter-spacing:1px; color:var(--faint); margin-right:3px;}
+  .conf i{width:11px; height:11px; border-radius:3px; background:var(--line2); display:inline-block;}
+  .conf i.f{background:var(--gold); box-shadow:0 0 7px -1px rgba(242,205,122,.5);}
+
+  .tag{font-family:var(--f-mono); font-size:9px; letter-spacing:1.4px; text-transform:uppercase;
+    border-radius:5px; padding:2px 7px; white-space:nowrap;}
+  .tag.deep{color:var(--star); border:1px solid rgba(157,188,255,.4); background:rgba(74,123,240,.14);}
+  .tag.quick{color:var(--faint); border:1px solid var(--line2);}
+
+  .body{padding:15px 20px 18px;}
+  .bar{display:flex; height:29px; border-radius:9px; overflow:hidden; border:1px solid var(--line);
+    background:var(--bg);}
+  .bar>div{display:flex; align-items:center; justify-content:center; font-family:var(--f-mono);
+    font-size:11px; font-weight:700; color:#050914; min-width:0; transition:.3s;}
+  .bar .h{background:var(--home);} .bar .d{background:var(--draw);} .bar .a{background:var(--away);}
+  .leg{display:flex; justify-content:space-between; gap:10px; margin:9px 1px 0; font-family:var(--f-mono);
+    font-size:10.5px; color:var(--muted);}
+  .leg i{width:9px; height:9px; border-radius:2px; display:inline-block; margin-right:5px; vertical-align:1px;}
+  .rat{color:#d3dbf5; margin:15px 0 0; font-size:14px;}
+  .flag{margin-top:12px; font-size:13px; color:#f8ead0; background:rgba(242,205,122,.07);
+    border-left:3px solid var(--gold); padding:9px 12px; border-radius:0 8px 8px 0;}
+  .flag b{color:var(--gold); font-family:var(--f-mono); font-size:10px; letter-spacing:1px;
+    display:block; margin-bottom:2px;}
+  .result{display:flex; align-items:center; gap:9px; margin-top:13px; flex-wrap:wrap;
+    padding-top:13px; border-top:1px dashed var(--line2);}
+  .result .rl{font-family:var(--f-mono); font-size:11px; color:var(--muted); letter-spacing:.5px;}
+  .result .rs{font-size:18px; font-weight:800; letter-spacing:-.2px;}
+  .badge{font-family:var(--f-mono); font-weight:700; padding:3px 9px; border-radius:7px; font-size:11px;
+    letter-spacing:.5px; white-space:nowrap;}
+  .hit{background:rgba(87,224,165,.14); color:var(--win); border:1px solid rgba(87,224,165,.35);}
+  .miss{background:rgba(255,111,142,.14); color:var(--loss); border:1px solid rgba(255,111,142,.35);}
+  .src{margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;}
+  .src a{font-family:var(--f-mono); font-size:11px; color:var(--home); text-decoration:none;
+    border:1px solid var(--line2); border-radius:7px; padding:4px 9px; transition:.15s; background:var(--bg);}
+  .src a:hover{border-color:var(--home); color:var(--ink);}
+  .why{margin-top:13px; border-top:1px dashed var(--line2); padding-top:11px;}
+  .why>summary{list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--f-mono); font-size:11px; letter-spacing:1px; text-transform:uppercase;
+    color:var(--muted); user-select:none; transition:.15s;}
+  .why>summary::-webkit-details-marker{display:none;}
+  .why>summary:hover{color:var(--star);}
+  .why[open]>summary{color:var(--ink);}
+  .why>summary .chev{color:var(--star); transition:transform .2s; display:inline-block;}
+  .why[open]>summary .chev{transform:rotate(90deg);}
+
+  /* ---- quick picks: compact, deliberately quieter ---- */
+  .qcard{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(96px,.85fr) auto;
+    gap:14px; align-items:center; padding:11px 16px; border:1px solid var(--line);
+    border-left:3px solid var(--line2); border-radius:12px; background:rgba(13,18,41,.55);
+    opacity:0; transform:translateY(9px); animation:rise .45s cubic-bezier(.2,.7,.3,1) forwards;}
+  .qcard .qt{display:flex; align-items:center; gap:8px; min-width:0; flex-wrap:wrap;}
+  .qcard .qt .nm{font-size:14.5px; font-weight:700; white-space:nowrap; overflow:hidden;
+    text-overflow:ellipsis;}
+  .qcard .qt .v{font-family:var(--f-mono); font-size:10px; color:var(--faint);}
+  .qcard .qmeta{font-family:var(--f-mono); font-size:10px; color:var(--faint); width:100%;}
+  .qbar{display:flex; height:8px; border-radius:99px; overflow:hidden; border:1px solid var(--line);
+    background:var(--bg);}
+  .qbar .h{background:var(--home);} .qbar .d{background:var(--draw);} .qbar .a{background:var(--away);}
+  .qbarw{display:flex; flex-direction:column; gap:5px;}
+  .qbarw .qlg{font-family:var(--f-mono); font-size:9.5px; color:var(--faint);
+    display:flex; justify-content:space-between; gap:6px;}
+  .qcall{display:flex; align-items:center; gap:9px; flex-wrap:wrap; justify-content:flex-end;}
+  .qcall .pk{font-size:13.5px; font-weight:800;}
+  .qcall .sl{font-family:var(--f-mono); font-size:12px; background:var(--bg);
+    border:1px solid var(--line2); border-radius:6px; padding:1px 7px;}
+
+  /* ---- league table ---- */
+  .lt{border:1px solid var(--line); border-radius:17px; overflow:hidden; box-shadow:var(--shadow);
+    background:linear-gradient(180deg,var(--panel),var(--bg2));}
+  .lthdr{padding:16px 18px 13px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+    border-bottom:1px solid var(--line);}
+  .lthdr .t{font-size:19px; font-weight:800; letter-spacing:-.3px;}
+  .lthdr .s{font-family:var(--f-mono); font-size:11px; color:var(--muted);}
+  .ltlegend{display:flex; flex-wrap:wrap; gap:8px; padding:12px 18px; border-bottom:1px solid var(--line);}
+  .ltlegend span{font-family:var(--f-mono); font-size:10px; letter-spacing:.8px; color:var(--muted);
+    display:inline-flex; align-items:center; gap:6px;}
+  .ltlegend i{width:10px; height:10px; border-radius:3px; display:inline-block;}
+  .ltnote{padding:13px 18px; font-size:13px; color:var(--gold); background:rgba(242,205,122,.06);
+    border-bottom:1px solid var(--line);}
+  table.ltbl{width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums;}
+  table.ltbl th{font-family:var(--f-mono); font-size:9.5px; letter-spacing:1.2px; text-transform:uppercase;
+    color:var(--faint); text-align:right; padding:10px 8px; font-weight:400;
+    border-bottom:1px solid var(--line);}
+  table.ltbl th.l{text-align:left;}
+  table.ltbl td{padding:9px 8px; text-align:right; font-size:13.5px; border-bottom:1px solid rgba(33,42,85,.55);}
+  table.ltbl td.rk{font-family:var(--f-mono); font-size:12px; color:var(--muted); text-align:center;
+    width:42px; border-left:3px solid transparent;}
+  table.ltbl td.club{text-align:left; font-weight:600;}
+  table.ltbl td.club .fl{margin-right:9px; font-size:15px;}
+  table.ltbl td.club .short{display:none; font-family:var(--f-mono); font-size:12.5px;}
+  table.ltbl td.pts{font-weight:800; font-size:15px; padding-right:16px;}
+  table.ltbl tr[data-t]{cursor:pointer; transition:.13s;}
+  table.ltbl tr[data-t]:hover td{background:rgba(157,188,255,.08);}
+  table.ltbl tr.b1 td{background:linear-gradient(90deg, rgba(74,123,240,.17), rgba(74,123,240,.03));}
+  table.ltbl tr.b1 td.rk{border-left-color:var(--star); color:var(--star);}
+  table.ltbl tr.b2 td{background:rgba(255,255,255,.014);}
+  table.ltbl tr.b2 td.rk{border-left-color:var(--line2);}
+  table.ltbl tr.b3 td{background:rgba(255,111,142,.055);}
+  table.ltbl tr.b3 td.rk{border-left-color:rgba(255,111,142,.55); color:rgba(255,143,168,.85);}
+  table.ltbl tr.cut td{padding:0; background:none; border-bottom:none;}
+  .cutline{display:flex; align-items:center; gap:11px; padding:9px 14px; flex-wrap:wrap;
+    border-top:2px solid var(--star2); border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg, rgba(74,123,240,.16), transparent);}
+  .cutline.out{border-top:2px dashed rgba(255,111,142,.6);
+    background:linear-gradient(90deg, rgba(255,111,142,.12), transparent);}
+  .cutline .cw{font-family:var(--f-mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--star); font-weight:700;}
+  .cutline.out .cw{color:var(--loss);}
+  .cutline .cx{font-family:var(--f-mono); font-size:10px; color:var(--faint); letter-spacing:.6px;}
+
+  .focusbar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px;
+    padding:12px 16px; border:1px solid var(--line2); border-radius:13px; background:var(--panel2);}
+  .focusbar .fname{font-size:17px; font-weight:800; letter-spacing:-.3px;}
+  .focusbar .frec{font-family:var(--f-mono); font-size:11px; color:var(--muted);}
+  .focusbar .fclear{margin-left:auto; font-family:var(--f-mono); font-size:11px; color:var(--star);
+    cursor:pointer; border-bottom:1px dashed rgba(157,188,255,.45);}
+
+  .empty{text-align:center; color:var(--muted); padding:56px 20px; border:1px dashed var(--line2);
+    border-radius:17px; font-family:var(--f-mono); font-size:13px;}
+  .hidden{display:none !important;}
+
+  /* ---- post-mortem ---- */
+  .pm{border:1px solid var(--line); border-radius:17px; margin:14px 0 4px;
+    background:linear-gradient(180deg,var(--panel),var(--bg2)); box-shadow:var(--shadow); overflow:hidden;}
+  .pm summary{list-style:none; cursor:pointer; padding:18px 22px; display:flex;
+    align-items:center; gap:14px; flex-wrap:wrap;}
+  .pm summary::-webkit-details-marker{display:none;}
+  .pm summary:focus-visible{outline:2px solid var(--star); outline-offset:-3px;}
+  .pm .pmttl{font-size:20px; font-weight:800; letter-spacing:-.3px;}
+  .pm .pmsub{font-family:var(--f-mono); font-size:11.5px; color:var(--muted);}
+  .pm .chev{margin-left:auto; color:var(--muted); font-size:13px; font-family:var(--f-mono); transition:.2s;}
+  .pm[open] .chev{transform:rotate(90deg);}
+  .pmbody{padding:2px 22px 24px; display:flex; flex-direction:column; gap:22px;}
+  .pmbody p{margin:0; color:var(--muted); font-size:14px; max-width:64ch;}
+  .pmbody p b{color:var(--ink); font-weight:700;}
+  .pmh{font-family:var(--f-mono); font-size:10.5px; letter-spacing:1.6px; text-transform:uppercase;
+    color:var(--star); margin:0 0 10px; padding-bottom:8px; border-bottom:1px solid var(--line);}
+  .verdict{display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+    background:var(--panel2); border:1px solid var(--line2); border-radius:14px; padding:17px 20px;}
+  .verdict .big{font-size:44px; font-weight:800; line-height:.95; letter-spacing:-1.5px;}
+  .verdict .big.good{color:var(--win);} .verdict .big.bad{color:var(--loss);}
+  .verdict .vtx{font-size:14px; color:var(--muted); max-width:48ch;}
+  .verdict .vtx b{color:var(--ink);}
+  .ab{display:flex; flex-direction:column; gap:11px;}
+  .abrow{display:grid; grid-template-columns:minmax(120px,1.3fr) 1fr auto; gap:14px; align-items:center;}
+  .abrow .abl{font-size:13px; color:var(--muted);}
+  .abrow.win .abl{color:var(--ink); font-weight:600;}
+  .abtrack{height:9px; border-radius:999px; background:var(--panel2); border:1px solid var(--line);
+    overflow:hidden;}
+  .abfill{height:100%; border-radius:999px; background:var(--faint);}
+  .abrow.win .abfill{background:linear-gradient(90deg,var(--star2),var(--star));}
+  .abv{font-family:var(--f-mono); font-size:12.5px; color:var(--muted);
+    font-variant-numeric:tabular-nums; white-space:nowrap;}
+  .abrow.win .abv{color:var(--star);}
+  .devs{display:flex; flex-direction:column;}
+  .devrow{display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; padding:9px 0;
+    border-bottom:1px solid var(--line); font-family:var(--f-mono); font-size:12px;}
+  .devrow:first-child{border-top:1px solid var(--line);}
+  .devrow .dm{flex:1 1 200px; color:var(--ink);}
+  .devrow .dv{font-weight:700;}
+  .devrow .dv.miss{color:var(--loss);} .devrow .dv.hit{color:var(--win);}
+  .devrow .dd{flex:1 1 100%; color:var(--faint); font-size:11.5px;}
+  .pmnote{font-family:var(--f-mono); font-size:11px; color:var(--faint); line-height:1.65;
+    border-top:1px solid var(--line); padding-top:14px; max-width:72ch;}
+
+  footer{margin-top:34px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:var(--f-mono); font-size:11px; color:var(--faint); line-height:1.7;}
+
+  @media (max-width:760px){
+    table.ltbl .opt{display:none;}
+    table.ltbl td.club .full{display:none;}
+    table.ltbl td.club .short{display:inline;}
+    .qcard{grid-template-columns:1fr; gap:9px;}
+    .qcall{justify-content:flex-start;}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 14px 70px;} header{margin:0 -14px; padding:13px 14px 11px;}
+    .wordmark .l2{font-size:20px;} .crest{width:38px; height:38px;}
+    .rcell .v{font-size:26px;} .rcell{min-width:110px; padding:13px 14px;}
+    .side .name{font-size:16px;} .side .fl{font-size:21px;} .mid .fin{font-size:24px;}
+    .sb{padding:15px 14px 13px; gap:8px;} .callrow{padding:10px 14px;} .body{padding:13px 14px 15px;}
+    .verdict .big{font-size:34px;}
+    .abrow{grid-template-columns:1fr auto;}
+    .abrow .abtrack{grid-column:1/-1; order:3;}
+    .mdbody{padding:12px 10px 15px;}
+    table.ltbl td{padding:8px 5px; font-size:12.5px;} table.ltbl th{padding:9px 5px;}
+  }
+</style></head>
+<body><div class="wrap">
+  <header>
+    <div class="brand">
+      <svg class="crest" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <radialGradient id="cg" cx="50%" cy="28%" r="78%">
+            <stop offset="0" stop-color="#2b3f8f"/><stop offset="1" stop-color="#070b1c"/>
+          </radialGradient>
+          <polygon id="st" fill="#dbe6ff"
+            points="0,-5 1.18,-1.62 4.76,-1.55 1.9,0.62 2.94,4.05 0,2 -2.94,4.05 -1.9,0.62 -4.76,-1.55 -1.18,-1.62"/>
+        </defs>
+        <circle cx="32" cy="32" r="30" fill="url(#cg)" stroke="#4a7bf0" stroke-opacity=".6"/>
+        <circle cx="32" cy="32" r="24" fill="none" stroke="#9dbcff" stroke-opacity=".18"/>
+        <use href="#st" x="32" y="11"/><use href="#st" x="46.85" y="17.15"/>
+        <use href="#st" x="53" y="32"/><use href="#st" x="46.85" y="46.85"/>
+        <use href="#st" x="32" y="53"/><use href="#st" x="17.15" y="46.85"/>
+        <use href="#st" x="11" y="32"/><use href="#st" x="17.15" y="17.15"/>
+      </svg>
+      <div class="wordmark">
+        <div class="l1">UEFA Champions League 2026-27</div>
+        <div class="l2">Prediction Desk</div>
+      </div>
+    </div>
+    <div class="hgen">
+      <span class="livepill"><span class="dot"></span>HIT RATE <b id="hr">&#8212;</b></span>
+      <span id="gen"></span>
+    </div>
+  </header>
+
+  <div class="ribbon" id="stats"></div>
+  <div id="splitwrap"></div>
+  <div class="outs" id="outrights"></div>
+  <div id="pmwrap"></div>
+
+  <div class="switch" id="switch">
+    <button data-v="fixtures" class="on">Fixtures</button>
+    <button data-v="table">League table</button>
+  </div>
+
+  <div id="tableView" class="hidden">
+    <div class="lt" id="ltable"></div>
+  </div>
+
+  <div id="fixturesView">
+    <div class="rail" id="rail"></div>
+    <div class="secline">
+      <h2 id="mhdr">Match predictions</h2>
+      <div class="sectools">
+        <a class="toolbtn" id="expandall">&#10530; expand analysis</a>
+        <a class="toolbtn" id="openall">&#9776; open every matchday</a>
+      </div>
+    </div>
+    <div id="mdwrap"></div>
+  </div>
+
+  <footer>
+    Built from the prediction, score, standings and outright files in this repo &#183; every number
+    on this page is recomputed on each build, nothing is hardcoded.<br>
+    Predictions for fun, not betting advice.
+  </footer>
+</div>
+<script>
+const DATA = {"generated_at": "2026-09-08 14:24 UTC", "days": [{"date": "2026-09-08", "matchday": "MD1", "predictions": [{"home_team": "AEK Athens", "away_team": "LASK", "commence_time": "2026-09-08T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.5514, "draw": 0.2368, "away": 0.2117}, "rationale": "Market-derived pick, no dedicated research this round; AEK priced at 55% to beat LASK at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Club Brugge", "away_team": "Aston Villa", "commence_time": "2026-09-08T16:45:00Z", "depth": "deep", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.3798, "draw": 0.268, "away": 0.3522}, "rationale": "The market is nearly three-way here (38/27/35) with Brugge only marginally ahead, so this started as a low-conviction lean. The research pushes the same way: Brugge are close to full strength (only Joel Ordonez out), have won four of their last five Pro League games and have lost just three of their last 22 European matches at Jan Breydel, while Aston Villa are goalless in three Premier League games, missing Madjo, Manzambi and Onana, and lost 1-0 on their previous visit to this ground. Pick and scoreline stay as the market had them, but confidence goes up a notch — a 1-0 fits a Villa side that has not scored domestically all season.", "sources": [{"title": "Club Brugge vs Aston Villa preview and prediction — The Hard Tackle", "url": "https://thehardtackle.com/round-up/2026/09/07/club-brugge-vs-aston-villa-preview-and-prediction-3/"}, {"title": "Club Brugge vs Aston Villa match preview and team news — The Football Faithful", "url": "https://thefootballfaithful.com/club-brugge-vs-aston-villa-match-preview-and-team-news-2/"}, {"title": "Emery's Mbaye call: predicted Aston Villa Champions League lineup vs Club Brugge — Sports Mole", "url": "https://www.sportsmole.co.uk/football/aston-villa/champions-league/predicted-lineups/emerys-mbaye-call-predicted-aston-villa-champions-league-lineup-vsclub-brugge_604576.html"}], "matchday": "MD1", "actual": null}, {"home_team": "Borussia Dortmund", "away_team": "Villarreal", "commence_time": "2026-09-08T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 3, "market": {"home": 0.5316, "draw": 0.2368, "away": 0.2316}, "rationale": "Market-derived pick, no dedicated research this round; Dortmund priced at 53% to beat Villarreal at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Real Madrid", "away_team": "Inter Milan", "commence_time": "2026-09-08T19:00:00Z", "depth": "deep", "pick": "home", "scoreline": "2-1", "confidence": 3, "market": {"home": 0.6008, "draw": 0.2143, "away": 0.185}, "rationale": "Madrid are priced at 60% at home, and this is the one deep card where the research is a genuine headwind rather than a confirmation. They are without seven — Camavinga, Guler and Bernardo Silva suspended, Militao, Rodrygo, Mendy and Asencio injured, with Tchouameni a late fitness call — leaving a gutted midfield, and they arrive off a 1-0 home defeat to Betis; Inter are unbeaten in Serie A with only Dimarco confirmed out. That is not enough to flip a 60% line against a side still starting Mbappe and Vinicius, so the home pick and the narrow 2-1 stand, but confidence drops a notch on the view that the price embeds squad depth Madrid do not currently have.", "disagreement": "Betting previews frame this as an open game rather than a home banker, with one flagging it as Inter's best upset chance of the round given Madrid's midfield absences — a lean against the market's 60%, though no outlet surveyed actually picks Inter to win.", "sources": [{"title": "Real Madrid vs Inter: injury and suspension list, predicted XIs — Sports Mole", "url": "https://www.sportsmole.co.uk/football/real-madrid/champions-league/team-news/real-madrid-vs-inter-injury-suspension-list-predicted-xis_604592.html"}, {"title": "Real Betis beat Real Madrid — Football Espana", "url": "https://www.football-espana.net/2026/09/05/real-betis-beat-real-madrid"}, {"title": "Real Madrid vs Inter Milan predictions — Goal.com betting tips", "url": "https://www.goal.com/en/betting/tips/real-madrid-vs-inter-milan-predictions-08-09-2026/A%3Abltb96d091b252da555"}, {"title": "Real Madrid vs Inter Milan draw odds: what prediction markets say — Bettors Insider", "url": "https://bettorsinsider.com/prediction-markets/2026/09/08/real-madrid-vs-inter-milan-draw-odds-what-prediction-markets-say-about-a-champions-league-stalemate/"}], "matchday": "MD1", "actual": null}, {"home_team": "Lille", "away_team": "Real Betis", "commence_time": "2026-09-08T19:00:00Z", "depth": "deep", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.4361, "draw": 0.2763, "away": 0.2876}, "rationale": "Lille lead a tight three-way market at 44/28/29, and the research mildly reinforces that lean rather than moving it. Betis travel without Diego Llorente (injury), Abde Ezzalzouli (illness) and Aitor Ruibal, with Pellegrini pointedly non-committal on Isco's minutes and rotation flagged for the trip, while Lille's infirmary is described as clear and Giroud has a goal and two assists in three games. Market-derived pick and scoreline stand unchanged; previews' under-2.5 and defensive-discipline angle supports the 1-0 rather than a wider margin.", "sources": [{"title": "Pellegrini ante el estreno del Betis en Champions contra el Lille — Sevilla Actualidad", "url": "https://www.sevillaactualidad.com/deportes/betis/598044-pellegrini-ante-el-estreno-del-betis-en-champions-contra-el-lille-valles-titular-abde-fuera-y-dudas-con-isco/"}, {"title": "Quelles equipes pour LOSC - Real Betis ? — Le Petit Lillois", "url": "https://lepetitlillois.com/2026/09/08/mbappe-onal-quelles-equipes-losc-real-betis/"}, {"title": "Lille vs Real Betis prediction, 08/09/2026 — Football Whispers", "url": "https://footballwhispers.com/blog/lille-vs-real-betis-prediction-08-09-2026/"}], "matchday": "MD1", "actual": null}, {"home_team": "Porto", "away_team": "Manchester City", "commence_time": "2026-09-08T19:00:00Z", "depth": "quick", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.1911, "draw": 0.2352, "away": 0.5737}, "rationale": "Market-derived pick, no dedicated research this round; Manchester City priced at 57% to win away at Porto.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Barcelona", "away_team": "Feyenoord", "commence_time": "2026-09-09T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.881, "draw": 0.0772, "away": 0.0418}, "rationale": "Market-derived pick, no dedicated research this round; Barcelona priced at 88% to beat Feyenoord at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "VfB Stuttgart", "away_team": "Viking FK", "commence_time": "2026-09-09T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 5, "market": {"home": 0.7736, "draw": 0.1362, "away": 0.0901}, "rationale": "Market-derived pick, no dedicated research this round; Stuttgart priced at 77% to beat Viking FK at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Napoli", "away_team": "Arsenal", "commence_time": "2026-09-09T19:00:00Z", "depth": "deep", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.1936, "draw": 0.2564, "away": 0.5501}, "rationale": "Arsenal are a 55% away favourite and the research says that price is earned rather than an overreaction to reputation. Napoli lose Scott McTominay to a confirmed heart procedure on top of Buongiorno, Marianucci and Giovane, and arrive on back-to-back Serie A defeats, while Arsenal have won their opening three league games plus the Community Shield with a settled front four and no rotation signal — Saliba's back injury the one real blow. Away pick and the 1-2 both stand; if anything the market looks slightly conservative, but not enough to raise the margin.", "sources": [{"title": "Napoli XI vs Arsenal confirmed — Yahoo Sports", "url": "https://uk.sports.yahoo.com/news/napoli-xi-vs-arsenal-confirmed-100557834.html"}, {"title": "Napoli, intervento per McTominay — FC Inter 1908", "url": "https://www.fcinter1908.it/news/infortuni/napoli-intervento-mctominay-salta-inter/"}, {"title": "Napoli v Arsenal prediction and preview — Football365", "url": "https://www.football365.com/match-preview/napoli-v-arsenal-prediction-preview"}, {"title": "Napoli vs Arsenal prediction and Champions League tips — William Hill News", "url": "https://news.williamhill.com/football/napoli-vs-arsenal-prediction-champions-league-tips-2026/"}], "matchday": "MD1", "actual": null}, {"home_team": "Liverpool", "away_team": "Atlético Madrid", "commence_time": "2026-09-09T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.5585, "draw": 0.2357, "away": 0.2058}, "rationale": "Market-derived pick, no dedicated research this round; Liverpool priced at 56% to beat Atlético Madrid at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Sporting Lisbon", "away_team": "Galatasaray", "commence_time": "2026-09-09T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.5203, "draw": 0.2463, "away": 0.2334}, "rationale": "Market-derived pick, no dedicated research this round; Sporting priced at 52% to beat Galatasaray at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Paris Saint Germain", "away_team": "ŠK Slovan Bratislava", "commence_time": "2026-09-09T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.9214, "draw": 0.0547, "away": 0.024}, "rationale": "Market-derived pick, no dedicated research this round; PSG priced at 92% to beat Slovan Bratislava at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Fenerbahce", "away_team": "AS Roma", "commence_time": "2026-09-10T16:45:00Z", "depth": "deep", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.2889, "draw": 0.2734, "away": 0.4378}, "rationale": "The market makes Roma a 44% away favourite inside an otherwise tight line, and the team news pushes the same direction. Fenerbahce are reshuffling four regular starters — Semedo, İrfan Can Kahveci, Oğuz Aydın and target man Vedat Muriqi dropped in reaction to a derby defeat — while Gasperini makes a single change (Molina in at right-back) and fields Dybala alongside an in-form Malen with, in Gazzetta's words, no force conservation. Pick and scoreline unchanged from the market read, but confidence rises: disrupted hosts against a settled, six-match-winning visitor is agreement, not a new angle.", "disagreement": "Tipsters are split rather than aligned: one camp lands on 1-1, citing Fenerbahce's home crowd against an organised Roma. No source surveyed backs a Fenerbahce win.", "sources": [{"title": "Fenerbahçe'de Roma maçında 4 isim yedekte, kadro değişiyor — Timeturk", "url": "https://www.timeturk.com/fbahcede-roma-macinda-4-isim-yedekte-kadro-degisiyor"}, {"title": "Gasperini a Istanbul non cambia: all'assalto con Malen e tutti i big — ForzaRoma / Gazzetta dello Sport", "url": "https://www.forzaroma.info/rassegna-stampa/la-gazzetta-dello-sport/gasperini-a-istanbul-non-cambia-allassalto-con-malen-e-tutti-i-big/"}, {"title": "Fenerbahce vs Roma preview — Khel Now", "url": "https://khelnow.com/football/fenerbahce-vs-roma-preview-champions-league-202609"}, {"title": "Fenerbahce vs Roma tips — FreeTips", "url": "https://www.freetips.com/football/uefa-champions-league/fenerbahce-vs-roma-tips-20260908-0029/"}], "matchday": "MD1", "actual": null}, {"home_team": "PSV Eindhoven", "away_team": "Shakhtar Donetsk", "commence_time": "2026-09-10T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.6676, "draw": 0.1885, "away": 0.1439}, "rationale": "Market-derived pick, no dedicated research this round; PSV priced at 67% to beat Shakhtar Donetsk at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Bayern Munich", "away_team": "Bodø/Glimt", "commence_time": "2026-09-10T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.8642, "draw": 0.0843, "away": 0.0515}, "rationale": "Market-derived pick, no dedicated research this round; Bayern priced at 86% to beat Bodø/Glimt at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Como", "away_team": "RB Leipzig", "commence_time": "2026-09-10T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.5164, "draw": 0.2427, "away": 0.2408}, "rationale": "Market-derived pick, no dedicated research this round; Como priced at 52% to beat RB Leipzig at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Manchester United", "away_team": "Sabah FK", "commence_time": "2026-09-10T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.8508, "draw": 0.1054, "away": 0.0438}, "rationale": "Market-derived pick, no dedicated research this round; Manchester United priced at 85% to beat Sabah FK at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Slavia Praha", "away_team": "RC Lens", "commence_time": "2026-09-10T19:00:00Z", "depth": "deep", "pick": "home", "scoreline": "1-0", "confidence": 2, "market": {"home": 0.3741, "draw": 0.2748, "away": 0.3511}, "rationale": "The tightest line on the card at 37/27/35 — the market sees a genuine three-way coin flip, and nothing in the research earns a deviation from it. Slavia are down to their third goalkeeper, with Staněk, Kolář, Ogbu and Holeš all out and Markovič the only keeper available, but Lens travel without six squad players of their own, have an unsettled XI three days out and have lost two straight domestically after their opening win. Team news cancels out and the tipster sample splits three ways, so the market-derived home pick and narrow 1-0 stay put with confidence at its floor.", "sources": [{"title": "LDC : la liste du Slavia Prague publiée — Lensois.com", "url": "https://www.lensois.com/ldc-la-liste-du-slavia-prague-publiee-avec-un-ex-de-la-gaillette-et-une-ancienne-piste-du-rc-lens/"}, {"title": "Deux défaites, un nouveau Lens : le RC Lens retrouve la Ligue des Champions à Prague — Allez Lens", "url": "https://allezlens.fr/deux-defaites-un-nouveau-lens-le-rc-lens-retrouve-la-ligue-des-champions-a-prague/"}, {"title": "Champions League moneyline picks, Matchday 1 — Covers", "url": "https://www.covers.com/soccer/champions-league-moneyline-picks-matchday-1-2026"}], "matchday": "MD1", "actual": null}]}], "summary": {"graded": 0, "correct": 0, "hit_rate": null, "exact": 0, "conf_right": null, "conf_wrong": null, "depth": {"deep": {"graded": 0, "correct": 0, "exact": 0, "hit_rate": null}, "quick": {"graded": 0, "correct": 0, "exact": 0, "hit_rate": null}}, "depth_edge": null}, "outrights": {"lock_deadline": "2026-09-08T16:45:00Z", "generated_at": "2026-09-08", "markets": [{"key": "winner", "question": "Champions League winner", "pick": "Paris Saint Germain", "confidence": 3, "note": "Market favorite: DraftKings has PSG at +500 (captured 31 Aug 2026), clear of a four-way knot at +600 (Bayern Munich, Barcelona, Arsenal) and Real Madrid at +650. PSG are the two-time defending champion and the shortest price on the board, so this is a straight market read rather than a hunch. Worth flagging the market and the leading model disagree here: Opta's supercomputer (10,000 simulations) has Arsenal top at 20.9% and Bayern second at 19.4%, with PSG only fifth at 7.1% behind Man City too — the model thinks the market is overrating a two-time-in-a-row winner's chances of a three-peat. Going with the market as the system's default; confidence held to 3 (not higher) precisely because of that disagreement.", "alternatives": ["Bayern Munich (+600)", "Barcelona (+600)", "Arsenal (+600)", "Real Madrid (+650)", "Manchester City (+900)"], "result": null}, {"key": "top_8", "question": "Top 8 (direct to round of 16)", "picks": ["Paris Saint Germain", "Bayern Munich", "Barcelona", "Arsenal", "Real Madrid", "Manchester City", "Liverpool", "Manchester United"], "confidence": 3, "note": "The eight shortest-priced clubs on the DraftKings winner market (PSG +500 through Manchester United +2000), used as a proxy for overall squad strength across the 8-game league phase. Opta's model broadly agrees on the top of this list (Man City given 86.9% to reach the last 16, Arsenal 93.8% to progress) but rates Liverpool's chances of a deep run higher than the market does and is cooler on Manchester United; kept United in on market pricing since a top-8 pick set is inherently noisy across 36 teams and 8 slots.", "result": null}, {"key": "top_scorer", "question": "Champions League top scorer", "pick": "Kylian Mbappé (Real Madrid)", "confidence": 3, "note": "Consensus favorite across books: BetJets has him at 4.50, bet365 at 7/2, both clear of Harry Kane (8.00 / 7/1) and Erling Haaland (9.00). Mbappé is the reigning Champions League top scorer, having scored 15 in 11 appearances last season including a competition-record 13 in the league phase alone, so the market price matches recent, repeated form rather than reputation alone.", "alternatives": ["Harry Kane (8.00)", "Erling Haaland (9.00)"], "result": null}, {"key": "finalists", "question": "The two finalists", "picks": ["Paris Saint Germain", "Arsenal"], "confidence": 2, "note": "PSG as the outright market favorite (+500) is the straightforward pick. For the second finalist, going with Arsenal over the co-priced Bayern Munich/Barcelona (all +600): Arsenal is Opta's single highest-rated team to win the whole thing (20.9%, ahead of Bayern's 19.4%), which as a proxy suggests the model likes their route to the final specifically, not just their overall squad. Confidence is low (2) because picking 2 exact finalists from a 36-team field eight-plus months out is inherently a low-hit-rate market regardless of read quality.", "result": null}, {"key": "dark_horse", "question": "Dark horse — a club outside the favourites that over-performs", "pick": "Napoli", "confidence": 2, "note": "Napoli sit well outside the market's outright top tier (not among the DraftKings top 11 favorites found in research) despite entering as reigning Serie A champions with a squad built for a deep continental run. Uncertainty flagged: this pick is a qualitative read on squad quality relative to price rather than a specific researched outright quote for Napoli, since the sources checked did not surface their exact winner odds.", "result": null}]}, "table": {"provisional": true, "as_of": null, "matchdays_played": 0, "rows": [{"rank": null, "team": "AEK Athens", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "AS Roma", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Arsenal", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Aston Villa", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Atlético Madrid", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Barcelona", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Bayern Munich", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Bodø/Glimt", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Borussia Dortmund", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Club Brugge", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Como", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Fenerbahce", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Feyenoord", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Galatasaray", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Inter Milan", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "LASK", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Lille", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Liverpool", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Manchester City", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Manchester United", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Napoli", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "PSV Eindhoven", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Paris Saint Germain", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Porto", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "RB Leipzig", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "RC Lens", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Real Betis", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Real Madrid", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Sabah FK", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Shakhtar Donetsk", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Slavia Praha", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Sporting Lisbon", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "VfB Stuttgart", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Viking FK", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Villarreal", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "ŠK Slovan Bratislava", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}], "note": "League phase starts 8 September — 36 clubs, one table, eight matchdays. Nothing played yet."}, "teams": {"AEK Athens": ["AEK", "🇬🇷", "GRE"], "AS Roma": ["ROM", "🇮🇹", "ITA"], "Arsenal": ["ARS", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG"], "Aston Villa": ["AVL", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG"], "Atlético Madrid": ["ATM", "🇪🇸", "ESP"], "Barcelona": ["BAR", "🇪🇸", "ESP"], "Bayern Munich": ["BAY", "🇩🇪", "GER"], "Bodø/Glimt": ["BOD", "🇳🇴", "NOR"], "Borussia Dortmund": ["DOR", "🇩🇪", "GER"], "Club Brugge": ["BRU", "🇧🇪", "BEL"], "Como": ["COM", "🇮🇹", "ITA"], "Fenerbahce": ["FEN", "🇹🇷", "TUR"], "Feyenoord": ["FEY", "🇳🇱", "NED"], "Galatasaray": ["GAL", "🇹🇷", "TUR"], "Inter Milan": ["INT", "🇮🇹", "ITA"], "LASK": ["LAS", "🇦🇹", "AUT"], "Lille": ["LIL", "🇫🇷", "FRA"], "Liverpool": ["LIV", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG"], "Manchester City": ["MCI", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG"], "Manchester United": ["MUN", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG"], "Napoli": ["NAP", "🇮🇹", "ITA"], "PSV Eindhoven": ["PSV", "🇳🇱", "NED"], "Paris Saint Germain": ["PSG", "🇫🇷", "FRA"], "Porto": ["POR", "🇵🇹", "POR"], "RB Leipzig": ["RBL", "🇩🇪", "GER"], "RC Lens": ["LEN", "🇫🇷", "FRA"], "Real Betis": ["BET", "🇪🇸", "ESP"], "Real Madrid": ["RMA", "🇪🇸", "ESP"], "Sabah FK": ["SAB", "🇦🇿", "AZE"], "Shakhtar Donetsk": ["SHK", "🇺🇦", "UKR"], "Slavia Praha": ["SLA", "🇨🇿", "CZE"], "Sporting Lisbon": ["SPO", "🇵🇹", "POR"], "VfB Stuttgart": ["STU", "🇩🇪", "GER"], "Viking FK": ["VIK", "🇳🇴", "NOR"], "Villarreal": ["VIL", "🇪🇸", "ESP"], "ŠK Slovan Bratislava": ["SLO", "🇸🇰", "SVK"]}, "postmortem": null};
+const TEAMS = DATA.teams || {};
+const PICK = {home:"Home win", draw:"Draw", away:"Away win"};
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const pct = x => Math.round((x||0)*100);
+const pad = n => String(n).padStart(2,"0");
+const code = t => (TEAMS[t]||[])[0] || (t||"").slice(0,3).toUpperCase();
+const flag = t => (TEAMS[t]||[])[1] || "";
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,
+  c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// local calendar date (YYYY-MM-DD) of a kickoff, so the day headings agree
+// with the local kick times shown on the cards.
+const localDate = iso => { const dt = new Date(iso);
+  return `${dt.getFullYear()}-${pad(dt.getMonth()+1)}-${pad(dt.getDate())}`; };
+
+function prettyDate(ds){
+  const [y,m,d] = String(ds||"").split("-").map(Number);
+  if(!y || !m || !d) return String(ds||"");
+  const dt = new Date(y, m-1, d);
+  return `${DOW[dt.getDay()]} ${d} ${MON[m-1]}`;
+}
+
+// one entry per real fixture (latest forecast wins — DATA.days is newest-first),
+// tagged with the local calendar date it is played on, sorted chronologically.
+const seen = {};
+const MATCHES = [];
+(DATA.days||[]).forEach(d => (d.predictions||[]).forEach(p => {
+  const k = p.home_team + "|" + p.away_team;
+  if(seen[k]) return; seen[k] = 1;
+  const o = {...p, _pub:d.date};
+  o._date = o.commence_time ? localDate(o.commence_time) : d.date;
+  o._deep = o.depth !== "quick";
+  MATCHES.push(o);
+}));
+MATCHES.sort((a,b) => (a.commence_time||a._date).localeCompare(b.commence_time||b._date));
+
+// matchday -> section. UCL plays 18 games over three days, then goes quiet for
+// weeks, so the round is the unit that matters; fall back to the date when a
+// predictions file carries no matchday label.
+const GROUPS = [];
+{
+  const idx = {};
+  MATCHES.forEach(p => {
+    const key = p.matchday || ("date:" + p._date);
+    if(idx[key] == null){ idx[key] = GROUPS.length;
+      GROUPS.push({key, md:p.matchday || null, items:[], dates:[]}); }
+    GROUPS[idx[key]].items.push(p);
+  });
+  GROUPS.forEach(g => {
+    g.dates = [...new Set(g.items.map(x => x._date))].sort();
+    g.start = g.dates[0]; g.end = g.dates[g.dates.length-1];
+    g.label = g.md || prettyDate(g.start);
+    g.span = g.dates.length > 1 ? `${prettyDate(g.start)} \u2013 ${prettyDate(g.end)}`
+                                : prettyDate(g.start);
+    g.graded = g.items.filter(p => p.actual).length;
+    g.hits = g.items.filter(p => p.actual && p.actual.pick_hit).length;
+  });
+}
+
+const confBlocks = (c, lab) => {
+  const n = c||0;
+  let s = lab ? `<span class="lab">CONF</span>` : "";
+  for(let i=1;i<=5;i++) s += `<i class="${i<=n?'f':''}"></i>`;
+  return `<span class="conf" title="confidence ${n}/5">${s}</span>`;
+};
+const pickColor = p => p==="home" ? "var(--home)" : p==="away" ? "var(--away)" : "var(--draw)";
+
+/* ---------- summary ribbon ---------- */
+function renderStats(s){
+  const hrEl = document.getElementById("hr");
+  if(!s.graded){
+    document.getElementById("stats").innerHTML =
+      '<div class="rcell"><div class="v">\u2014</div><div class="k">No graded matches yet</div></div>';
+    hrEl.textContent = "\u2014"; return;
+  }
+  hrEl.textContent = (s.hit_rate!=null ? s.hit_rate+"%" : "\u2014");
+  const cells = [
+    ["hero", (s.hit_rate!=null ? s.hit_rate : "\u2014"), "%", "Hit rate"],
+    ["", s.correct, "<small>/"+s.graded+"</small>", "Correct picks"],
+    ["", s.exact, "", "Exact scores"],
+    ["", (s.conf_right ?? "\u2014"), "", "Avg conf \u00b7 right"],
+    ["", (s.conf_wrong ?? "\u2014"), "", "Avg conf \u00b7 wrong"],
+  ];
+  document.getElementById("stats").innerHTML = cells.map(([cls,v,suf,k]) =>
+    `<div class="rcell ${cls}"><div class="v">${v}${suf||""}</div><div class="k">${k}</div></div>`).join("");
+}
+
+/* ---------- deep vs quick: is the research earning its keep? ---------- */
+function renderSplit(s){
+  const el = document.getElementById("splitwrap");
+  const d = (s.depth||{}).deep, q = (s.depth||{}).quick;
+  if(!d || !q || (!d.graded && !q.graded)){ el.innerHTML = ""; return; }
+  const cell = (cls, key, b, sub) => {
+    const rate = b.hit_rate!=null ? b.hit_rate+"%" : "\u2014";
+    const meta = b.graded ? `${b.correct}/${b.graded} correct \u00b7 ${b.exact} exact`
+                          : "nothing graded yet";
+    return `<div class="sp ${cls}"><div class="spk">${key}</div>
+      <div class="spv">${rate}</div><div class="spm">${meta}</div>
+      <div class="spm">${sub}</div></div>`;
+  };
+  const e = s.depth_edge;
+  const edgeCls = e==null ? "flat" : (e>0 ? "up" : (e<0 ? "down" : "flat"));
+  const edgeVal = e==null ? "\u2014" : (e>0 ? "+"+e : String(e));
+  const edge = `<div class="sp edge"><div class="spk">Research edge</div>
+    <div class="spv ${edgeCls}">${edgeVal}${e==null?"":"<span style='font-size:15px'>pts</span>"}</div>
+    <div class="spm">${e==null ? "needs a graded match in both buckets"
+      : "percentage points, deep minus quick"}</div>
+    <div class="spm">${e==null ? "" : (e>0 ? "the reading is paying for itself"
+      : e<0 ? "the market-derived picks are ahead" : "dead level so far")}</div></div>`;
+  el.innerHTML = `<div class="splitwrap">
+    <div class="splith">Is the research earning its keep?</div>
+    <div class="split">
+      ${cell("deep","Deep research picks", d, "full preview, team news, sources")}
+      ${cell("quick","Quick picks", q, "derived from the market in seconds")}
+      ${edge}
+    </div></div>`;
+}
+
+/* ---------- season-long outright markets ---------- */
+function renderOutrights(o){
+  const el = document.getElementById("outrights");
+  const ms = (o.markets||[]).filter(m => m && (m.pick || (m.picks||[]).length));
+  if(!ms.length){ el.innerHTML = ""; return; }
+  el.innerHTML = ms.map(m => {
+    const r = m.result || null;
+    const multi = Array.isArray(m.picks);
+    const actual = r && Array.isArray(r.actual) ? r.actual : null;
+    let pickHtml, res = "";
+    if(multi){
+      pickHtml = `<div class="chips">${m.picks.map(p => {
+        let cls = "";
+        if(actual) cls = actual.indexOf(p) >= 0 ? "hit" : "miss";
+        const mark = cls ? (cls==="hit" ? " \u2713" : " \u2717") : "";
+        return `<span class="chip ${cls}">${flag(p)} ${esc(p)}${mark}</span>`;
+      }).join("")}</div>`;
+      if(r){
+        const of = r.of != null ? r.of : m.picks.length;
+        const hits = r.hits != null ? r.hits
+          : (actual ? m.picks.filter(p => actual.indexOf(p) >= 0).length : 0);
+        const good = of ? hits/of >= 0.5 : false;
+        res = `<div><span class="badge ${good?'hit':'miss'}">${hits}/${of} right</span></div>`;
+      }
+    } else {
+      pickHtml = `<div class="op">${flag(m.pick)} ${esc(m.pick)}</div>`;
+      if(r){
+        const hit = !!r.correct;
+        res = `<div><span class="badge ${hit?'hit':'miss'}">${hit?'\u2713':'\u2717'} ${esc(r.actual)}</span></div>`;
+      }
+    }
+    const stars = m.confidence
+      ? `<div class="oc">${"\u2605".repeat(m.confidence)}${"\u2606".repeat(Math.max(0,5-m.confidence))}</div>`
+      : "";
+    const alt = (m.alternatives||[]).length
+      ? `<div class="oalt">also considered: ${esc(m.alternatives.join(" \u00b7 "))}</div>` : "";
+    return `<div class="out">
+      <div class="ok">${esc(m.question || m.key || "market")}</div>
+      ${pickHtml}${stars}
+      ${m.note ? `<div class="onote">${esc(m.note)}</div>` : ""}
+      ${alt}${res}</div>`;
+  }).join("");
+}
+
+/* ---------- post-mortem: honest audit of the method ---------- */
+function renderPostmortem(pm){
+  const el = document.getElementById("pmwrap");
+  if(!pm || !pm.n){ el.innerHTML = ""; return; }
+
+  // Did overruling the betting market pay?
+  const devN = pm.deviations.length;
+  const devGood = devN ? (pm.dev_hits / devN) >= 0.5 : false;
+  const verdict = devN
+    ? `<div class="verdict">
+         <div class="big ${devGood?'good':'bad'}">${pm.dev_hits}/${devN}</div>
+         <div class="vtx">Times the research overruled the betting market &mdash; and how
+           often that was <b>right</b>. The other <b>${pm.followed}</b> picks simply backed
+           the market favourite.</div>
+       </div>`
+    : "";
+
+  // Blind-favourite control: what if we'd never read a preview?
+  const diff = pm.blind_fav - pm.ours.win;
+  const ctrl = `<p>Backing the market favourite in all <b>${pm.n}</b> matches without reading a
+    single preview would have returned <b>${pm.blind_fav}</b> correct winners.
+    We got <b>${pm.ours.win}</b> &mdash; ${diff>0 ? `<b>${diff} fewer</b>. The qualitative layer
+    was a net cost.` : diff===0 ? `exactly the same. The qualitative layer added nothing.`
+    : `<b>${-diff} more</b>.`}</p>`;
+
+  // Scoreline craft vs fixed-guess baselines
+  const all = [{label:"Our submitted picks", ...pm.ours, us:true}, ...pm.baselines];
+  const max = Math.max(...all.map(b => b.pts)) || 1;
+  const bars = all.map(b => `
+    <div class="abrow ${b.us?'win':''}">
+      <div class="abl">${esc(b.label)}</div>
+      <div class="abtrack"><div class="abfill" style="width:${100*b.pts/max}%"></div></div>
+      <div class="abv">${b.pts} pts \u00b7 ${b.exact} exact</div>
+    </div>`).join("");
+
+  const devs = devN ? `
+    <div>
+      <div class="pmh">Every deviation, in full</div>
+      <div class="devs">${pm.deviations.map(d => `
+        <div class="devrow">
+          <span class="dm">${esc(d.match)}</span>
+          <span class="tag ${d.depth==='quick'?'quick':'deep'}">${d.depth==='quick'?'quick':'deep'}</span>
+          <span class="dv ${d.hit?'hit':'miss'}">${d.hit?'\u2713 hit':'\u2717 miss'}</span>
+          <span class="dd">picked ${PICK[d.pick]||d.pick} \u00b7 market said ${PICK[d.fav]||d.fav}
+            ${Math.round((d.favp||0)*100)}% \u00b7 finished ${PICK[d.res]||d.res}</span>
+        </div>`).join("")}</div>
+    </div>` : "";
+
+  el.innerHTML = `
+  <details class="pm">
+    <summary>
+      <span class="pmttl">Did any of this work?</span>
+      <span class="pmsub">an honest audit of ${pm.n} predictions</span>
+      <span class="chev">\u276F</span>
+    </summary>
+    <div class="pmbody">
+      ${verdict}
+      ${ctrl}
+      <div>
+        <div class="pmh">Where the points actually came from</div>
+        ${bars}
+        <p style="margin-top:12px">Scored 4 / 3 / 2 for exact score, goal difference and correct
+          winner &mdash; highest tier only. The gap over a fixed guess is <b>scoreline craft</b>:
+          matching the shape of the score to how strong the market made the favourite.</p>
+      </div>
+      ${devs}
+      <div>
+        <div class="pmh">The draw blind spot that wasn't</div>
+        <p><b>${pm.draws_actual}</b> matches finished level. We predicted a draw
+          <b>${pm.draws_picked}</b> times and got <b>${pm.draws_hit}</b>. That looks like a flaw,
+          but a draw is rarely the single most likely outcome even when it is a common result
+          overall &mdash; so under-picking draws is correct, and feels wrong all season.</p>
+      </div>
+      <div class="pmnote">
+        All figures recomputed from the prediction and score files on every build &mdash; nothing here
+        is hardcoded. The 4/3/2 scheme is an assumption for comparison; other weightings move the
+        totals but not the direction. Predictions for fun, not betting advice.
+      </div>
+    </div>
+  </details>`;
+}
+
+/* ---------- league table ---------- */
+function renderTable(){
+  const t = DATA.table || {};
+  const rows = t.rows || [];
+  const el = document.getElementById("ltable");
+  if(!rows.length){
+    el.innerHTML = '<div class="empty">No league table yet.</div>'; return;
+  }
+  const prov = !!t.provisional;
+  const cut = (cls, word, tail) =>
+    `<tr class="cut"><td colspan="10"><div class="cutline ${cls}">
+       <span class="cw">${word}</span><span class="cx">${tail}</span></div></td></tr>`;
+
+  let body = "";
+  rows.forEach((r, i) => {
+    const rank = r.rank != null ? r.rank : i+1;
+    const band = prov ? "" : (rank<=8 ? "b1" : (rank<=24 ? "b2" : "b3"));
+    const gd = (r.gd>0 ? "+" : "") + r.gd;
+    body += `<tr class="${band}" data-t="${esc(r.team)}" title="show this club's predictions">
+      <td class="rk">${prov ? "\u00b7" : rank}</td>
+      <td class="club"><span class="fl">${flag(r.team)}</span
+        ><span class="full">${esc(r.team)}</span><span class="short">${esc(code(r.team))}</span></td>
+      <td>${r.played}</td>
+      <td class="opt">${r.won}</td><td class="opt">${r.drawn}</td><td class="opt">${r.lost}</td>
+      <td class="opt">${r.gf}</td><td class="opt">${r.ga}</td>
+      <td>${gd}</td><td class="pts">${r.points}</td></tr>`;
+    if(!prov && rank===8)  body += cut("", "Round of 16",
+      "\u2191 top 8 go straight through \u00b7 \u2193 knockout play-off");
+    if(!prov && rank===24) body += cut("out", "Eliminated below",
+      "\u2191 9\u201324 into the two-legged play-off \u00b7 \u2193 no European football after January");
+  });
+
+  const sub = prov ? "not started"
+    : `after ${t.matchdays_played||0} matchday${(t.matchdays_played||0)===1?'':'s'}`
+      + (t.as_of ? ` \u00b7 as of ${esc(t.as_of)}` : "");
+  el.innerHTML = `
+    <div class="lthdr"><span class="t">League phase</span><span class="s">${sub}</span></div>
+    <div class="ltlegend">
+      <span><i style="background:var(--star)"></i>1\u20138 round of 16</span>
+      <span><i style="background:var(--line2)"></i>9\u201324 knockout play-off</span>
+      <span><i style="background:rgba(255,111,142,.6)"></i>25\u201336 eliminated</span>
+    </div>
+    ${t.note ? `<div class="ltnote">${esc(t.note)}</div>` : ""}
+    <table class="ltbl">
+      <thead><tr>
+        <th>#</th><th class="l">Club</th><th>P</th>
+        <th class="opt">W</th><th class="opt">D</th><th class="opt">L</th>
+        <th class="opt">GF</th><th class="opt">GA</th><th>GD</th><th>Pts</th>
+      </tr></thead>
+      <tbody>${body}</tbody>
+    </table>`;
+  el.querySelectorAll("tr[data-t]").forEach(tr =>
+    tr.onclick = () => focusClub(tr.dataset.t));
+}
+
+/* ---------- match cards ---------- */
+function marketBar(m){
+  const h = pct(m.home), d = pct(m.draw), a = pct(m.away);
+  return {h, d, a};
+}
+
+function deepCard(p, i){
+  const {h, d, a} = marketBar(p.market||{});
+  const kick = p.commence_time ? new Date(p.commence_time).toLocaleString([], {
+    weekday:"short", month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"}) : "";
+  const graded = p.actual;
+  const mid = graded ? `<div class="fin">${esc(graded.final_score)}</div>`
+                     : `<div class="vs">V</div>`;
+  let result = "";
+  if(graded){
+    const b = graded.pick_hit ? '<span class="badge hit">PICK \u2713</span>'
+                              : '<span class="badge miss">PICK \u2717</span>';
+    const sb = graded.score_hit ? ' <span class="badge hit">EXACT \u2713</span>' : '';
+    result = `<div class="result"><span class="rl">FULL TIME</span>
+      <span class="rs">${esc(graded.final_score)}</span>
+      <span class="rl">${PICK[graded.result]||""}</span>${b}${sb}</div>`;
+  }
+  const fl = p.disagreement ? `<div class="flag"><b>TIPSTER WATCH</b>${esc(p.disagreement)}</div>` : "";
+  const src = (p.sources||[]).map(s =>
+    `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title||"source")} \u2197</a>`).join("");
+  const rat = p.rationale ? `<p class="rat">${esc(p.rationale)}</p>` : "";
+  const why = rat + fl + (src ? `<div class="src">${src}</div>` : "");
+  const nsrc = (p.sources||[]).length;
+  const srcN = nsrc ? ` \u00b7 ${nsrc} source${nsrc>1?'s':''}` : "";
+  const details = why ? `<details class="why"><summary><span class="chev">\u25B8</span>
+    Analysis${srcN}</summary><div class="whybody">${why}</div></details>` : "";
+  return `<div class="match" style="animation-delay:${Math.min(i*45,400)}ms">
+    <div class="sb">
+      <div class="side home">
+        <div class="fl">${flag(p.home_team)}</div>
+        <div class="name">${esc(p.home_team)}</div>
+        <div class="sub">${esc(code(p.home_team))} \u00b7 HOME</div>
+      </div>
+      <div class="mid">
+        ${mid}
+        ${kick ? `<div class="kick">${esc(kick)}</div>` : ""}
+        ${p.matchday ? `<div class="mdchipsm">${esc(p.matchday)}</div>` : ""}
+      </div>
+      <div class="side away">
+        <div class="fl">${flag(p.away_team)}</div>
+        <div class="name">${esc(p.away_team)}</div>
+        <div class="sub">AWAY \u00b7 ${esc(code(p.away_team))}</div>
+      </div>
+    </div>
+    <div class="callrow">
+      <div class="call"><span class="lab">Our call</span>
+        <span class="pk" style="color:${pickColor(p.pick)}">${PICK[p.pick]||p.pick||"\u2014"}</span>
+        ${p.scoreline ? `<span class="sl">${esc(p.scoreline)}</span>` : ""}
+        <span class="tag deep">deep</span></div>
+      ${confBlocks(p.confidence, true)}
+    </div>
+    <div class="body">
+      <div class="bar">
+        <div class="h" style="width:${h}%">${h>=10?h+"%":""}</div>
+        <div class="d" style="width:${d}%">${d>=10?d+"%":""}</div>
+        <div class="a" style="width:${a}%">${a>=10?a+"%":""}</div>
+      </div>
+      <div class="leg">
+        <span><i style="background:var(--home)"></i>${esc(code(p.home_team))} ${h}%</span>
+        <span><i style="background:var(--draw)"></i>Draw ${d}%</span>
+        <span><i style="background:var(--away)"></i>${esc(code(p.away_team))} ${a}%</span>
+      </div>
+      ${result}
+      ${details}
+    </div>
+  </div>`;
+}
+
+function quickCard(p, i){
+  const {h, d, a} = marketBar(p.market||{});
+  const kick = p.commence_time ? new Date(p.commence_time).toLocaleString([], {
+    hour:"2-digit", minute:"2-digit"}) : "";
+  const graded = p.actual;
+  let res = "";
+  if(graded){
+    const b = graded.pick_hit ? '<span class="badge hit">\u2713</span>'
+                              : '<span class="badge miss">\u2717</span>';
+    const sb = graded.score_hit ? '<span class="badge hit">EXACT</span>' : '';
+    res = `<span class="sl">${esc(graded.final_score)}</span>${b}${sb}`;
+  }
+  return `<div class="qcard" style="animation-delay:${Math.min(i*35,320)}ms">
+    <div class="qt">
+      <span>${flag(p.home_team)}</span><span class="nm">${esc(p.home_team)}</span>
+      <span class="v">v</span>
+      <span>${flag(p.away_team)}</span><span class="nm">${esc(p.away_team)}</span>
+      <span class="qmeta">${kick ? esc(kick)+" \u00b7 " : ""}${p.matchday ? esc(p.matchday)+" \u00b7 " : ""}quick pick</span>
+    </div>
+    <div class="qbarw">
+      <div class="qbar">
+        <div class="h" style="width:${h}%"></div>
+        <div class="d" style="width:${d}%"></div>
+        <div class="a" style="width:${a}%"></div>
+      </div>
+      <div class="qlg"><span>${h}%</span><span>${d}%</span><span>${a}%</span></div>
+    </div>
+    <div class="qcall">
+      <span class="pk" style="color:${pickColor(p.pick)}">${PICK[p.pick]||p.pick||"\u2014"}</span>
+      ${p.scoreline ? `<span class="sl">${esc(p.scoreline)}</span>` : ""}
+      ${confBlocks(p.confidence, false)}
+      <span class="tag quick">quick</span>
+      ${res}
+    </div>
+  </div>`;
+}
+
+const card = (p, i) => p._deep ? deepCard(p, i) : quickCard(p, i);
+
+/* ---------- fixtures view ---------- */
+let allOpen = false;
+let focusTeam = null;
+function applyFold(){ document.querySelectorAll("#mdwrap .why").forEach(x => x.open = allOpen); }
+function setExpandAll(open){
+  allOpen = open; applyFold();
+  document.getElementById("expandall").innerHTML =
+    open ? "\u2715 collapse analysis" : "\u2922 expand analysis";
+}
+
+function sectionsHtml(){
+  const today = (DATA.generated_at||"").slice(0,10);
+  // open the round being played now, else the next one up, else the last played
+  let cur = GROUPS.findIndex(g => g.start <= today && today <= g.end);
+  if(cur < 0) cur = GROUPS.findIndex(g => g.start >= today);
+  if(cur < 0) cur = GROUPS.length - 1;
+  let i = 0;
+  return GROUPS.map((g, gi) => {
+    const byDate = {}; const order = [];
+    g.items.forEach(p => { if(!byDate[p._date]){ byDate[p._date] = []; order.push(p._date); }
+      byDate[p._date].push(p); });
+    let inner = "";
+    order.forEach(ds => {
+      if(order.length > 1 || g.md) inner += `<div class="daydiv">${prettyDate(ds)}</div>`;
+      byDate[ds].forEach(p => { inner += card(p, i++); });
+    });
+    const rec = g.graded
+      ? `<span class="mdcount">${g.hits}/${g.graded} correct</span>` : "";
+    return `<details class="mdsec" data-k="${esc(g.key)}"${gi===cur?" open":""}>
+      <summary>
+        <span class="mdname">${esc(g.label)}</span>
+        <span class="mdsub">${g.span}</span>
+        <span class="mdcount">${g.items.length} match${g.items.length===1?'':'es'}</span>
+        ${rec}
+        <span class="chev">\u276F</span>
+      </summary>
+      <div class="mdbody">${inner}</div>
+    </details>`;
+  }).join("");
+}
+
+function renderFixtures(){
+  const el = document.getElementById("mdwrap");
+  const hdr = document.getElementById("mhdr");
+  if(!MATCHES.length){
+    hdr.textContent = "Match predictions";
+    el.innerHTML = '<div class="empty">No predictions yet. Run the daily agent to populate this board.</div>';
+    return;
+  }
+  if(focusTeam){
+    const list = MATCHES.filter(p => p.home_team===focusTeam || p.away_team===focusTeam);
+    const g = list.filter(p => p.actual).length;
+    const c = list.filter(p => p.actual && p.actual.pick_hit).length;
+    hdr.textContent = "Club focus";
+    el.innerHTML = `<div class="focusbar">
+        <span>${flag(focusTeam)}</span><span class="fname">${esc(focusTeam)}</span>
+        <span class="frec">${list.length} fixture${list.length===1?'':'s'} predicted${
+          g ? ` \u00b7 ${c}/${g} calls right` : ""}</span>
+        <span class="fclear" id="fclear">\u21BA back to matchdays</span>
+      </div>` + (list.length ? list.map((p,i) => card(p,i)).join("")
+        : '<div class="empty">No predictions for this club yet.</div>');
+    document.getElementById("fclear").onclick = () => { focusTeam = null; renderFixtures(); renderRail(); };
+    applyFold();
+    return;
+  }
+  hdr.textContent = `Match predictions \u00b7 ${MATCHES.length}`;
+  el.innerHTML = sectionsHtml();
+  applyFold();
+}
+
+function renderRail(){
+  const el = document.getElementById("rail");
+  if(!GROUPS.length){ el.innerHTML = ""; return; }
+  el.innerHTML = GROUPS.map(g => {
+    const sub = g.graded ? `${g.hits}/${g.graded} \u2713` : `${g.items.length} matches`;
+    return `<div class="mdchip" data-k="${esc(g.key)}">
+      <span class="cl">${esc(g.label)}</span><span class="cs">${sub}</span></div>`;
+  }).join("");
+  el.querySelectorAll(".mdchip").forEach(c => c.onclick = () => openMatchday(c.dataset.k));
+  syncRail();
+}
+
+function eachSection(fn){ document.querySelectorAll("#mdwrap .mdsec").forEach(fn); }
+
+function syncRail(){
+  const open = {};
+  eachSection(s => { if(s.open) open[s.dataset.k] = 1; });
+  document.querySelectorAll(".mdchip").forEach(c =>
+    c.classList.toggle("on", !focusTeam && !!open[c.dataset.k]));
+}
+
+function openMatchday(key){
+  if(focusTeam){ focusTeam = null; renderFixtures(); }
+  showView("fixtures");
+  let target = null;
+  eachSection(s => { const on = s.dataset.k === key; s.open = on; if(on) target = s; });
+  syncRail();
+  if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function focusClub(name){
+  focusTeam = name;
+  showView("fixtures");
+  renderFixtures();
+  syncRail();
+  document.getElementById("mhdr").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+/* ---------- view switch ---------- */
+function showView(v){
+  document.querySelectorAll("#switch button").forEach(b =>
+    b.classList.toggle("on", b.dataset.v === v));
+  document.getElementById("fixturesView").classList.toggle("hidden", v !== "fixtures");
+  document.getElementById("tableView").classList.toggle("hidden", v !== "table");
+}
+document.querySelectorAll("#switch button").forEach(b => b.onclick = () => showView(b.dataset.v));
+
+/* ---------- boot ---------- */
+document.getElementById("gen").textContent = "updated " + (DATA.generated_at||"");
+renderStats(DATA.summary||{});
+renderSplit(DATA.summary||{});
+renderOutrights(DATA.outrights||{});
+renderPostmortem(DATA.postmortem);
+renderTable();
+renderFixtures();
+renderRail();
+document.getElementById("expandall").onclick = () => setExpandAll(!allOpen);
+document.getElementById("openall").onclick = () => {
+  const anyClosed = [...document.querySelectorAll("#mdwrap .mdsec")].some(s => !s.open);
+  eachSection(s => s.open = anyClosed);
+  document.getElementById("openall").innerHTML =
+    anyClosed ? "\u2716 collapse matchdays" : "\u2630 open every matchday";
+  syncRail();
+};
+document.addEventListener("toggle", e => {
+  if(e.target && e.target.classList && e.target.classList.contains("mdsec")) syncRail();
+}, true);
+</script></body></html>

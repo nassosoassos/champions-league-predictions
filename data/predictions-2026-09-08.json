@@ -1,0 +1,232 @@
+{
+  "matchday": "MD1",
+  "predictions": [
+    {
+      "home_team": "AEK Athens", "away_team": "LASK",
+      "commence_time": "2026-09-08T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {"home": 0.5514, "draw": 0.2368, "away": 0.2117},
+      "rationale": "Market-derived pick, no dedicated research this round; AEK priced at 55% to beat LASK at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Club Brugge", "away_team": "Aston Villa",
+      "commence_time": "2026-09-08T16:45:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 3,
+      "market": {"home": 0.3798, "draw": 0.268, "away": 0.3522},
+      "rationale": "The market is nearly three-way here (38/27/35) with Brugge only marginally ahead, so this started as a low-conviction lean. The research pushes the same way: Brugge are close to full strength (only Joel Ordonez out), have won four of their last five Pro League games and have lost just three of their last 22 European matches at Jan Breydel, while Aston Villa are goalless in three Premier League games, missing Madjo, Manzambi and Onana, and lost 1-0 on their previous visit to this ground. Pick and scoreline stay as the market had them, but confidence goes up a notch — a 1-0 fits a Villa side that has not scored domestically all season.",
+      "sources": [
+        {"title": "Club Brugge vs Aston Villa preview and prediction — The Hard Tackle", "url": "https://thehardtackle.com/round-up/2026/09/07/club-brugge-vs-aston-villa-preview-and-prediction-3/"},
+        {"title": "Club Brugge vs Aston Villa match preview and team news — The Football Faithful", "url": "https://thefootballfaithful.com/club-brugge-vs-aston-villa-match-preview-and-team-news-2/"},
+        {"title": "Emery's Mbaye call: predicted Aston Villa Champions League lineup vs Club Brugge — Sports Mole", "url": "https://www.sportsmole.co.uk/football/aston-villa/champions-league/predicted-lineups/emerys-mbaye-call-predicted-aston-villa-champions-league-lineup-vsclub-brugge_604576.html"}
+      ]
+    },
+    {
+      "home_team": "Borussia Dortmund", "away_team": "Villarreal",
+      "commence_time": "2026-09-08T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {"home": 0.5316, "draw": 0.2368, "away": 0.2316},
+      "rationale": "Market-derived pick, no dedicated research this round; Dortmund priced at 53% to beat Villarreal at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Real Madrid", "away_team": "Inter Milan",
+      "commence_time": "2026-09-08T19:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {"home": 0.6008, "draw": 0.2143, "away": 0.185},
+      "rationale": "Madrid are priced at 60% at home, and this is the one deep card where the research is a genuine headwind rather than a confirmation. They are without seven — Camavinga, Guler and Bernardo Silva suspended, Militao, Rodrygo, Mendy and Asencio injured, with Tchouameni a late fitness call — leaving a gutted midfield, and they arrive off a 1-0 home defeat to Betis; Inter are unbeaten in Serie A with only Dimarco confirmed out. That is not enough to flip a 60% line against a side still starting Mbappe and Vinicius, so the home pick and the narrow 2-1 stand, but confidence drops a notch on the view that the price embeds squad depth Madrid do not currently have.",
+      "disagreement": "Betting previews frame this as an open game rather than a home banker, with one flagging it as Inter's best upset chance of the round given Madrid's midfield absences — a lean against the market's 60%, though no outlet surveyed actually picks Inter to win.",
+      "sources": [
+        {"title": "Real Madrid vs Inter: injury and suspension list, predicted XIs — Sports Mole", "url": "https://www.sportsmole.co.uk/football/real-madrid/champions-league/team-news/real-madrid-vs-inter-injury-suspension-list-predicted-xis_604592.html"},
+        {"title": "Real Betis beat Real Madrid — Football Espana", "url": "https://www.football-espana.net/2026/09/05/real-betis-beat-real-madrid"},
+        {"title": "Real Madrid vs Inter Milan predictions — Goal.com betting tips", "url": "https://www.goal.com/en/betting/tips/real-madrid-vs-inter-milan-predictions-08-09-2026/A%3Abltb96d091b252da555"},
+        {"title": "Real Madrid vs Inter Milan draw odds: what prediction markets say — Bettors Insider", "url": "https://bettorsinsider.com/prediction-markets/2026/09/08/real-madrid-vs-inter-milan-draw-odds-what-prediction-markets-say-about-a-champions-league-stalemate/"}
+      ]
+    },
+    {
+      "home_team": "Lille", "away_team": "Real Betis",
+      "commence_time": "2026-09-08T19:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 3,
+      "market": {"home": 0.4361, "draw": 0.2763, "away": 0.2876},
+      "rationale": "Lille lead a tight three-way market at 44/28/29, and the research mildly reinforces that lean rather than moving it. Betis travel without Diego Llorente (injury), Abde Ezzalzouli (illness) and Aitor Ruibal, with Pellegrini pointedly non-committal on Isco's minutes and rotation flagged for the trip, while Lille's infirmary is described as clear and Giroud has a goal and two assists in three games. Market-derived pick and scoreline stand unchanged; previews' under-2.5 and defensive-discipline angle supports the 1-0 rather than a wider margin.",
+      "sources": [
+        {"title": "Pellegrini ante el estreno del Betis en Champions contra el Lille — Sevilla Actualidad", "url": "https://www.sevillaactualidad.com/deportes/betis/598044-pellegrini-ante-el-estreno-del-betis-en-champions-contra-el-lille-valles-titular-abde-fuera-y-dudas-con-isco/"},
+        {"title": "Quelles equipes pour LOSC - Real Betis ? — Le Petit Lillois", "url": "https://lepetitlillois.com/2026/09/08/mbappe-onal-quelles-equipes-losc-real-betis/"},
+        {"title": "Lille vs Real Betis prediction, 08/09/2026 — Football Whispers", "url": "https://footballwhispers.com/blog/lille-vs-real-betis-prediction-08-09-2026/"}
+      ]
+    },
+    {
+      "home_team": "Porto", "away_team": "Manchester City",
+      "commence_time": "2026-09-08T19:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {"home": 0.1911, "draw": 0.2352, "away": 0.5737},
+      "rationale": "Market-derived pick, no dedicated research this round; Manchester City priced at 57% to win away at Porto.",
+      "sources": []
+    },
+    {
+      "home_team": "Barcelona", "away_team": "Feyenoord",
+      "commence_time": "2026-09-09T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {"home": 0.881, "draw": 0.0772, "away": 0.0418},
+      "rationale": "Market-derived pick, no dedicated research this round; Barcelona priced at 88% to beat Feyenoord at home.",
+      "sources": []
+    },
+    {
+      "home_team": "VfB Stuttgart", "away_team": "Viking FK",
+      "commence_time": "2026-09-09T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 5,
+      "market": {"home": 0.7736, "draw": 0.1362, "away": 0.0901},
+      "rationale": "Market-derived pick, no dedicated research this round; Stuttgart priced at 77% to beat Viking FK at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Napoli", "away_team": "Arsenal",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {"home": 0.1936, "draw": 0.2564, "away": 0.5501},
+      "rationale": "Arsenal are a 55% away favourite and the research says that price is earned rather than an overreaction to reputation. Napoli lose Scott McTominay to a confirmed heart procedure on top of Buongiorno, Marianucci and Giovane, and arrive on back-to-back Serie A defeats, while Arsenal have won their opening three league games plus the Community Shield with a settled front four and no rotation signal — Saliba's back injury the one real blow. Away pick and the 1-2 both stand; if anything the market looks slightly conservative, but not enough to raise the margin.",
+      "sources": [
+        {"title": "Napoli XI vs Arsenal confirmed — Yahoo Sports", "url": "https://uk.sports.yahoo.com/news/napoli-xi-vs-arsenal-confirmed-100557834.html"},
+        {"title": "Napoli, intervento per McTominay — FC Inter 1908", "url": "https://www.fcinter1908.it/news/infortuni/napoli-intervento-mctominay-salta-inter/"},
+        {"title": "Napoli v Arsenal prediction and preview — Football365", "url": "https://www.football365.com/match-preview/napoli-v-arsenal-prediction-preview"},
+        {"title": "Napoli vs Arsenal prediction and Champions League tips — William Hill News", "url": "https://news.williamhill.com/football/napoli-vs-arsenal-prediction-champions-league-tips-2026/"}
+      ]
+    },
+    {
+      "home_team": "Liverpool", "away_team": "Atlético Madrid",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {"home": 0.5585, "draw": 0.2357, "away": 0.2058},
+      "rationale": "Market-derived pick, no dedicated research this round; Liverpool priced at 56% to beat Atlético Madrid at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Sporting Lisbon", "away_team": "Galatasaray",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 3,
+      "market": {"home": 0.5203, "draw": 0.2463, "away": 0.2334},
+      "rationale": "Market-derived pick, no dedicated research this round; Sporting priced at 52% to beat Galatasaray at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Paris Saint Germain", "away_team": "ŠK Slovan Bratislava",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {"home": 0.9214, "draw": 0.0547, "away": 0.024},
+      "rationale": "Market-derived pick, no dedicated research this round; PSG priced at 92% to beat Slovan Bratislava at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Fenerbahce", "away_team": "AS Roma",
+      "commence_time": "2026-09-10T16:45:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {"home": 0.2889, "draw": 0.2734, "away": 0.4378},
+      "rationale": "The market makes Roma a 44% away favourite inside an otherwise tight line, and the team news pushes the same direction. Fenerbahce are reshuffling four regular starters — Semedo, İrfan Can Kahveci, Oğuz Aydın and target man Vedat Muriqi dropped in reaction to a derby defeat — while Gasperini makes a single change (Molina in at right-back) and fields Dybala alongside an in-form Malen with, in Gazzetta's words, no force conservation. Pick and scoreline unchanged from the market read, but confidence rises: disrupted hosts against a settled, six-match-winning visitor is agreement, not a new angle.",
+      "disagreement": "Tipsters are split rather than aligned: one camp lands on 1-1, citing Fenerbahce's home crowd against an organised Roma. No source surveyed backs a Fenerbahce win.",
+      "sources": [
+        {"title": "Fenerbahçe'de Roma maçında 4 isim yedekte, kadro değişiyor — Timeturk", "url": "https://www.timeturk.com/fbahcede-roma-macinda-4-isim-yedekte-kadro-degisiyor"},
+        {"title": "Gasperini a Istanbul non cambia: all'assalto con Malen e tutti i big — ForzaRoma / Gazzetta dello Sport", "url": "https://www.forzaroma.info/rassegna-stampa/la-gazzetta-dello-sport/gasperini-a-istanbul-non-cambia-allassalto-con-malen-e-tutti-i-big/"},
+        {"title": "Fenerbahce vs Roma preview — Khel Now", "url": "https://khelnow.com/football/fenerbahce-vs-roma-preview-champions-league-202609"},
+        {"title": "Fenerbahce vs Roma tips — FreeTips", "url": "https://www.freetips.com/football/uefa-champions-league/fenerbahce-vs-roma-tips-20260908-0029/"}
+      ]
+    },
+    {
+      "home_team": "PSV Eindhoven", "away_team": "Shakhtar Donetsk",
+      "commence_time": "2026-09-10T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {"home": 0.6676, "draw": 0.1885, "away": 0.1439},
+      "rationale": "Market-derived pick, no dedicated research this round; PSV priced at 67% to beat Shakhtar Donetsk at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Bayern Munich", "away_team": "Bodø/Glimt",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {"home": 0.8642, "draw": 0.0843, "away": 0.0515},
+      "rationale": "Market-derived pick, no dedicated research this round; Bayern priced at 86% to beat Bodø/Glimt at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Como", "away_team": "RB Leipzig",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 3,
+      "market": {"home": 0.5164, "draw": 0.2427, "away": 0.2408},
+      "rationale": "Market-derived pick, no dedicated research this round; Como priced at 52% to beat RB Leipzig at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Manchester United", "away_team": "Sabah FK",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {"home": 0.8508, "draw": 0.1054, "away": 0.0438},
+      "rationale": "Market-derived pick, no dedicated research this round; Manchester United priced at 85% to beat Sabah FK at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Slavia Praha", "away_team": "RC Lens",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 2,
+      "market": {"home": 0.3741, "draw": 0.2748, "away": 0.3511},
+      "rationale": "The tightest line on the card at 37/27/35 — the market sees a genuine three-way coin flip, and nothing in the research earns a deviation from it. Slavia are down to their third goalkeeper, with Staněk, Kolář, Ogbu and Holeš all out and Markovič the only keeper available, but Lens travel without six squad players of their own, have an unsettled XI three days out and have lost two straight domestically after their opening win. Team news cancels out and the tipster sample splits three ways, so the market-derived home pick and narrow 1-0 stay put with confidence at its floor.",
+      "sources": [
+        {"title": "LDC : la liste du Slavia Prague publiée — Lensois.com", "url": "https://www.lensois.com/ldc-la-liste-du-slavia-prague-publiee-avec-un-ex-de-la-gaillette-et-une-ancienne-piste-du-rc-lens/"},
+        {"title": "Deux défaites, un nouveau Lens : le RC Lens retrouve la Ligue des Champions à Prague — Allez Lens", "url": "https://allezlens.fr/deux-defaites-un-nouveau-lens-le-rc-lens-retrouve-la-ligue-des-champions-a-prague/"},
+        {"title": "Champions League moneyline picks, Matchday 1 — Covers", "url": "https://www.covers.com/soccer/champions-league-moneyline-picks-matchday-1-2026"}
+      ]
+    }
+  ]
+}

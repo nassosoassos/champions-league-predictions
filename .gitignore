@@ -1,0 +1,15 @@
+# OS / Python cruft
+.DS_Store
+__pycache__/
+*.pyc
+
+# Local dev / preview helpers (launch config + static server for dashboard preview)
+.claude/
+
+# Never commit secrets — these are set as environment variables, not files.
+# (THE_ODDS_API_KEY, UCL_SMTP_PASSWORD)
+.env
+*.secret
+
+# Generated daily artifacts (data, reports, dashboard) ARE committed on purpose:
+# they are how the remote routine delivers results back to you. Do not ignore them.

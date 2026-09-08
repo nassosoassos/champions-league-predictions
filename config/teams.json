@@ -1,0 +1,187 @@
+{
+  "season": "2026-27",
+  "competition": "UEFA Champions League",
+  "note": "Team names must match The Odds API exactly (soccer_uefa_champs_league).",
+  "teams": {
+    "AEK Athens": {
+      "short": "AEK",
+      "country": "GRE",
+      "flag": "🇬🇷"
+    },
+    "AS Roma": {
+      "short": "ROM",
+      "country": "ITA",
+      "flag": "🇮🇹"
+    },
+    "Arsenal": {
+      "short": "ARS",
+      "country": "ENG",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+    },
+    "Aston Villa": {
+      "short": "AVL",
+      "country": "ENG",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+    },
+    "Atlético Madrid": {
+      "short": "ATM",
+      "country": "ESP",
+      "flag": "🇪🇸"
+    },
+    "Barcelona": {
+      "short": "BAR",
+      "country": "ESP",
+      "flag": "🇪🇸"
+    },
+    "Bayern Munich": {
+      "short": "BAY",
+      "country": "GER",
+      "flag": "🇩🇪"
+    },
+    "Bodø/Glimt": {
+      "short": "BOD",
+      "country": "NOR",
+      "flag": "🇳🇴"
+    },
+    "Borussia Dortmund": {
+      "short": "DOR",
+      "country": "GER",
+      "flag": "🇩🇪"
+    },
+    "Club Brugge": {
+      "short": "BRU",
+      "country": "BEL",
+      "flag": "🇧🇪"
+    },
+    "Como": {
+      "short": "COM",
+      "country": "ITA",
+      "flag": "🇮🇹"
+    },
+    "Fenerbahce": {
+      "short": "FEN",
+      "country": "TUR",
+      "flag": "🇹🇷"
+    },
+    "Feyenoord": {
+      "short": "FEY",
+      "country": "NED",
+      "flag": "🇳🇱"
+    },
+    "Galatasaray": {
+      "short": "GAL",
+      "country": "TUR",
+      "flag": "🇹🇷"
+    },
+    "Inter Milan": {
+      "short": "INT",
+      "country": "ITA",
+      "flag": "🇮🇹"
+    },
+    "LASK": {
+      "short": "LAS",
+      "country": "AUT",
+      "flag": "🇦🇹"
+    },
+    "Lille": {
+      "short": "LIL",
+      "country": "FRA",
+      "flag": "🇫🇷"
+    },
+    "Liverpool": {
+      "short": "LIV",
+      "country": "ENG",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+    },
+    "Manchester City": {
+      "short": "MCI",
+      "country": "ENG",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+    },
+    "Manchester United": {
+      "short": "MUN",
+      "country": "ENG",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+    },
+    "Napoli": {
+      "short": "NAP",
+      "country": "ITA",
+      "flag": "🇮🇹"
+    },
+    "PSV Eindhoven": {
+      "short": "PSV",
+      "country": "NED",
+      "flag": "🇳🇱"
+    },
+    "Paris Saint Germain": {
+      "short": "PSG",
+      "country": "FRA",
+      "flag": "🇫🇷"
+    },
+    "Porto": {
+      "short": "POR",
+      "country": "POR",
+      "flag": "🇵🇹"
+    },
+    "RB Leipzig": {
+      "short": "RBL",
+      "country": "GER",
+      "flag": "🇩🇪"
+    },
+    "RC Lens": {
+      "short": "LEN",
+      "country": "FRA",
+      "flag": "🇫🇷"
+    },
+    "Real Betis": {
+      "short": "BET",
+      "country": "ESP",
+      "flag": "🇪🇸"
+    },
+    "Real Madrid": {
+      "short": "RMA",
+      "country": "ESP",
+      "flag": "🇪🇸"
+    },
+    "Sabah FK": {
+      "short": "SAB",
+      "country": "AZE",
+      "flag": "🇦🇿"
+    },
+    "Shakhtar Donetsk": {
+      "short": "SHK",
+      "country": "UKR",
+      "flag": "🇺🇦"
+    },
+    "Slavia Praha": {
+      "short": "SLA",
+      "country": "CZE",
+      "flag": "🇨🇿"
+    },
+    "Sporting Lisbon": {
+      "short": "SPO",
+      "country": "POR",
+      "flag": "🇵🇹"
+    },
+    "VfB Stuttgart": {
+      "short": "STU",
+      "country": "GER",
+      "flag": "🇩🇪"
+    },
+    "Viking FK": {
+      "short": "VIK",
+      "country": "NOR",
+      "flag": "🇳🇴"
+    },
+    "Villarreal": {
+      "short": "VIL",
+      "country": "ESP",
+      "flag": "🇪🇸"
+    },
+    "ŠK Slovan Bratislava": {
+      "short": "SLO",
+      "country": "SVK",
+      "flag": "🇸🇰"
+    }
+  }
+}

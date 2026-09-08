@@ -58,6 +58,24 @@
       "result": null
     },
     {
+      "key": "semi_finalists",
+      "question": "The four semi-finalists",
+      "picks": [
+        "Arsenal",
+        "Bayern Munich",
+        "Paris Saint Germain",
+        "Barcelona"
+      ],
+      "confidence": 2,
+      "note": "Arsenal, Bayern Munich, Paris Saint Germain and Barcelona are the four highest-rated clubs on a blend of the DraftKings winner board, Kalshi implied probabilities and Opta's 10,000-simulation model. Arsenal is the one pick all three sources agree on: DraftKings +600, Kalshi 20%, and Opta's outright leader at 20.9%. PSG and Barcelona are market-led picks the leading model actively dislikes — Opta has PSG only fifth at 7.1% despite PSG being the +500 outright favourite, and Barcelona at 8.2% — taken here on market-first doctrine rather than model conviction, with Manchester City (Opta 12.3%) and Real Madrid (the biggest market/model divergence: Kalshi 16% vs Opta 4.4%) named as the live alternatives. Honesty note: this is a low-hit-rate market — each pick is roughly a 40% shot to reach the semis, so the realistic expectation is about 1.6 of 4 correct, and all four landing together is only a ~3% event.",
+      "alternatives": [
+        "Manchester City (+900, Opta 12.3%)",
+        "Real Madrid (+650, Opta 4.4%)",
+        "Liverpool (+1200)"
+      ],
+      "result": null
+    },
+    {
       "key": "dark_horse",
       "question": "Dark horse — a club outside the favourites that over-performs",
       "pick": "Napoli",

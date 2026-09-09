@@ -1170,6 +1170,12 @@ function renderTable(){
     el.innerHTML = '<div class="empty">No league table yet.</div>'; return;
   }
   const prov = !!t.provisional;
+  // Bands/cutlines only mean something once a full round is complete. A
+  // missing/non-numeric matchdays_played (hand-written file) must degrade to
+  // "round in progress", never be treated as complete.
+  const mdPlayed = Number(t.matchdays_played);
+  const mdValid = Number.isInteger(mdPlayed) && mdPlayed >= 0;
+  const roundComplete = !prov && mdValid && mdPlayed >= 1;
   const cut = (cls, word, tail) =>
     `<tr class="cut"><td colspan="10"><div class="cutline ${cls}">
        <span class="cw">${word}</span><span class="cx">${tail}</span></div></td></tr>`;
@@ -1177,7 +1183,7 @@ function renderTable(){
   let body = "";
   rows.forEach((r, i) => {
     const rank = r.rank != null ? r.rank : i+1;
-    const band = prov ? "" : (rank<=8 ? "b1" : (rank<=24 ? "b2" : "b3"));
+    const band = roundComplete ? (rank<=8 ? "b1" : (rank<=24 ? "b2" : "b3")) : "";
     const gd = (r.gd>0 ? "+" : "") + r.gd;
     body += `<tr class="${band}" data-t="${esc(r.team)}" title="show this club's predictions">
       <td class="rk">${prov ? "\\u00b7" : rank}</td>
@@ -1187,22 +1193,37 @@ function renderTable(){
       <td class="opt">${r.won}</td><td class="opt">${r.drawn}</td><td class="opt">${r.lost}</td>
       <td class="opt">${r.gf}</td><td class="opt">${r.ga}</td>
       <td>${gd}</td><td class="pts">${r.points}</td></tr>`;
-    if(!prov && rank===8)  body += cut("", "Round of 16",
+    if(roundComplete && rank===8)  body += cut("", "Round of 16",
       "\\u2191 top 8 go straight through \\u00b7 \\u2193 knockout play-off");
-    if(!prov && rank===24) body += cut("out", "Eliminated below",
+    if(roundComplete && rank===24) body += cut("out", "Eliminated below",
       "\\u2191 9\\u201324 into the two-legged play-off \\u00b7 \\u2193 no European football after January");
   });
 
   const sub = prov ? "not started"
     : `after ${t.matchdays_played||0} matchday${(t.matchdays_played||0)===1?'':'s'}`
       + (t.as_of ? ` \\u00b7 as of ${esc(t.as_of)}` : "");
-  el.innerHTML = `
-    <div class="lthdr"><span class="t">League phase</span><span class="s">${sub}</span></div>
+
+  // The band legend only applies once ranks mean something: either the
+  // preseason placeholder (prov, unchanged — bands/cutlines already suppressed
+  // above) or a completed round. Mid-round with real data gets a plain,
+  // data-derived progress note instead, never the band tints.
+  const showBandLegend = roundComplete || prov;
+  const bandLegend = `
     <div class="ltlegend">
       <span><i style="background:var(--star)"></i>1\\u20138 round of 16</span>
       <span><i style="background:var(--line2)"></i>9\\u201324 knockout play-off</span>
       <span><i style="background:rgba(255,111,142,.6)"></i>25\\u201336 eliminated</span>
-    </div>
+    </div>`;
+  let progressNote = "";
+  if(!showBandLegend){
+    const played = rows.filter(r => (r.played||0) > 0).length;
+    const md = (mdValid ? mdPlayed : 0) + 1;
+    progressNote = `<div class="ltnote">Matchday ${md} in progress \\u2014 ${played} of ${rows.length}`
+      + ` clubs have played. Qualification cutlines appear once the round is complete.</div>`;
+  }
+  el.innerHTML = `
+    <div class="lthdr"><span class="t">League phase</span><span class="s">${sub}</span></div>
+    ${showBandLegend ? bandLegend : progressNote}
     ${t.note ? `<div class="ltnote">${esc(t.note)}</div>` : ""}
     <table class="ltbl">
       <thead><tr>

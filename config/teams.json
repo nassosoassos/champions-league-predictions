@@ -6,182 +6,254 @@
     "AEK Athens": {
       "short": "AEK",
       "country": "GRE",
-      "flag": "🇬🇷"
+      "flag": "🇬🇷",
+      "colors": ["#FFDD00", "#000000"],
+      "pattern": "stripes"
     },
     "AS Roma": {
       "short": "ROM",
       "country": "ITA",
-      "flag": "🇮🇹"
+      "flag": "🇮🇹",
+      "colors": ["#8E1F2F", "#F0BC42"],
+      "pattern": "solid"
     },
     "Arsenal": {
       "short": "ARS",
       "country": "ENG",
-      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "colors": ["#EF0107", "#FFFFFF"],
+      "pattern": "solid"
     },
     "Aston Villa": {
       "short": "AVL",
       "country": "ENG",
-      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "colors": ["#670E36", "#95BFE5"],
+      "pattern": "solid"
     },
     "Atlético Madrid": {
       "short": "ATM",
       "country": "ESP",
-      "flag": "🇪🇸"
+      "flag": "🇪🇸",
+      "colors": ["#CB3524", "#FFFFFF"],
+      "pattern": "stripes"
     },
     "Barcelona": {
       "short": "BAR",
       "country": "ESP",
-      "flag": "🇪🇸"
+      "flag": "🇪🇸",
+      "colors": ["#004D98", "#A50044"],
+      "pattern": "stripes"
     },
     "Bayern Munich": {
       "short": "BAY",
       "country": "GER",
-      "flag": "🇩🇪"
+      "flag": "🇩🇪",
+      "colors": ["#DC052D", "#FFFFFF"],
+      "pattern": "solid"
     },
     "Bodø/Glimt": {
       "short": "BOD",
       "country": "NOR",
-      "flag": "🇳🇴"
+      "flag": "🇳🇴",
+      "colors": ["#FFD400", "#000000"],
+      "pattern": "solid"
     },
     "Borussia Dortmund": {
       "short": "DOR",
       "country": "GER",
-      "flag": "🇩🇪"
+      "flag": "🇩🇪",
+      "colors": ["#FDE100", "#000000"],
+      "pattern": "solid"
     },
     "Club Brugge": {
       "short": "BRU",
       "country": "BEL",
-      "flag": "🇧🇪"
+      "flag": "🇧🇪",
+      "colors": ["#0031A0", "#000000"],
+      "pattern": "stripes"
     },
     "Como": {
       "short": "COM",
       "country": "ITA",
-      "flag": "🇮🇹"
+      "flag": "🇮🇹",
+      "colors": ["#003DA5", "#FFFFFF"],
+      "pattern": "solid"
     },
     "Fenerbahce": {
       "short": "FEN",
       "country": "TUR",
-      "flag": "🇹🇷"
+      "flag": "🇹🇷",
+      "colors": ["#16214D", "#FFED02"],
+      "pattern": "stripes"
     },
     "Feyenoord": {
       "short": "FEY",
       "country": "NED",
-      "flag": "🇳🇱"
+      "flag": "🇳🇱",
+      "colors": ["#C1272D", "#FFFFFF"],
+      "pattern": "halves"
     },
     "Galatasaray": {
       "short": "GAL",
       "country": "TUR",
-      "flag": "🇹🇷"
+      "flag": "🇹🇷",
+      "colors": ["#A61E2F", "#FDB913"],
+      "pattern": "halves"
     },
     "Inter Milan": {
       "short": "INT",
       "country": "ITA",
-      "flag": "🇮🇹"
+      "flag": "🇮🇹",
+      "colors": ["#0068A8", "#010101"],
+      "pattern": "stripes"
     },
     "LASK": {
       "short": "LAS",
       "country": "AUT",
-      "flag": "🇦🇹"
+      "flag": "🇦🇹",
+      "colors": ["#000000", "#FFFFFF"],
+      "pattern": "stripes"
     },
     "Lille": {
       "short": "LIL",
       "country": "FRA",
-      "flag": "🇫🇷"
+      "flag": "🇫🇷",
+      "colors": ["#DA291C", "#041E42"],
+      "pattern": "solid"
     },
     "Liverpool": {
       "short": "LIV",
       "country": "ENG",
-      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "colors": ["#C8102E", "#F6EB61"],
+      "pattern": "solid"
     },
     "Manchester City": {
       "short": "MCI",
       "country": "ENG",
-      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "colors": ["#6CABDD", "#1C2C5B"],
+      "pattern": "solid"
     },
     "Manchester United": {
       "short": "MUN",
       "country": "ENG",
-      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "colors": ["#DA291C", "#FFFFFF"],
+      "pattern": "solid"
     },
     "Napoli": {
       "short": "NAP",
       "country": "ITA",
-      "flag": "🇮🇹"
+      "flag": "🇮🇹",
+      "colors": ["#12A0D7", "#FFFFFF"],
+      "pattern": "solid"
     },
     "PSV Eindhoven": {
       "short": "PSV",
       "country": "NED",
-      "flag": "🇳🇱"
+      "flag": "🇳🇱",
+      "colors": ["#ED1C24", "#FFFFFF"],
+      "pattern": "stripes"
     },
     "Paris Saint Germain": {
       "short": "PSG",
       "country": "FRA",
-      "flag": "🇫🇷"
+      "flag": "🇫🇷",
+      "colors": ["#002B5C", "#DA020E"],
+      "pattern": "stripes"
     },
     "Porto": {
       "short": "POR",
       "country": "POR",
-      "flag": "🇵🇹"
+      "flag": "🇵🇹",
+      "colors": ["#003DA5", "#FFFFFF"],
+      "pattern": "stripes"
     },
     "RB Leipzig": {
       "short": "RBL",
       "country": "GER",
-      "flag": "🇩🇪"
+      "flag": "🇩🇪",
+      "colors": ["#FFFFFF", "#E4022D"],
+      "pattern": "solid"
     },
     "RC Lens": {
       "short": "LEN",
       "country": "FRA",
-      "flag": "🇫🇷"
+      "flag": "🇫🇷",
+      "colors": ["#C8102E", "#FFCD00"],
+      "pattern": "stripes"
     },
     "Real Betis": {
       "short": "BET",
       "country": "ESP",
-      "flag": "🇪🇸"
+      "flag": "🇪🇸",
+      "colors": ["#00A650", "#FFFFFF"],
+      "pattern": "stripes"
     },
     "Real Madrid": {
       "short": "RMA",
       "country": "ESP",
-      "flag": "🇪🇸"
+      "flag": "🇪🇸",
+      "colors": ["#FFFFFF", "#FEBE10"],
+      "pattern": "solid"
     },
     "Sabah FK": {
       "short": "SAB",
       "country": "AZE",
-      "flag": "🇦🇿"
+      "flag": "🇦🇿",
+      "colors": ["#000000", "#E6007E"],
+      "pattern": "solid"
     },
     "Shakhtar Donetsk": {
       "short": "SHK",
       "country": "UKR",
-      "flag": "🇺🇦"
+      "flag": "🇺🇦",
+      "colors": ["#FF6C00", "#000000"],
+      "pattern": "stripes"
     },
     "Slavia Praha": {
       "short": "SLA",
       "country": "CZE",
-      "flag": "🇨🇿"
+      "flag": "🇨🇿",
+      "colors": ["#CE1126", "#FFFFFF"],
+      "pattern": "halves"
     },
     "Sporting Lisbon": {
       "short": "SPO",
       "country": "POR",
-      "flag": "🇵🇹"
+      "flag": "🇵🇹",
+      "colors": ["#006A4D", "#FFFFFF"],
+      "pattern": "hoops"
     },
     "VfB Stuttgart": {
       "short": "STU",
       "country": "GER",
-      "flag": "🇩🇪"
+      "flag": "🇩🇪",
+      "colors": ["#FFFFFF", "#E32219"],
+      "pattern": "solid"
     },
     "Viking FK": {
       "short": "VIK",
       "country": "NOR",
-      "flag": "🇳🇴"
+      "flag": "🇳🇴",
+      "colors": ["#002F6C", "#FFFFFF"],
+      "pattern": "solid"
     },
     "Villarreal": {
       "short": "VIL",
       "country": "ESP",
-      "flag": "🇪🇸"
+      "flag": "🇪🇸",
+      "colors": ["#FFE667", "#005187"],
+      "pattern": "solid"
     },
     "ŠK Slovan Bratislava": {
       "short": "SLO",
       "country": "SVK",
-      "flag": "🇸🇰"
+      "flag": "🇸🇰",
+      "colors": ["#4FA8DC", "#001F5B"],
+      "pattern": "solid"
     }
   }
 }

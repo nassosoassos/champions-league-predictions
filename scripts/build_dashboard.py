@@ -23,6 +23,7 @@ from __future__ import annotations
 import glob
 import json
 import os
+import re
 from datetime import datetime, timezone
 
 TEAMS_PATH = "config/teams.json"
@@ -40,12 +41,18 @@ def load_json(path: str) -> dict:
         return {}
 
 
-def load_teams() -> dict:
-    """config/teams.json -> {name: [short, flag, country]}.
+CREST_PATTERNS = {"solid", "stripes", "halves", "hoops", "sash"}
+_HEX_RE = re.compile(r"^#[0-9a-fA-F]{6}$")
 
-    The list shape is what the render code indexes into ([0] short, [1] flag).
-    A missing or malformed file degrades to {}: every consumer falls back to
-    the raw team name, so the dashboard still builds.
+
+def load_teams() -> dict:
+    """config/teams.json -> {name: [short, flag, country, colors, pattern]}.
+
+    The list shape is what the render code indexes into ([0] short, [1] flag,
+    [2] country, [3] colors, [4] pattern). A missing, malformed or mid-edit
+    file degrades gracefully: colors/pattern fall back to None/"solid" per
+    club rather than raising, so the dashboard still builds and the JS crest
+    helper falls back to a neutral badge.
     """
     raw = load_json(TEAMS_PATH).get("teams") or {}
     out: dict[str, list] = {}
@@ -54,10 +61,22 @@ def load_teams() -> dict:
     for name, info in raw.items():
         if not isinstance(info, dict):
             info = {}
+        colors = info.get("colors")
+        if not (
+            isinstance(colors, list)
+            and len(colors) == 2
+            and all(isinstance(c, str) and _HEX_RE.match(c) for c in colors)
+        ):
+            colors = None
+        pattern = info.get("pattern")
+        if pattern not in CREST_PATTERNS:
+            pattern = "solid"
         out[name] = [
             info.get("short") or (name or "")[:3].upper(),
             info.get("flag") or "",
             info.get("country") or "",
+            colors,
+            pattern,
         ]
     return out
 
@@ -414,6 +433,11 @@ HTML = """<!DOCTYPE html>
     gap:16px; flex-wrap:wrap;}
   .brand{display:flex; align-items:center; gap:14px; min-width:0;}
   .crest{width:46px; height:46px; flex:none; filter:drop-shadow(0 6px 16px rgba(74,123,240,.5));}
+
+  /* ---- club crests: generated colour badges, not real club emblems ---- */
+  .crestbadge{width:28px; height:28px; flex:none; vertical-align:middle; overflow:visible;}
+  .crestbadge.sm{width:20px; height:20px;}
+  .crestbadge.lg{width:34px; height:34px;}
   .wordmark{line-height:1.05; min-width:0;}
   .wordmark .l1{font-family:var(--f-mono); font-size:10.5px; letter-spacing:3.2px;
     text-transform:uppercase; color:var(--star);}
@@ -821,6 +845,88 @@ const flag = t => (TEAMS[t]||[])[1] || "";
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,
   c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
+/* ---------- club crest: a generated colour badge, not a real emblem ----------
+   Two kit colours plus the 3-letter club code, filled per a simple pattern.
+   Deliberately abstract — no attempt to reproduce any club's actual crest. */
+const CREST_HEX = /^#[0-9a-f]{6}$/i;
+const CREST_SLATE = ["#2a3358", "#171d38"];
+let crestSeq = 0;
+
+function crestColors(t){
+  const c = (TEAMS[t]||[])[3];
+  if(Array.isArray(c) && c.length===2 && CREST_HEX.test(c[0]) && CREST_HEX.test(c[1])) return c;
+  return null;
+}
+const CREST_PATTERNS = new Set(["solid","stripes","halves","hoops","sash"]);
+const crestPattern = t => { const p = (TEAMS[t]||[])[4]; return CREST_PATTERNS.has(p) ? p : "solid"; };
+
+// relative luminance (WCAG), 0 (black) .. 1 (white)
+function crestLuminance(hex){
+  const n = parseInt(hex.slice(1), 16);
+  const chan = v => { const c = v/255; return c<=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); };
+  return 0.2126*chan((n>>16)&255) + 0.7152*chan((n>>8)&255) + 0.0722*chan(n&255);
+}
+// pick near-black or near-white text for contrast against a given fill colour
+const crestTextColor = hex => crestLuminance(hex) > 0.5 ? "#0a0e1f" : "#f5f7ff";
+
+function crestFill(pattern, c1, c2){
+  const S = 28;
+  switch(pattern){
+    case "stripes": {
+      const n = 5, w = S/n; let s = "";
+      for(let i=0;i<n;i++) s += `<rect x="${(i*w).toFixed(2)}" y="0" width="${w.toFixed(2)}" height="${S}" fill="${i%2?c2:c1}"/>`;
+      return s;
+    }
+    case "halves":
+      return `<rect x="0" y="0" width="${S/2}" height="${S}" fill="${c1}"/>` +
+             `<rect x="${S/2}" y="0" width="${S/2}" height="${S}" fill="${c2}"/>`;
+    case "hoops": {
+      const n = 4, h = S/n; let s = "";
+      for(let i=0;i<n;i++) s += `<rect x="0" y="${(i*h).toFixed(2)}" width="${S}" height="${h.toFixed(2)}" fill="${i%2?c2:c1}"/>`;
+      return s;
+    }
+    case "sash":
+      return `<rect x="0" y="0" width="${S}" height="${S}" fill="${c1}"/>` +
+             `<polygon points="0,0 11,0 ${S},17 ${S},${S} 17,${S} 0,11" fill="${c2}"/>`;
+    case "solid":
+    default:
+      return `<rect x="0" y="0" width="${S}" height="${S}" fill="${c1}"/>`;
+  }
+}
+
+function crest(name, sizeCls){
+  const label = esc(name || code(name) || "?");
+  const short = esc((code(name) || "?").slice(0,3).toUpperCase());
+  const colors = crestColors(name);
+  const [c1, c2] = colors || CREST_SLATE;
+  const pattern = colors ? crestPattern(name) : "solid";
+  const uid = "crc" + (crestSeq++);
+  // Multi-tone patterns (stripes/hoops/halves/sash) put the monogram across
+  // alternating light/dark bands, so it needs its own solid backing plate —
+  // the darker club colour at high opacity — with the text contrast picked
+  // against THAT plate, not against c1. Solid badges stay plate-free.
+  const patterned = pattern !== "solid";
+  const plateColor = crestLuminance(c1) <= crestLuminance(c2) ? c1 : c2;
+  const textFill = patterned ? crestTextColor(plateColor) : crestTextColor(c1);
+  const plate = patterned
+    ? `<rect x="1" y="7" width="26" height="14" rx="3" fill="${plateColor}" fill-opacity=".92"/>`
+    : "";
+  // The .sm badge (20px) shrinks the whole viewBox proportionally, so a
+  // font-size tuned for the 28px default becomes too small to read. Bump the
+  // font-size and tighten letter-spacing for .sm so three letters stay legible.
+  const sm = sizeCls === "sm";
+  const fontSize = sm ? "12.5" : "9.5";
+  const letterSpacing = sm ? "0" : ".2";
+  return `<svg class="crestbadge ${sizeCls||''}" viewBox="0 0 28 28" width="28" height="28"
+    role="img" aria-label="${label}" focusable="false">
+    <clipPath id="${uid}"><rect x="1" y="1" width="26" height="26" rx="6"/></clipPath>
+    <g clip-path="url(#${uid})">${crestFill(pattern, c1, c2)}${plate}</g>
+    <rect x="1" y="1" width="26" height="26" rx="6" fill="none" stroke="rgba(255,255,255,.24)"/>
+    <text x="14" y="18" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,'SF Mono',Menlo,monospace"
+      font-size="${fontSize}" font-weight="800" letter-spacing="${letterSpacing}" fill="${textFill}">${short}</text>
+  </svg>`;
+}
+
 // local calendar date (YYYY-MM-DD) of a kickoff, so the day headings agree
 // with the local kick times shown on the cards.
 const localDate = iso => { const dt = new Date(iso);
@@ -944,7 +1050,7 @@ function renderOutrights(o){
         let cls = "";
         if(actual) cls = actual.indexOf(p) >= 0 ? "hit" : "miss";
         const mark = cls ? (cls==="hit" ? " \\u2713" : " \\u2717") : "";
-        return `<span class="chip ${cls}">${flag(p)} ${esc(p)}${mark}</span>`;
+        return `<span class="chip ${cls}">${crest(p,'sm')} ${esc(p)}${mark}</span>`;
       }).join("")}</div>`;
       if(r){
         const of = r.of != null ? r.of : m.picks.length;
@@ -954,7 +1060,7 @@ function renderOutrights(o){
         res = `<div><span class="badge ${good?'hit':'miss'}">${hits}/${of} right</span></div>`;
       }
     } else {
-      pickHtml = `<div class="op">${flag(m.pick)} ${esc(m.pick)}</div>`;
+      pickHtml = `<div class="op">${crest(m.pick,'sm')} ${esc(m.pick)}</div>`;
       if(r){
         const hit = !!r.correct;
         res = `<div><span class="badge ${hit?'hit':'miss'}">${hit?'\\u2713':'\\u2717'} ${esc(r.actual)}</span></div>`;
@@ -1075,7 +1181,7 @@ function renderTable(){
     const gd = (r.gd>0 ? "+" : "") + r.gd;
     body += `<tr class="${band}" data-t="${esc(r.team)}" title="show this club's predictions">
       <td class="rk">${prov ? "\\u00b7" : rank}</td>
-      <td class="club"><span class="fl">${flag(r.team)}</span
+      <td class="club">${crest(r.team,'sm')} <span class="fl">${flag(r.team)}</span
         ><span class="full">${esc(r.team)}</span><span class="short">${esc(code(r.team))}</span></td>
       <td>${r.played}</td>
       <td class="opt">${r.won}</td><td class="opt">${r.drawn}</td><td class="opt">${r.lost}</td>
@@ -1144,7 +1250,7 @@ function deepCard(p, i){
   return `<div class="match" style="animation-delay:${Math.min(i*45,400)}ms">
     <div class="sb">
       <div class="side home">
-        <div class="fl">${flag(p.home_team)}</div>
+        <div class="fl">${crest(p.home_team,'lg')}</div>
         <div class="name">${esc(p.home_team)}</div>
         <div class="sub">${esc(code(p.home_team))} \\u00b7 HOME</div>
       </div>
@@ -1154,7 +1260,7 @@ function deepCard(p, i){
         ${p.matchday ? `<div class="mdchipsm">${esc(p.matchday)}</div>` : ""}
       </div>
       <div class="side away">
-        <div class="fl">${flag(p.away_team)}</div>
+        <div class="fl">${crest(p.away_team,'lg')}</div>
         <div class="name">${esc(p.away_team)}</div>
         <div class="sub">AWAY \\u00b7 ${esc(code(p.away_team))}</div>
       </div>
@@ -1197,9 +1303,9 @@ function quickCard(p, i){
   }
   return `<div class="qcard" style="animation-delay:${Math.min(i*35,320)}ms">
     <div class="qt">
-      <span>${flag(p.home_team)}</span><span class="nm">${esc(p.home_team)}</span>
+      <span>${crest(p.home_team,'sm')}</span><span class="nm">${esc(p.home_team)}</span>
       <span class="v">v</span>
-      <span>${flag(p.away_team)}</span><span class="nm">${esc(p.away_team)}</span>
+      <span>${crest(p.away_team,'sm')}</span><span class="nm">${esc(p.away_team)}</span>
       <span class="qmeta">${kick ? esc(kick)+" \\u00b7 " : ""}${p.matchday ? esc(p.matchday)+" \\u00b7 " : ""}quick pick</span>
     </div>
     <div class="qbarw">
@@ -1277,7 +1383,7 @@ function renderFixtures(){
     const c = list.filter(p => p.actual && p.actual.pick_hit).length;
     hdr.textContent = "Club focus";
     el.innerHTML = `<div class="focusbar">
-        <span>${flag(focusTeam)}</span><span class="fname">${esc(focusTeam)}</span>
+        <span>${crest(focusTeam)}</span><span class="fname">${esc(focusTeam)}</span>
         <span class="frec">${list.length} fixture${list.length===1?'':'s'} predicted${
           g ? ` \\u00b7 ${c}/${g} calls right` : ""}</span>
         <span class="fclear" id="fclear">\\u21BA back to matchdays</span>

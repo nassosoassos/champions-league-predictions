@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 """
-Fetch ACTUAL final (and live) scores for Champions League matches from The
-Odds API, so the agent can grade past predictions and update
-tracking/accuracy.md.
+Fetch ACTUAL final (and live) scores from The Odds API, so the agent can
+grade past predictions and update tracking/<comp>/accuracy.md — for every
+competition in config/competitions.json (or just the ones named with --comp).
 
-Zero completed matches is the normal state between matchdays — the league
-phase runs in tight 3-day clusters (Tue/Wed/Thu) with weeks of nothing after,
-so a quiet day is not a failure.
+Zero completed matches is the normal state between matchdays — league
+phases run in tight clusters with weeks of nothing after, so a quiet day is
+not a failure. Before spending a paid /scores credit, this script checks
+LOCALLY whether any prediction on disk actually needs grading (kickoff
+inside the --days-from window, no completed result recorded yet) and skips
+the call entirely when there's nothing to grade.
 
 Usage:
     THE_ODDS_API_KEY=xxxx python3 scripts/fetch_scores.py --days-from 3
+    THE_ODDS_API_KEY=xxxx python3 scripts/fetch_scores.py --comp uel
 
 Outputs:
-    - data/scores-YYYY-MM-DD.json   (structured, for the agent to read)
+    - data/<comp>/scores-YYYY-MM-DD.json   (structured, for the agent to read)
     - prints a human-readable summary to stdout
 
 Stdlib only — no pip install required.
@@ -23,43 +27,10 @@ import argparse
 import json
 import os
 import sys
-import urllib.request
-import urllib.error
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
-API_BASE = "https://api.the-odds-api.com/v4"
-SPORT = "soccer_uefa_champs_league"
-
-
-def existing_match_count(path: str) -> int | None:
-    """Match count currently on disk at path, or None if absent/unreadable."""
-    if not os.path.exists(path):
-        return None
-    try:
-        with open(path) as f:
-            data = json.load(f)
-        return len(data.get("matches", []))
-    except (OSError, json.JSONDecodeError, AttributeError):
-        return None
-
-
-def fetch(api_key: str, days_from: int) -> list:
-    # daysFrom (1-3) also returns completed games from up to N days ago.
-    url = (
-        f"{API_BASE}/sports/{SPORT}/scores/"
-        f"?apiKey={api_key}&daysFrom={days_from}"
-    )
-    req = urllib.request.Request(url, headers={"User-Agent": "ucl-predictor/1.0"})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            remaining = resp.headers.get("x-requests-remaining")
-            if remaining is not None:
-                print(f"[odds-api] requests remaining: {remaining}", file=sys.stderr)
-            return json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        sys.exit(f"[odds-api] HTTP {e.code}: {e.read().decode('utf-8', 'replace')}")
-    except urllib.error.URLError as e:
-        sys.exit(f"[odds-api] network error: {e.reason}")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import common
 
 
 def parse_event(ev: dict) -> dict | None:
@@ -91,33 +62,47 @@ def parse_event(ev: dict) -> dict | None:
     }
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--days-from", type=int, default=3, choices=[1, 2, 3],
-                    help="also include games completed within the last N days")
-    ap.add_argument("--force", action="store_true",
-                    help="overwrite the existing file even if the new fetch "
-                         "has fewer matches than what's already on disk")
-    args = ap.parse_args()
+def needs_grading(comp: str, days_from: int, now: datetime) -> bool:
+    """LOCAL check (no API call): is there a prediction whose kickoff falls
+    inside the days-from window and has no completed result on disk yet?"""
+    cutoff = now - timedelta(days=days_from)
+    completed = {(s.get("home_team"), s.get("away_team"))
+                 for s in common.load_all_records(comp, "scores", "matches")
+                 if s.get("completed")}
+    for p in common.load_all_records(comp, "predictions", "predictions"):
+        ct = p.get("commence_time")
+        if not ct:
+            continue
+        try:
+            t = datetime.fromisoformat(ct.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if t > now or t < cutoff:
+            continue  # not yet kicked off, or older than the days-from window
+        pair = (p.get("home_team"), p.get("away_team"))
+        if pair not in completed:
+            return True
+    return False
 
-    api_key = os.environ.get("THE_ODDS_API_KEY")
-    if not api_key:
-        sys.exit("Set THE_ODDS_API_KEY in the environment first.")
 
-    events = fetch(api_key, args.days_from)
+def fetch_scores_for(comp: str, cfg: dict, api_key: str, args, now: datetime) -> None:
+    short = cfg["short"]
+    today = now.strftime("%Y-%m-%d")
+
+    if not needs_grading(comp, args.days_from, now):
+        print(f"\n{short}: nothing to grade — 0 credits spent")
+        return
+
+    events, _ = common.api_get(
+        f"sports/{cfg['sport_key']}/scores", api_key, daysFrom=args.days_from,
+    )
     out = [p for ev in events if (p := parse_event(ev))]
     out.sort(key=lambda x: x.get("commence_time") or "")
 
-    now = datetime.now(timezone.utc)
-    today = now.strftime("%Y-%m-%d")
-    os.makedirs("data", exist_ok=True)
-    path = f"data/scores-{today}.json"
+    os.makedirs(common.data_dir(comp), exist_ok=True)
+    path = common.data_path(comp, "scores", today)
 
-    existing_count = existing_match_count(path)
-    if existing_count is not None and len(out) < existing_count and not args.force:
-        print(f"\nrefusing to overwrite {path}: {existing_count} matches on "
-              f"disk, {len(out)} fetched — keeping existing file\n"
-              f"(re-run with --force to overwrite)")
+    if common.refuse_to_shrink(path, len(out), args.force):
         return
 
     with open(path, "w") as f:
@@ -127,17 +112,43 @@ def main():
     live = [m for m in out if not m["completed"] and m["home_score"] is not None]
 
     if not done and not live:
-        print("\nNo completed or in-play matches — normal between Champions "
-              "League matchdays.")
-        print(f"\nWrote {path} ({len(out)} matches written; 0 completed/in-play)")
+        print(f"\n{short}: no completed or in-play matches — normal between matchdays.")
+        print(f"{short}: wrote {path} ({len(out)} matches written; 0 completed/in-play)")
         return
 
-    print(f"\n{len(done)} completed, {len(live)} in-play:\n")
+    print(f"\n{short}: {len(done)} completed, {len(live)} in-play:\n")
     for m in done:
         print(f"  FT   {m['match']}: {m['final_score']}  ({m['result']})")
     for m in live:
         print(f"  LIVE {m['match']}: {m['final_score']}")
-    print(f"\nWrote {path} ({len(out)} matches written)")
+    print(f"{short}: wrote {path} ({len(out)} matches written)")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--days-from", type=int, default=3, choices=[1, 2, 3],
+                    help="also include games completed within the last N days")
+    ap.add_argument("--force", action="store_true",
+                    help="overwrite the existing file even if the new fetch "
+                         "has fewer matches than what's already on disk")
+    ap.add_argument("--comp", action="append", dest="comps",
+                    help="competition key from config/competitions.json "
+                         "(repeatable; default: all)")
+    args = ap.parse_args()
+
+    api_key = os.environ.get("THE_ODDS_API_KEY")
+    if not api_key:
+        sys.exit("Set THE_ODDS_API_KEY in the environment first.")
+
+    registry = common.load_competitions()
+    comps = args.comps or list(registry.keys())
+    now = datetime.now(timezone.utc)
+
+    for comp in comps:
+        if comp not in registry:
+            print(f"[fetch_scores] unknown competition '{comp}' — skipping", file=sys.stderr)
+            continue
+        fetch_scores_for(comp, registry[comp], api_key, args, now)
 
 
 if __name__ == "__main__":

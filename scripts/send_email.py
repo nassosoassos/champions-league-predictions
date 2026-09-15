@@ -1,23 +1,32 @@
 #!/usr/bin/env python3
 """
-Email a SHORT daily digest: link to the dashboard + what changed since the
-previous day's run. It does not dump the full report — the dashboard has detail.
+Email ONE SHORT daily digest covering every competition in
+config/competitions.json: link to the dashboard + what changed since each
+competition's previous run. It does not dump the full report — the
+dashboard has detail.
 
-Computes changes by diffing today's structured files against the most recent
-earlier ones:
-    data/predictions-YYYY-MM-DD.json   (pick / scoreline / confidence per match)
-    data/outrights-YYYY-MM-DD.json     (outright picks)
+Computes changes per competition by diffing today's structured files
+against the most recent earlier ones:
+    data/<comp>/predictions-YYYY-MM-DD.json   (pick / scoreline / confidence per match)
+    data/<comp>/outrights-YYYY-MM-DD.json     (outright picks)
+
+Only competitions with predictions dated today, or with changes since their
+previous files, get a section in the digest — a quiet competition is
+silently omitted rather than padding the email.
 
 If the agent wrote a funny Greek round-up for the day at
     data/digest-el-YYYY-MM-DD.md
-it is embedded in the digest under a "Το αγωνιστικό μενού της ημέρας" heading.
+(shared across all competitions, not per-competition) it is embedded once
+under a "Το αγωνιστικό μενού της ημέρας" heading.
 
-The Champions League league phase runs in tight 3-day matchday clusters with
-weeks of nothing in between. On a day with no fixtures and no changes, this
-script sends nothing at all rather than mailing an empty digest — it just
-says so on stdout and exits 0.
+UEFA's league phases run in tight matchday clusters with weeks of nothing
+in between. On a day with no fixtures and no changes in ANY competition,
+this script sends nothing at all rather than mailing an empty digest — it
+just says so on stdout and exits 0.
 
-Sends via SMTP (Gmail by default). Configure with environment variables:
+Sends via SMTP (Gmail by default). Configure with environment variables
+(kept as UCL_* even though the digest now covers more than the UCL — these
+already live in the user's shell profile and renaming them breaks sending):
     UCL_SMTP_PASSWORD   (required) — a Gmail App Password for the FROM account
     UCL_EMAIL_FROM      (default: nkatsam@gmail.com)
     UCL_EMAIL_TO        (default: nkatsam@gmail.com)
@@ -43,6 +52,9 @@ import sys
 from datetime import datetime, timezone
 from email.message import EmailMessage
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import common
+
 DASHBOARD_DEFAULT = "https://nassosoassos.github.io/champions-league-predictions/"
 PICK_LABEL = {"home": "Home", "draw": "Draw", "away": "Away"}
 MAX_SECTION_LINES = 8
@@ -56,17 +68,17 @@ def load_json(path: str) -> dict:
         return {}
 
 
-def dated_files(prefix: str) -> list[tuple[str, str]]:
-    """Sorted [(date, path)] for data/<prefix>-YYYY-MM-DD.json."""
+def dated_files(comp: str, prefix: str) -> list[tuple[str, str]]:
+    """Sorted [(date, path)] for data/<comp>/<prefix>-YYYY-MM-DD.json."""
     out = []
-    for p in glob.glob(f"data/{prefix}-*.json"):
+    for p in glob.glob(f"{common.data_dir(comp)}/{prefix}-*.json"):
         d = os.path.basename(p)[len(prefix) + 1:-len(".json")]
         out.append((d, p))
     return sorted(out)
 
 
-def pick_today_and_prev(prefix: str, today: str) -> tuple[str | None, str | None]:
-    files = dated_files(prefix)
+def pick_today_and_prev(comp: str, prefix: str, today: str) -> tuple[str | None, str | None]:
+    files = dated_files(comp, prefix)
     if not files:
         return None, None
     # today's file (or the latest available if today's isn't there yet)
@@ -225,61 +237,94 @@ def next_match(today_path) -> str | None:
             f"({PICK_LABEL.get(p.get('pick'), p.get('pick'))} {p.get('scoreline','')})")
 
 
-def build_body(today: str, dashboard: str) -> tuple[str, str, bool]:
-    """Returns (body, subject_suffix, quiet). `quiet` means no fixtures and no
-    changes — the caller should send nothing on a live run in that case."""
-    p_today, p_prev = pick_today_and_prev("predictions", today)
-    o_today, o_prev = pick_today_and_prev("outrights", today)
+def _count_changes(lines: list[str]) -> int:
+    """Count actual changes (bullet/NEW lines), not explanation/blank lines."""
+    return sum(1 for l in lines if _is_bullet(l))
 
-    match_changes, n_matches = diff_predictions(p_today, p_prev) if p_today else ([], 0)
-    out_changes = diff_outrights(o_today, o_prev)
-    # count actual changes (bullet/NEW lines), not the explanation/blank lines
-    count = lambda ls: sum(1 for l in ls if _is_bullet(l))
-    n_changes = count(match_changes) + count(out_changes)
 
-    quiet = n_matches == 0 and n_changes == 0
+def build_comp_section(comp: str, cfg: dict, today: str) -> tuple[list[str], int, bool]:
+    """(lines, n_changes, has_today_predictions) for one competition. `lines`
+    is empty when the competition has nothing NEW TODAY: its newest
+    predictions file isn't dated today, and its newest outrights file
+    either isn't dated today or is unchanged from the previous one. A
+    predictions/outrights file dated before today is never diffed as if it
+    were today's news — that would re-announce stale predictions."""
+    p_today, p_prev = pick_today_and_prev(comp, "predictions", today)
+    o_today, o_prev = pick_today_and_prev(comp, "outrights", today)
+
+    has_today_predictions = bool(p_today) and os.path.basename(p_today) == f"predictions-{today}.json"
+    has_today_outrights = bool(o_today) and os.path.basename(o_today) == f"outrights-{today}.json"
+
+    match_changes, n_matches = diff_predictions(p_today, p_prev) if has_today_predictions else ([], 0)
+    out_changes = diff_outrights(o_today, o_prev) if has_today_outrights else []
+    n_changes = _count_changes(match_changes) + _count_changes(out_changes)
+
+    if not has_today_predictions and n_changes == 0:
+        return [], 0, False
 
     prev_date = None
-    if p_prev:
+    if p_prev and has_today_predictions:
         prev_date = os.path.basename(p_prev)[len("predictions-"):-len(".json")]
 
-    parts = ["Champions League 2026-27 — matchday update", "",
+    lines = [f"── {cfg['name']} ({cfg['short']}) ──"]
+    if has_today_predictions and not p_prev:
+        lines.append(f"First daily digest — {n_matches} matches predicted. "
+                     "See the dashboard for all picks, rationale and the outrights.")
+    elif has_today_predictions and n_changes == 0:
+        lines.append(f"No changes since {prev_date}. Picks unchanged — full detail on the dashboard.")
+    else:
+        header = f"Updates since {prev_date} ({n_changes}):" if prev_date else f"Updates ({n_changes}):"
+        lines.append(header)
+        if match_changes:
+            lines += ["", "Matches:"] + cap_section(match_changes)
+        if out_changes:
+            lines += ["", "Outrights:"] + cap_section(out_changes)
+
+    nxt = next_match(p_today) if has_today_predictions else None
+    if nxt:
+        lines += ["", f"⏭️  Next up: {nxt}"]
+
+    return lines, n_changes, has_today_predictions
+
+
+def build_body(today: str, dashboard: str) -> tuple[str, str, bool]:
+    """Returns (body, subject_suffix, quiet). `quiet` means no competition has
+    fixtures or changes — the caller should send nothing on a live run."""
+    registry = common.load_competitions()
+
+    sections: list[list[str]] = []
+    total_changes = 0
+    for comp, cfg in registry.items():
+        lines, n_changes, _ = build_comp_section(comp, cfg, today)
+        if lines:
+            sections.append(lines)
+            total_changes += n_changes
+
+    quiet = not sections
+
+    parts = ["UEFA club football 2026-27 — matchday update", "",
              f"📊 Dashboard: {dashboard}", ""]
 
     if quiet:
-        parts.append("No fixtures and no changes since the last update — quiet "
-                     "day between matchdays. Full detail on the dashboard.")
-    elif not p_prev:
-        parts.append(f"First daily digest — {n_matches} matches predicted. "
-                     "See the dashboard for all picks, rationale and the outrights.")
-    elif n_changes == 0:
-        parts.append(f"No changes since {prev_date}. Picks unchanged — full detail on the dashboard.")
+        parts.append("No fixtures and no changes across any competition since the "
+                     "last update — quiet day. Full detail on the dashboard.")
     else:
-        parts.append(f"Updates since {prev_date} ({n_changes}):")
-        if match_changes:
-            parts += ["", "Matches:"] + cap_section(match_changes)
-        if out_changes:
-            parts += ["", "Outrights:"] + cap_section(out_changes)
+        for lines in sections:
+            parts += lines + [""]
 
     blurb = greek_blurb(today)
     if blurb:
-        parts += ["", "🇬🇷 Το αγωνιστικό μενού της ημέρας:", "", blurb]
+        parts += ["🇬🇷 Το αγωνιστικό μενού της ημέρας:", "", blurb, ""]
 
-    nxt = next_match(p_today) if p_today else None
-    if nxt:
-        parts += ["", f"⏭️  Next up: {nxt}"]
-
-    parts += ["", f"Full picks, rationale & accuracy → {dashboard}",
-              "— Automated Champions League agent. Predictions for fun, not betting advice."]
+    parts += [f"Full picks, rationale & accuracy → {dashboard}",
+              "— Automated UEFA club football agent. Predictions for fun, not betting advice."]
 
     if quiet:
         suffix = "quiet day"
-    elif not p_prev:
-        suffix = "first digest"
-    elif n_changes == 0:
+    elif total_changes == 0:
         suffix = "no changes"
     else:
-        suffix = f"{n_changes} update" + ("s" if n_changes != 1 else "")
+        suffix = f"{total_changes} update" + ("s" if total_changes != 1 else "")
     return "\n".join(parts), suffix, quiet
 
 
@@ -293,7 +338,7 @@ def main():
 
     today = args.date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
     body, suffix, quiet = build_body(today, args.dashboard)
-    subject = args.subject or f"Champions League 2026-27 — matchday update — {today} ({suffix})"
+    subject = args.subject or f"UEFA club football 2026-27 — {today} ({suffix})"
 
     if args.dry_run:
         print(f"SUBJECT: {subject}\n\n{body}")

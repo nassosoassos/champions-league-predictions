@@ -1,0 +1,58 @@
+{
+  "season": "2026-27",
+  "note": "Single source of truth for which competitions the agent covers. The calendar is advisory: whether a competition actually has fixtures on a given day is decided by The Odds API's free /events endpoint (scripts/whats_on.py), so a rescheduled fixture is never missed. Order here is display order.",
+  "competitions": {
+    "ucl": {
+      "name": "UEFA Champions League",
+      "short": "UCL",
+      "sport_key": "soccer_uefa_champs_league",
+      "teams_file": "config/teams/ucl.json",
+      "deep_picks": 6,
+      "outrights_lock": "2026-09-08T16:45:00Z",
+      "league_phase": [
+        {"id": "MD1", "dates": ["2026-09-08", "2026-09-09", "2026-09-10"]},
+        {"id": "MD2", "dates": ["2026-10-13", "2026-10-14"]},
+        {"id": "MD3", "dates": ["2026-10-20", "2026-10-21"]},
+        {"id": "MD4", "dates": ["2026-11-03", "2026-11-04"]},
+        {"id": "MD5", "dates": ["2026-11-24", "2026-11-25"]},
+        {"id": "MD6", "dates": ["2026-12-08", "2026-12-09"]},
+        {"id": "MD7", "dates": ["2027-01-19", "2027-01-20"]},
+        {"id": "MD8", "dates": ["2027-01-27"]}
+      ],
+      "knockouts": [
+        {"id": "PO", "name": "Knockout play-offs", "dates": ["2027-02-16", "2027-02-17", "2027-02-23", "2027-02-24"]},
+        {"id": "R16", "name": "Round of 16", "dates": ["2027-03-09", "2027-03-10", "2027-03-16", "2027-03-17"]},
+        {"id": "QF", "name": "Quarter-finals", "dates": ["2027-04-06", "2027-04-07", "2027-04-13", "2027-04-14"]},
+        {"id": "SF", "name": "Semi-finals", "dates": ["2027-04-27", "2027-04-28", "2027-05-04", "2027-05-05"]},
+        {"id": "F", "name": "Final", "dates": ["2027-06-05"]}
+      ],
+      "final": {"date": "2027-06-05", "venue": "Estadio Metropolitano, Madrid"}
+    },
+    "uel": {
+      "name": "UEFA Europa League",
+      "short": "UEL",
+      "sport_key": "soccer_uefa_europa_league",
+      "teams_file": "config/teams/uel.json",
+      "deep_picks": 3,
+      "outrights_lock": "2026-09-16T16:45:00Z",
+      "league_phase": [
+        {"id": "MD1", "dates": ["2026-09-16", "2026-09-17"]},
+        {"id": "MD2", "dates": ["2026-10-15"]},
+        {"id": "MD3", "dates": ["2026-10-22"]},
+        {"id": "MD4", "dates": ["2026-11-05"]},
+        {"id": "MD5", "dates": ["2026-11-26"]},
+        {"id": "MD6", "dates": ["2026-12-10"]},
+        {"id": "MD7", "dates": ["2027-01-21"]},
+        {"id": "MD8", "dates": ["2027-01-28"]}
+      ],
+      "knockouts": [
+        {"id": "PO", "name": "Knockout play-offs", "dates": ["2027-02-18", "2027-02-25"]},
+        {"id": "R16", "name": "Round of 16", "dates": ["2027-03-11", "2027-03-18"]},
+        {"id": "QF", "name": "Quarter-finals", "dates": ["2027-04-08", "2027-04-15"]},
+        {"id": "SF", "name": "Semi-finals", "dates": ["2027-04-29", "2027-05-06"]},
+        {"id": "F", "name": "Final", "dates": ["2027-05-26"]}
+      ],
+      "final": {"date": "2027-05-26", "venue": "Waldstadion, Frankfurt"}
+    }
+  }
+}

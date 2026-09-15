@@ -6,6 +6,9 @@ __pycache__/
 # Local dev / preview helpers (launch config + static server for dashboard preview)
 .claude/
 
+# Agent tooling scratch space (memory journals, handoffs) — local state, never part of the repo
+.work/
+
 # Never commit secrets — these are set as environment variables, not files.
 # (THE_ODDS_API_KEY, UCL_SMTP_PASSWORD)
 .env

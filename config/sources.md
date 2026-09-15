@@ -1,18 +1,20 @@
 # Trusted sources
 
-The agent reads these when gathering qualitative intel. Curated for signal, not
-volume — a handful of sharp, well-sourced outlets beats scraping everything.
+The agent reads these when gathering qualitative intel for both competitions
+(Champions League and Europa League). Curated for signal, not volume — a
+handful of sharp, well-sourced outlets beats scraping everything.
 
 ## Quantitative — odds & model probabilities
 The market is the backbone. Pulled automatically via `scripts/fetch_odds.py`.
-- **The Odds API** (`soccer_uefa_champs_league`) — aggregates Pinnacle, Bet365,
-  Betfair exchange, William Hill, etc. Pinnacle/exchanges weighted highest.
+- **The Odds API** (`soccer_uefa_champs_league`, `soccer_uefa_europa_league`)
+  — aggregates Pinnacle, Bet365, Betfair exchange, William Hill, etc.
+  Pinnacle/exchanges weighted highest.
 - **Opta / The Analyst** — supercomputer win probabilities, league-phase
-  simulations, and match previews for the 36-team table.
+  simulations, and match previews for both competitions' league-phase tables.
 - **club-elo.com** — Elo ratings built specifically for club sides (unlike the
   WC's national-team Elo, this tracks club form week to week including domestic
   results) — a solid sanity check vs the market, especially early in the
-  league phase before enough UCL fixtures exist to price teams confidently.
+  league phase before enough fixtures exist to price teams confidently.
 - **FBref / Understat** — underlying xG and shot-quality form. Useful for
   spotting a team whose results are running hot or cold relative to
   performance, which the market is often slow to reprice.
@@ -28,15 +30,31 @@ rotation, motivation). The agent web-searches these per match.
   football usually surfaces here first, hours before English-language outlets
   pick it up:
   - **Marca, AS, Mundo Deportivo** — Real Madrid, Barcelona, Atlético Madrid,
-    Villarreal, Real Betis.
+    Villarreal, Real Betis, Real Sociedad.
   - **Bild, Kicker** — Bayern Munich, Borussia Dortmund, RB Leipzig, VfB
-    Stuttgart.
+    Stuttgart, Bayer Leverkusen.
   - **Gazzetta dello Sport, Corriere dello Sport** — Inter Milan, Napoli, AS
-    Roma, Como.
-  - **L'Équipe** — Paris Saint Germain, Lille, RC Lens.
-  - **Record, A Bola** — Porto, Sporting Lisbon.
+    Roma, Como, Juventus, AC Milan.
+  - **L'Équipe** — Paris Saint Germain, Lille, RC Lens, Marseille, Lyon.
+  - **Record, A Bola** — Porto, Sporting Lisbon, Benfica.
 - **Reputable club beat reporters on X** — confirmed starting XIs, fitness
   and rotation updates (use only well-sourced, named journalists).
+
+## Europa League — additional local coverage
+Same rules apply; a handful of extra big-club outlets plus guidance for the
+rest of a much larger, more varied league-phase field.
+- **Celtic** — Daily Record, The Scotsman (established Scottish sports
+  press, strong on team news and beat reporting).
+- **Olympiakos, OFI Crete** — Gazzetta.gr, SDNA, Sport24 (established Greek
+  sports media, the sharpest source for team news on both clubs).
+- **Everyone else in the Europa League field** — English-language previews
+  and tipster consensus thin out fast outside the handful of clubs named
+  above and in the Champions League list. Don't force it: where dedicated
+  coverage isn't findable, say so plainly in the rationale ("no dedicated
+  preview found, market-derived pick") rather than stretching a thin search
+  into false confidence, and fall back to the club's own country's main
+  national sports outlet (its own equivalent of Marca or Gazzetta) as the
+  best single source of team news, searched by name rather than assumed.
 
 ## Rules for the agent
 - Prefer **named, dated reporting** over anonymous tip aggregators.

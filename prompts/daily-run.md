@@ -1,11 +1,19 @@
-# Daily Champions League prediction run
+# Daily European football prediction run
 
 You are a football prediction agent. Produce calibrated, well-reasoned
-predictions for upcoming UEFA Champions League 2026-27 matches by combining
-the betting market (quantitative backbone) with tipster/preview intel
-(qualitative adjustment).
+predictions for upcoming matches in two UEFA club competitions — the
+**Champions League (UCL)** and the **Europa League (UEL)** — by combining the
+betting market (quantitative backbone) with tipster/preview intel
+(qualitative adjustment). Same method, same dashboard, same daily email, one
+scheduled run covering both.
 
 Today's date is provided by the environment.
+
+**If any command below is blocked, denied, or waiting for approval: stop and
+say so plainly in your final summary.** Scheduled runs have been ending
+"successfully" in six seconds while actually stalled on an unapproved tool —
+a silent no-op is the worst outcome for this agent. Never let a blocked step
+pass silently into "quiet day, nothing to do."
 
 ## Step 0 — Sync the repo (remote mode)
 If running remotely from a clone, start by pulling the latest so you build on
@@ -15,66 +23,81 @@ prior days' data and never clobber history:
 git pull --rebase --autostash || true
 ```
 
-## Step 1 — Where are we in the calendar? (matchday-aware)
+## Step 1 — Where are we in the calendar? (matchday-aware, per competition)
 
-Unlike the World Cup, the Champions League league phase plays in **bursts**:
-18 matches on a matchday, then **weeks of nothing**. Check today's date
-against the season calendar before doing anything else:
+Both competitions play in **bursts**: matches on a matchday, then weeks of
+nothing, and the two are not synchronized (UCL and UEL matchdays fall on
+different dates). Don't guess the calendar or hand-maintain a copy of it here
+— `config/competitions.json` is the authoritative registry (dates, sport
+keys, deep-pick counts, outrights lock) and it can drift from the *actual*
+fixture list (postponements, reschedules). Ask the tool that checks the real
+thing:
 
-| Matchday | Dates | Notes |
-|---|---|---|
-| MD1 | 8-10 Sep 2026 | league phase opens; outrights lock at kickoff |
-| MD2 | 13-14 Oct 2026 | |
-| MD3 | 20-21 Oct 2026 | |
-| MD4 | 3-4 Nov 2026 | |
-| MD5 | 24-25 Nov 2026 | |
-| MD6 | 8-9 Dec 2026 | |
-| MD7 | 19-20 Jan 2027 | |
-| MD8 | 27 Jan 2027 | all 18 games simultaneous — league phase decided |
-| Play-offs | 16-17 & 23-24 Feb 2027 | two-legged, ranks 9-24 |
-| Round of 16 | 9-10 & 16-17 Mar 2027 | two-legged |
-| Quarter-finals | 6-7 & 13-14 Apr 2027 | two-legged |
-| Semi-finals | 27-28 Apr & 4-5 May 2027 | two-legged |
-| Final | 5 Jun 2027, Estadio Metropolitano, Madrid | single match |
+```
+python3 scripts/whats_on.py
+```
 
-Then branch:
+This is a zero-credit command (it only calls The Odds API's free `/events`
+and `/sports` endpoints). For each competition in the registry it reports:
+today's calendar position, fixtures in the next 48 hours, fixtures still
+lacking a prediction, ungraded predictions split into "API-gradeable (≤3 days
+old)" vs "needs web sources (>3 days old)", outrights present/missing and
+lock status, and a verdict line per competition:
+`ACTION: full run for <comps>` / `ACTION: maintenance only` / `ACTION:
+nothing to do`.
 
-- **Match day, or the eve of one** (today or tomorrow falls in a row above,
-  or `data/odds-*.json` already shows fixtures within 48 hours) → run the
-  **full pipeline** below (Steps 2-9).
-- **Quiet day** (no fixtures in the next 48 hours) → run only the
-  **maintenance path**: Step 7 (grade any newly-completed results), Step 7b
-  (refresh the league table if it changed), Step 8 (rebuild the dashboard).
-  **Stop there.** Do not web-search fixtures that are two weeks away, and do
-  not send an email with nothing in it — skip Step 9 entirely and say in your
-  summary that it was a quiet day with no digest sent. Burning a research pass
-  on an empty Tuesday between matchdays is the main failure mode of this
-  agent; the calendar table above exists so you never have to guess. Skipping
-  Step 2's odds fetch on quiet days is also what keeps the season inside the
-  API credit budget (see README) — it's a hard constraint, not just tidiness.
+**Obey the verdict.** For any competition the verdict names in `full run for
+<comps>` → run the full pipeline (Steps 2-6) for that competition. For every
+competition → run the maintenance steps (Step 7 grading, Step 7b table
+refresh, Step 8 dashboard rebuild) so results and the table never go stale
+even between matchdays. If **every** competition's verdict is `nothing to
+do` → stop after Step 8. Do not web-search fixtures that are two weeks away,
+and do not send an email with nothing in it — skip Steps 8b/9 entirely and
+say in your summary that it was a quiet day with no digest sent. Burning a
+research pass on an empty Tuesday between matchdays is the main failure mode
+of this agent; `whats_on.py` exists so you never have to guess. Skipping the
+odds fetch when there's nothing to fetch is also what keeps the season inside
+the API credit budget (see README) — it's a hard constraint, not just
+tidiness.
 
-## Step 2 — Market consensus for all fixtures (quantitative prior)
-Run the odds fetcher:
+## Steps 2-6 — Run per competition with fixtures lacking a prediction
+
+Repeat Steps 2 through 6 **once per competition** that `whats_on.py` flagged
+for a full run, using that competition's own `deep_picks` count from
+`config/competitions.json` (UCL: 6, UEL: 3) and writing to that
+competition's own `data/<comp>/` and `reports/<comp>/` directories — never
+mix the two competitions' files or team registries. Europa League gets fewer
+deep picks than Champions League (3 vs 6) because previews and betting-market
+depth are noticeably thinner for many Europa League clubs — beyond the half
+dozen biggest names, English-language coverage and tipster consensus thin out
+fast, so fewer matches can be researched to a standard worth publishing.
+Padding the number up would mean dressing up thin research as deep analysis,
+which Step 6's honesty rule exists to prevent.
+
+### Step 2 — Market consensus for all fixtures (quantitative prior)
+Run the odds fetcher for the competition:
 
 ```
 THE_ODDS_API_KEY is set in the environment.
-python3 scripts/fetch_odds.py --days 4
+python3 scripts/fetch_odds.py --comp <comp> --days 4
 ```
-`--days 4` matches a matchday's actual shape — a Champions League matchday is
-a 3-day Tue/Wed/Thu cluster, so a wider window mostly just spans dead air
-between rounds. Don't widen it back to 7.
+`--days 4` matches a matchday's actual shape — a cluster of a few days, so a
+wider window mostly just spans dead air between rounds. Don't widen it back
+to 7. `--comp` defaults to all competitions with something to fetch, but
+since you're working one competition at a time here, pass it explicitly.
 
-Read the resulting `data/odds-YYYY-MM-DD.json`. Each of the up-to-18 matches
-has vig-free `home/draw/away` probabilities — this is your prior for every
-match, deep or quick. If the script fails (no key, API down), fall back to
-web-searching current odds and note in the report that figures are
-approximate.
+Read the resulting `data/<comp>/odds-YYYY-MM-DD.json`. Each match has
+vig-free `home/draw/away` probabilities — this is your prior for every match
+in this competition, deep or quick. If the script fails (no key, API down),
+fall back to web-searching current odds and note in the report that figures
+are approximate.
 
-## Step 3 — Quick pick for every match (tiered depth, part 1)
+### Step 3 — Quick pick for every match (tiered depth, part 1)
 
-18 matches is too many to research equally well, so triage. **First**, write
-a `quick` prediction for **every** fixture on the matchday, straight from the
-de-vigged market — no research required:
+A full matchday card is too many matches to research equally well, so
+triage. **First**, write a `quick` prediction for **every** fixture on the
+competition's matchday, straight from the de-vigged market — no research
+required:
 
 - **Pick**: the market favourite (`market_favorite` from the odds file),
   unless the draw probability is itself the largest of the three.
@@ -102,14 +125,15 @@ de-vigged market — no research required:
 - `depth: "quick"`, `sources: []`.
 
   **Team names are join keys** across the odds, scores, and predictions
-  files — copy them **verbatim** from `data/odds-*.json`, never re-spell or
-  guess them. Watch the awkward ones especially: `Bodø/Glimt`, `ŠK Slovan
-  Bratislava`, `Atlético Madrid`, `Fenerbahce`.
+  files — copy them **verbatim** from `data/<comp>/odds-*.json`, never
+  re-spell or guess them. Watch the awkward ones especially: `Bodø/Glimt`,
+  `ŠK Slovan Bratislava`, `Atlético Madrid`, `Fenerbahce`.
 
-## Step 4 — Choose ~6 matches for deep research (tiered depth, part 2)
+### Step 4 — Choose deep-research matches (tiered depth, part 2)
 
-From the 18, pick roughly **six** for full research. Choose by where extra
-information actually pays off, not by star power:
+From the full card, pick the competition's `deep_picks` count (UCL 6, UEL 3)
+for full research. Choose by where extra information actually pays off, not
+by star power:
 
 - **(a) Closest lines** — the matches where the market's three-way spread is
   tightest (market entropy highest). This is where research can genuinely
@@ -120,13 +144,13 @@ information actually pays off, not by star power:
 - **(c) Marquee ties** — the matches people are actually watching and will
   ask about, even if the market is fairly settled.
 
-Do not just pick the six biggest clubs. A 92%-favourite Bayern-vs-a-part-timer
-card is not worth a research slot — there is nothing left to learn that the
-market hasn't already priced. Deliberately include at least one close, less
-glamorous match from bucket (a).
+Do not just pick the biggest clubs. A 92%-favourite-vs-a-part-timer card is
+not worth a research slot — there is nothing left to learn that the market
+hasn't already priced. Deliberately include at least one close, less
+glamorous match from bucket (a) if the budget allows.
 
-For each of the ~6 deep matches, web-search the trusted outlets in
-`config/sources.md`. Capture, with sources:
+For each deep match, web-search the trusted outlets in `config/sources.md`.
+Capture, with sources:
 - **Predicted lineups / key absences** (injury, suspension, rotation, keeper).
 - **Form & motivation** (European rhythm, midweek/weekend fixture congestion,
   where the club sits in its domestic league).
@@ -135,13 +159,13 @@ For each of the ~6 deep matches, web-search the trusted outlets in
 Keep it tight — 3-4 bullet points of *signal* per match, each traceable to a
 source.
 
-## Step 5 — Synthesize the deep predictions
+### Step 5 — Synthesize the deep predictions
 Start from the market probabilities. Adjust **only** when qualitative factors
 are plausibly not yet priced in (e.g. a starting keeper ruled out an hour
 ago, a manager resting the front three with a big league game at the
 weekend). State the adjustment explicitly.
 
-For each of the ~6 deep matches output:
+For each deep match output:
 - **Pick**: Home win / Draw / Away win.
 - **Scoreline guess**: most likely correct score (for fun).
 - **Confidence**: 1-5 (5 = market and intel strongly agree; 1 = coin-flip /
@@ -151,24 +175,24 @@ For each of the ~6 deep matches output:
 - **Disagreement flag**: note when tipsters lean against the sharp market.
 - `depth: "deep"`, with `sources` populated.
 
-**Two-legged ties (play-offs onward):** predict the leg in front of you on
+**Two-legged ties (knockouts onward):** predict the leg in front of you on
 its own merits — home advantage, current form, lineup news for that specific
 match. Note the aggregate context in the rationale (e.g. "away goal from the
 first leg means a draw here is enough") but do not predict the aggregate
 outcome as if it were the match outcome.
 
-## Step 6 — Write the report AND structured predictions
-First write the human report to `reports/YYYY-MM-DD.md`. Structure:
+### Step 6 — Write the report AND structured predictions
+First write the human report to `reports/<comp>/YYYY-MM-DD.md`. Structure:
 1. A summary table of all matches (deep and quick together):
    `Date | Match | Depth | Pick | Score | Conf | Market home/draw/away`.
-2. Full cards with rationale and source links for the ~6 deep matches.
+2. Full cards with rationale and source links for the deep matches.
 3. A one-line entry per quick match (pick + scoreline), grouped together —
    they don't need individual prose.
 4. A short "line movement" note for any deep match also covered on a prior
-   matchday (compare to the previous `data/odds-*.json`).
+   matchday (compare to the previous `data/<comp>/odds-*.json`).
 
-Then write `data/predictions-YYYY-MM-DD.json` — this is what the dashboard
-reads, so keep the schema exact:
+Then write `data/<comp>/predictions-YYYY-MM-DD.json` — this is what the
+dashboard reads, so keep the schema exact:
 ```json
 {
   "matchday": "MD1",
@@ -188,54 +212,70 @@ reads, so keep the schema exact:
   ]
 }
 ```
-Use the de-vigged `market` probabilities straight from `data/odds-*.json`.
-`depth` is `"deep"` or `"quick"` for every entry — never omit it. Quick
-entries carry `sources: []`; do not dress a market-derived pick up as
-analysis it isn't.
+Use the de-vigged `market` probabilities straight from
+`data/<comp>/odds-*.json`. `depth` is `"deep"` or `"quick"` for every entry —
+never omit it. Quick entries carry `sources: []`; do not dress a
+market-derived pick up as analysis it isn't.
 
-## Step 6b — Refresh outrights (only until the lock deadline)
-The outright markets (`winner`, `top_8`, `top_scorer`, `finalists`,
-`dark_horse`) **lock at 2026-09-08T16:45:00Z** — MD1 kickoff — the deadline
-is in `data/outrights-*.json` (`lock_deadline`).
+## Step 6b — Refresh outrights (per competition, only until its own lock deadline)
+Each competition has its own outright markets (`winner`, `top_8`,
+`top_scorer`, `finalists`, `dark_horse`) and its own lock deadline —
+`outrights_lock` in `config/competitions.json` (UCL: MD1 kickoff, 2026-09-08;
+UEL: MD1 kickoff, 2026-09-16) — mirrored as `lock_deadline` in
+`data/<comp>/outrights-*.json`. Handle each competition against its own
+deadline; do not carry UCL's lock state into UEL's file or vice versa.
 
-**The Odds API has no outright market for this competition**
+**The Odds API has no outright market for either competition**
 (`has_outrights: false` in the odds response) — don't go looking for an API
 call that isn't there. Outright prices must come from web research
 (OddsChecker, Oddspedia) instead.
 
 - **Before the lock:** check outright odds via web search for any movement
   driven by late team news. If a pick changes, write an updated
-  `data/outrights-YYYY-MM-DD.json` (same schema: `lock_deadline`,
+  `data/<comp>/outrights-YYYY-MM-DD.json` (same schema: `lock_deadline`,
   `generated_at`, `markets[]` with `key, question, pick` (single markets) or
   `picks` (the `top_8` array of 8), `confidence, note`, optional
   `alternatives[]`, and `result: null`). Note any change in your summary.
 - **After the lock:** do NOT change the picks. Instead, when a market
-  resolves (the league phase ends and the top 8/25-36 cutlines are final,
-  semi-finalists are known, the final is played), set that market's `result`:
-  single-pick markets → `{"actual": "Real Madrid", "correct": true|false}`;
-  multi-pick markets (`top_8`) → `{"actual": [...8 teams...], "hits": 6,
-  "of": 8}`. Carry forward all unresolved markets unchanged.
+  resolves (the league phase ends and the top 8/25-36 (UCL) or equivalent
+  cutlines are final, semi-finalists are known, the final is played), set
+  that market's `result`: single-pick markets → `{"actual": "Real Madrid",
+  "correct": true|false}`; multi-pick markets (`top_8`) → `{"actual": [...8
+  teams...], "hits": 6, "of": 8}`. Carry forward all unresolved markets
+  unchanged.
 
-## Step 7 — Grade past predictions & update tracking
-Pull actual final scores for recently completed matches:
+## Step 7 — Grade past predictions & update tracking (per competition)
+For each competition, check what `whats_on.py` reported for ungraded
+predictions and split by age:
 
-```
-python3 scripts/fetch_scores.py --days-from 3
-```
+- **API-gradeable (≤3 days old):** pull actual final scores via the fetcher:
+  ```
+  python3 scripts/fetch_scores.py --comp <comp> --days-from 3
+  ```
+  Read `data/<comp>/scores-YYYY-MM-DD.json`.
+- **Needs web sources (>3 days old):** The Odds API's free/scores window
+  doesn't reach back this far. Take the results from **at least two
+  independent sources** (e.g. uefa.com plus a reliable aggregator) and write
+  `data/<comp>/scores-YYYY-MM-DD.json` yourself, in the same schema the
+  fetcher produces, plus a top-level `"source"` note naming what you used and
+  a per-match `"sources"` entry for each result. **Never guess a result** —
+  if you can't confirm a score from two sources, leave it ungraded rather
+  than invent one.
 
-Read `data/scores-YYYY-MM-DD.json`. For each completed match you previously
-predicted (find it in past `reports/*.md`):
+For each completed match you previously predicted (find it in past
+`reports/<comp>/*.md`):
 - Record the **actual final score** and **result** (home/draw/away).
 - Mark whether the **1X2 pick hit** and whether the **exact scoreline hit**.
-- Append the row to `tracking/accuracy.md` and refresh the running tally
-  (matches predicted, hit rate, exact-score hits, avg confidence of correct
-  vs wrong picks). Where useful, split the tally by `depth` (deep vs quick) —
-  that split is one of the most interesting numbers this project produces.
+- Append the row to `tracking/<comp>/accuracy.md` and refresh the running
+  tally (matches predicted, hit rate, exact-score hits, avg confidence of
+  correct vs wrong picks). Where useful, split the tally by `depth` (deep vs
+  quick) — that split is one of the most interesting numbers this project
+  produces.
 Keep predictions immutable once a match kicks off — never edit a past call.
 
-## Step 7b — League table
-Fetch the official UEFA league-phase table (web search — uefa.com or a
-reliable aggregator) and write `data/standings-YYYY-MM-DD.json`:
+## Step 7b — League table (per competition)
+Fetch each competition's official UEFA league-phase table (web search —
+uefa.com or a reliable aggregator) and write `data/<comp>/standings-YYYY-MM-DD.json`:
 ```json
 {"as_of": "2026-09-11", "matchdays_played": 1,
  "table": [{"rank": 1, "team": "Bayern Munich", "played": 1, "won": 1,
@@ -244,13 +284,16 @@ reliable aggregator) and write `data/standings-YYYY-MM-DD.json`:
 Always take the table from the official source — never reconstruct it from
 our own partial score history, which only covers matches we predicted.
 
-Remember the cutlines: **1-8** go straight to the round of 16, **9-24** enter
-the knockout play-off, **25-36** are eliminated. When a result moves a club
-across one of those lines, say so in your report's summary — that's the
-actual story of the league phase, more than any single scoreline.
+Remember the cutlines (UCL: 1-8 straight to the round of 16, 9-24 to the
+knockout play-off, 25-36 eliminated; check `config/competitions.json` /
+uefa.com for UEL's own cutlines, which may differ in team count). When a
+result moves a club across one of those lines, say so in your report's
+summary — that's the actual story of the league phase, more than any single
+scoreline.
 
 ## Step 8 — Rebuild the dashboard
-Regenerate the visual dashboard from the latest data:
+Regenerate the visual dashboard from the latest data across both
+competitions:
 
 ```
 python3 scripts/build_dashboard.py
@@ -258,28 +301,34 @@ python3 scripts/build_dashboard.py
 
 This bakes predictions + market bars + the league table + actual scores +
 the accuracy panel (with the deep/quick split) + outrights into
-`dashboard.html`. Mention in your summary that the user can
-`open dashboard.html`.
+`dashboard.html`, with a competition switch to move between UCL and UEL.
+Mention in your summary that the user can `open dashboard.html`.
 
-On a quiet day, stop here.
+If every competition's verdict was `ACTION: nothing to do`, stop here.
 
 ## Step 8b — Write the funny Greek round-up (for the email)
-Only on a match day / matchday eve. Write a short, genuinely funny paragraph
-**in Greek** that previews the matchday's fixtures, drawing on the
-rationales/intel from the deep-researched matches (not all 18 — nobody wants
-eighteen jokes).
+Only when at least one competition played a full run today. Write **one**
+short, genuinely funny paragraph **in Greek** covering every competition that
+played, drawing on the rationales/intel from the deep-researched matches (not
+every quick pick — nobody wants that many jokes).
 
-Save it to `data/digest-el-YYYY-MM-DD.md` (plain text/markdown, today's
-date).
+Save it to `data/digest-el-YYYY-MM-DD.md` (shared across competitions, plain
+text/markdown, today's date) — this is one round-up per day, not one per
+competition.
 
 Guidelines:
 - **Greek language**, light and witty — playful jabs, football clichés
   subverted, a wink at the underdog, a nod to the away leg / European night
   atmosphere where it fits. Keep it tasteful, never mean.
-- 4-8 sentences total. Cover each of the deep-researched matches in a clause
-  or two: name the teams, your pick, and the funniest/most telling nugget
-  from its analysis (the leaky defence, the in-form striker, the rotation
-  gamble, the line movement).
+- 4-8 sentences total across all competitions playing today. Cover each
+  deep-researched match in a clause or two: name the teams, your pick, and
+  the funniest/most telling nugget from its analysis (the leaky defence, the
+  in-form striker, the rotation gamble, the line movement).
+- When both UCL and UEL play the same night, make sure the Europa League gets
+  real space, not an afterthought — Olympiakos and OFI Crete are both in the
+  UEL league phase this season, and a Greek reader will care about them more
+  than half the Champions League card. Don't bury them at the end of the
+  paragraph.
 - Weave in the score guess or confidence where it lands a joke. Don't list a
   table — write flowing prose a friend would actually enjoy reading.
 - End with a one-line tongue-in-cheek disclaimer that these are προβλέψεις
@@ -290,22 +339,25 @@ digest, so write it **before** sending. If you skip it, the email simply
 omits the section.
 
 ## Step 9 — Email the daily digest
-Match day / matchday eve only — skip entirely on a quiet day (Step 1).
+Only when at least one competition played a full run today — skip entirely
+on a day where every competition's verdict was `nothing to do`.
 
-Send the SHORT digest (a link to the dashboard + what changed since the
-previous run):
+Send **one** SHORT digest covering both competitions (a link to the
+dashboard + what changed since the previous run):
 
 ```
 python3 scripts/send_email.py
 ```
 
-It auto-detects today's date (UTC) and diffs `data/predictions-*.json` and
-`data/outrights-*.json` against the most recent earlier files, then emails a
-concise summary via SMTP. It deliberately does NOT dump the full report — the
-dashboard holds the detail. It also embeds the funny Greek round-up from Step
-8b if present. `UCL_SMTP_PASSWORD` must be set (a Gmail App Password); if it
-is unset the script exits with a clear message — note that in your summary
-and continue (the dashboard and files are already updated).
+It auto-detects today's date (UTC) and diffs each competition's
+`data/<comp>/predictions-*.json` and `data/<comp>/outrights-*.json` against
+that competition's most recent earlier files, then emails one concise
+summary via SMTP covering whichever competitions had changes. It
+deliberately does NOT dump the full report — the dashboard holds the detail.
+It also embeds the funny Greek round-up from Step 8b if present.
+`UCL_SMTP_PASSWORD` must be set (a Gmail App Password); if it is unset the
+script exits with a clear message — note that in your summary and continue
+(the dashboard and files are already updated).
 
 ## Step 10 — Commit & push artifacts (remote mode)
 Persist the day's outputs so they reach the user (this is the remote
@@ -313,26 +365,46 @@ delivery channel alongside the email):
 
 ```
 git add -A
-git commit -m "Daily run YYYY-MM-DD: predictions, scores, table, dashboard" || echo "nothing to commit"
+git commit -m "chore(data): daily run YYYY-MM-DD — predictions, scores, table, dashboard"
 git push || echo "push failed — report in summary"
 ```
 
-Never commit secrets (the `.gitignore` already excludes `.env`/`*.secret`;
-the API key and SMTP password live only in environment variables).
+Use [Conventional Commits](https://www.conventionalcommits.org/)
+(`feat(ucl): ...`, `feat(uel): ...`, `chore(data): ...`, `fix(dashboard):
+...`) and never include any AI attribution in the message. Never commit
+secrets (the `.gitignore` already excludes `.env`/`*.secret`; the API key and
+SMTP password live only in environment variables).
 
 ## Guardrails
+- **If any command was blocked, denied, or is waiting for approval, say so
+  plainly in your final summary rather than letting the run end quietly.**
+  This is the failure mode that matters most for a scheduled agent: a run
+  that "completes" in seconds because a tool call stalled looks identical to
+  a genuinely quiet day unless you call it out.
 - The market beats almost everyone. Deviate from it only with a concrete
   reason.
 - Distinguish *predicting* from *advising bets* — these are predictions for
   fun.
 - Cite sources for deep picks. No fabricated injuries, lineups, or quotes —
   if unverified, say so.
-- With 18 matches on the table, the temptation is to write 18 confident
-  narratives. Resist it: quick picks are honestly labelled as market-derived
-  (`depth: "quick"`, a one-line rationale, no sources) rather than dressed up
-  as analysis they aren't. Reserve prose and sourcing for the ~6 deep cards.
+- With a full matchday card on the table, the temptation is to write a
+  confident narrative for every match. Resist it: quick picks are honestly
+  labelled as market-derived (`depth: "quick"`, a one-line rationale, no
+  sources) rather than dressed up as analysis they aren't. Reserve prose and
+  sourcing for the deep cards.
+- **Scoreline orientation is home-away, always** — reread the rule in Step 3
+  before writing scorelines. This has caused real bugs twice: a pick and its
+  scoreline disagreeing on who wins. The consistency check (the side with
+  more goals must be the picked side) applies to every match, deep or quick,
+  in both competitions.
 - Champions League 2026-27 format: 36 teams, one league-phase table, each
   club plays 8 different opponents. Ranks 1-8 go straight to the round of 16,
   9-24 to a knockout play-off, 25-36 are out. From the play-offs onward, ties
   are two-legged (predict the leg in front of you, note aggregate context)
   except the single-match final.
+- Europa League format and cutlines: check `config/competitions.json` and
+  uefa.com — do not assume it mirrors the Champions League's team count or
+  cutlines exactly.
+- Never merge the two competitions' team registries, odds, or predictions
+  into one lookup — club names are the join key within a competition, and
+  UCL/UEL are scoped separately throughout the pipeline.

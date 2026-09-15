@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Champions League 2026-27 — Predictions</title>
+<title>Prediction Desk</title>
 <style>
   :root{
     --bg:#04060f; --bg2:#080b1b; --panel:#0d1229; --panel2:#131a3a;
     --line:#212a55; --line2:#2f3a72;
     --ink:#eef2ff; --muted:#98a2cf; --faint:#69719f;
     --star:#9dbcff; --star2:#4a7bf0; --silver:#cfd9f7;
+    --star-rgb:157,188,255; --star2-rgb:74,123,240; --glow3-rgb:46,78,168; --starfield:.55;
     --home:#6ea8ff; --draw:#8b95c4; --away:#ff7fa3;
     --gold:#f2cd7a; --win:#57e0a5; --loss:#ff6f8e;
     --f-ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,system-ui,sans-serif;
     --f-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,"Cascadia Mono",Consolas,monospace;
     --shadow:0 24px 55px -30px rgba(0,0,0,.95);
+  }
+  /* Per-competition identity: only the accent moves; ground, panels and layout
+     stay put. The :root values above are the Champions League midnight look. */
+  html[data-comp="uel"]{
+    --star:#ffb46b; --star2:#e8741c; --silver:#f1dccb;
+    --star-rgb:255,180,107; --star2-rgb:232,116,28; --glow3-rgb:150,70,20; --starfield:.2;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -21,22 +28,22 @@
   /* stadium glow: floodlights over a midnight ground */
   body::before{content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
     background:
-      radial-gradient(1100px 620px at 50% -14%, rgba(74,123,240,.20), transparent 62%),
-      radial-gradient(760px 520px at 92% 6%, rgba(157,188,255,.08), transparent 60%),
-      radial-gradient(680px 460px at 2% 22%, rgba(46,78,168,.12), transparent 62%),
+      radial-gradient(1100px 620px at 50% -14%, rgba(var(--star2-rgb),.20), transparent 62%),
+      radial-gradient(760px 520px at 92% 6%, rgba(var(--star-rgb),.08), transparent 60%),
+      radial-gradient(680px 460px at 2% 22%, rgba(var(--glow3-rgb),.12), transparent 62%),
       var(--bg);}
   /* starfield — pure CSS, tiles so it covers any page height */
-  body::after{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.55;
+  body::after{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:var(--starfield);
     background-repeat:repeat; background-size:820px 620px;
     background-image:
       radial-gradient(1.5px 1.5px at 6% 12%, rgba(255,255,255,.85), transparent 60%),
       radial-gradient(1.2px 1.2px at 23% 41%, rgba(207,217,247,.7), transparent 60%),
       radial-gradient(1px 1px at 38% 8%, rgba(255,255,255,.6), transparent 60%),
-      radial-gradient(1.6px 1.6px at 52% 63%, rgba(157,188,255,.75), transparent 60%),
+      radial-gradient(1.6px 1.6px at 52% 63%, rgba(var(--star-rgb),.75), transparent 60%),
       radial-gradient(1.1px 1.1px at 67% 26%, rgba(255,255,255,.55), transparent 60%),
       radial-gradient(1.4px 1.4px at 81% 71%, rgba(207,217,247,.6), transparent 60%),
       radial-gradient(1px 1px at 94% 34%, rgba(255,255,255,.5), transparent 60%),
-      radial-gradient(1.3px 1.3px at 14% 78%, rgba(157,188,255,.55), transparent 60%),
+      radial-gradient(1.3px 1.3px at 14% 78%, rgba(var(--star-rgb),.55), transparent 60%),
       radial-gradient(1px 1px at 45% 91%, rgba(255,255,255,.45), transparent 60%),
       radial-gradient(1.2px 1.2px at 73% 96%, rgba(207,217,247,.5), transparent 60%),
       radial-gradient(1px 1px at 88% 15%, rgba(255,255,255,.4), transparent 60%);}
@@ -49,7 +56,22 @@
     backdrop-filter:blur(9px); display:flex; align-items:center; justify-content:space-between;
     gap:16px; flex-wrap:wrap;}
   .brand{display:flex; align-items:center; gap:14px; min-width:0;}
-  .crest{width:46px; height:46px; flex:none; filter:drop-shadow(0 6px 16px rgba(74,123,240,.5));}
+  .crest{width:46px; height:46px; flex:none; filter:drop-shadow(0 6px 16px rgba(var(--star2-rgb),.5));}
+  /* the starball mark is the Champions League's alone; everything else gets the neutral mark */
+  html[data-comp="ucl"] .crest.neutral, html:not([data-comp="ucl"]) .crest.starball{display:none;}
+
+  /* ---- competition tabs ---- */
+  .comptabs{display:flex; gap:4px; padding:4px; border-radius:12px; background:var(--panel);
+    border:1px solid var(--line);}
+  .comptabs:empty{display:none;}
+  .comptab{font-family:var(--f-ui); font-weight:700; font-size:13px; color:var(--muted);
+    background:none; border:none; padding:7px 14px; border-radius:9px; cursor:pointer;
+    display:flex; align-items:center; gap:8px; white-space:nowrap; transition:.18s;}
+  .comptab:hover{color:var(--ink);}
+  .comptab:focus-visible{outline:2px solid var(--star); outline-offset:1px;}
+  .comptab.on{background:var(--panel2); color:var(--ink); box-shadow:inset 0 -2px 0 var(--star);}
+  .comptab .abbr{display:none;}
+  .comptab b{font-family:var(--f-mono); font-size:11px; font-weight:700; color:var(--star);}
 
   /* ---- club crests: generated colour badges, not real club emblems ---- */
   .crestbadge{width:28px; height:28px; flex:none; vertical-align:middle; overflow:visible;}
@@ -66,8 +88,8 @@
     padding:5px 12px; border-radius:999px;}
   .livepill b{color:var(--star);}
   .dot{width:7px; height:7px; border-radius:50%; background:var(--star);
-    box-shadow:0 0 0 0 rgba(157,188,255,.6); animation:pulse 2.4s infinite;}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(157,188,255,.55)}70%{box-shadow:0 0 0 8px rgba(157,188,255,0)}100%{box-shadow:0 0 0 0 rgba(157,188,255,0)}}
+    box-shadow:0 0 0 0 rgba(var(--star-rgb),.6); animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(var(--star-rgb),.55)}70%{box-shadow:0 0 0 8px rgba(var(--star-rgb),0)}100%{box-shadow:0 0 0 0 rgba(var(--star-rgb),0)}}
 
   /* ---- stat ribbon ---- */
   .ribbon{display:flex; flex-wrap:wrap; margin:22px 0 12px; border:1px solid var(--line);
@@ -93,7 +115,7 @@
     color:var(--muted); display:flex; align-items:center; gap:7px;}
   .sp .spv{font-size:33px; font-weight:800; letter-spacing:-1px; line-height:1.15;}
   .sp .spm{font-family:var(--f-mono); font-size:11px; color:var(--faint);}
-  .sp.deep{border-color:rgba(157,188,255,.42);}
+  .sp.deep{border-color:rgba(var(--star-rgb),.42);}
   .sp.deep .spv{color:var(--star);}
   .sp.quick .spv{color:var(--silver);}
   .sp.edge .spv.up{color:var(--win);} .sp.edge .spv.down{color:var(--loss);}
@@ -104,7 +126,7 @@
   .out{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px 16px;
     display:flex; flex-direction:column; gap:7px; position:relative; overflow:hidden;}
   .out::before{content:""; position:absolute; inset:0 0 auto 0; height:1px;
-    background:linear-gradient(90deg,transparent,rgba(157,188,255,.5),transparent);}
+    background:linear-gradient(90deg,transparent,rgba(var(--star-rgb),.5),transparent);}
   .out .ok{font-family:var(--f-mono); font-size:10px; letter-spacing:1.4px; text-transform:uppercase;
     color:var(--muted);}
   .out .op{font-size:21px; font-weight:800; letter-spacing:-.3px; line-height:1.15;}
@@ -132,7 +154,7 @@
   .sectools{display:flex; align-items:center; gap:18px;}
   .toolbtn{font-family:var(--f-mono); font-size:12px; color:var(--muted); cursor:pointer;
     border-bottom:1px dashed transparent; transition:.15s; white-space:nowrap;}
-  .toolbtn:hover{color:var(--star); border-color:rgba(157,188,255,.45);}
+  .toolbtn:hover{color:var(--star); border-color:rgba(var(--star-rgb),.45);}
 
   /* ---- matchday rail ---- */
   .rail{display:flex; gap:8px; overflow-x:auto; padding:3px 2px 11px; margin:0 -2px;
@@ -143,7 +165,7 @@
     border-radius:11px; padding:8px 13px; display:flex; flex-direction:column; gap:2px;
     transition:.16s; min-width:78px;}
   .mdchip:hover{border-color:var(--star2); transform:translateY(-2px);}
-  .mdchip.on{border-color:var(--star); background:linear-gradient(180deg,rgba(74,123,240,.22),var(--panel));}
+  .mdchip.on{border-color:var(--star); background:linear-gradient(180deg,rgba(var(--star2-rgb),.22),var(--panel));}
   .mdchip .cl{font-size:13px; font-weight:800; letter-spacing:.2px; white-space:nowrap;}
   .mdchip .cs{font-family:var(--f-mono); font-size:9.5px; color:var(--muted); white-space:nowrap;}
   .mdchip.on .cs{color:var(--star);}
@@ -154,7 +176,7 @@
   .mdsec>summary{list-style:none; cursor:pointer; padding:14px 18px; display:flex;
     align-items:center; gap:13px; flex-wrap:wrap;}
   .mdsec>summary::-webkit-details-marker{display:none;}
-  .mdsec>summary:hover{background:rgba(157,188,255,.04);}
+  .mdsec>summary:hover{background:rgba(var(--star-rgb),.04);}
   .mdsec>summary:focus-visible{outline:2px solid var(--star); outline-offset:-3px;}
   .mdsec .mdname{font-size:18px; font-weight:800; letter-spacing:-.2px;}
   .mdsec .mdsub{font-family:var(--f-mono); font-size:11px; color:var(--muted);}
@@ -177,7 +199,7 @@
   @keyframes rise{to{opacity:1; transform:none;}}
   .sb{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px;
     padding:18px 20px 16px;
-    background:radial-gradient(130% 150% at 50% -50%, rgba(74,123,240,.16), transparent 62%);}
+    background:radial-gradient(130% 150% at 50% -50%, rgba(var(--star2-rgb),.16), transparent 62%);}
   .side{display:flex; flex-direction:column; gap:4px; min-width:0;}
   .side.away{align-items:flex-end; text-align:right;}
   .side .fl{font-size:26px; line-height:1;}
@@ -188,7 +210,7 @@
   .mid .fin{font-size:30px; font-weight:800; letter-spacing:-.5px;}
   .mid .kick{font-family:var(--f-mono); font-size:10px; color:var(--muted); white-space:nowrap;}
   .mdchipsm{font-family:var(--f-mono); font-size:9.5px; letter-spacing:1.2px; color:var(--star);
-    border:1px solid rgba(157,188,255,.32); border-radius:6px; padding:1px 7px; cursor:default;}
+    border:1px solid rgba(var(--star-rgb),.32); border-radius:6px; padding:1px 7px; cursor:default;}
 
   .callrow{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
     padding:11px 20px; background:var(--panel2); border-top:1px solid var(--line);
@@ -206,7 +228,7 @@
 
   .tag{font-family:var(--f-mono); font-size:9px; letter-spacing:1.4px; text-transform:uppercase;
     border-radius:5px; padding:2px 7px; white-space:nowrap;}
-  .tag.deep{color:var(--star); border:1px solid rgba(157,188,255,.4); background:rgba(74,123,240,.14);}
+  .tag.deep{color:var(--star); border:1px solid rgba(var(--star-rgb),.4); background:rgba(var(--star2-rgb),.14);}
   .tag.quick{color:var(--faint); border:1px solid var(--line2);}
 
   .body{padding:15px 20px 18px;}
@@ -292,8 +314,8 @@
   table.ltbl td.club .short{display:none; font-family:var(--f-mono); font-size:12.5px;}
   table.ltbl td.pts{font-weight:800; font-size:15px; padding-right:16px;}
   table.ltbl tr[data-t]{cursor:pointer; transition:.13s;}
-  table.ltbl tr[data-t]:hover td{background:rgba(157,188,255,.08);}
-  table.ltbl tr.b1 td{background:linear-gradient(90deg, rgba(74,123,240,.17), rgba(74,123,240,.03));}
+  table.ltbl tr[data-t]:hover td{background:rgba(var(--star-rgb),.08);}
+  table.ltbl tr.b1 td{background:linear-gradient(90deg, rgba(var(--star2-rgb),.17), rgba(var(--star2-rgb),.03));}
   table.ltbl tr.b1 td.rk{border-left-color:var(--star); color:var(--star);}
   table.ltbl tr.b2 td{background:rgba(255,255,255,.014);}
   table.ltbl tr.b2 td.rk{border-left-color:var(--line2);}
@@ -302,7 +324,7 @@
   table.ltbl tr.cut td{padding:0; background:none; border-bottom:none;}
   .cutline{display:flex; align-items:center; gap:11px; padding:9px 14px; flex-wrap:wrap;
     border-top:2px solid var(--star2); border-bottom:1px solid var(--line);
-    background:linear-gradient(90deg, rgba(74,123,240,.16), transparent);}
+    background:linear-gradient(90deg, rgba(var(--star2-rgb),.16), transparent);}
   .cutline.out{border-top:2px dashed rgba(255,111,142,.6);
     background:linear-gradient(90deg, rgba(255,111,142,.12), transparent);}
   .cutline .cw{font-family:var(--f-mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
@@ -315,7 +337,7 @@
   .focusbar .fname{font-size:17px; font-weight:800; letter-spacing:-.3px;}
   .focusbar .frec{font-family:var(--f-mono); font-size:11px; color:var(--muted);}
   .focusbar .fclear{margin-left:auto; font-family:var(--f-mono); font-size:11px; color:var(--star);
-    cursor:pointer; border-bottom:1px dashed rgba(157,188,255,.45);}
+    cursor:pointer; border-bottom:1px dashed rgba(var(--star-rgb),.45);}
 
   .empty{text-align:center; color:var(--muted); padding:56px 20px; border:1px dashed var(--line2);
     border-radius:17px; font-family:var(--f-mono); font-size:13px;}
@@ -369,6 +391,9 @@
     font-family:var(--f-mono); font-size:11px; color:var(--faint); line-height:1.7;}
 
   @media (max-width:760px){
+    .comptabs{order:3; width:100%;}
+    .comptab{flex:1; justify-content:center;}
+    .comptab .full{display:none;} .comptab .abbr{display:inline;}
     table.ltbl .opt{display:none;}
     table.ltbl td.club .full{display:none;}
     table.ltbl td.club .short{display:inline;}
@@ -391,7 +416,7 @@
 <body><div class="wrap">
   <header>
     <div class="brand">
-      <svg class="crest" viewBox="0 0 64 64" aria-hidden="true">
+      <svg class="crest starball" viewBox="0 0 64 64" aria-hidden="true">
         <defs>
           <radialGradient id="cg" cx="50%" cy="28%" r="78%">
             <stop offset="0" stop-color="#2b3f8f"/><stop offset="1" stop-color="#070b1c"/>
@@ -406,11 +431,20 @@
         <use href="#st" x="32" y="53"/><use href="#st" x="17.15" y="46.85"/>
         <use href="#st" x="11" y="32"/><use href="#st" x="17.15" y="17.15"/>
       </svg>
+      <!-- neutral mark: a plain dial in the active accent, deliberately not any competition's logo -->
+      <svg class="crest neutral" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="#0b0f22" style="stroke:var(--star2)" stroke-opacity=".7"/>
+        <circle cx="32" cy="32" r="21" fill="none" style="stroke:var(--star)" stroke-opacity=".35"
+          stroke-width="1.5" stroke-dasharray="3 4.33"/>
+        <circle cx="32" cy="32" r="11" fill="none" style="stroke:var(--star)" stroke-width="2.5"/>
+        <circle cx="32" cy="32" r="3.5" style="fill:var(--star)"/>
+      </svg>
       <div class="wordmark">
-        <div class="l1">UEFA Champions League 2026-27</div>
+        <div class="l1" id="wordmark">&#8203;</div>
         <div class="l2">Prediction Desk</div>
       </div>
     </div>
+    <nav class="comptabs" id="comptabs" role="tablist" aria-label="Competition"></nav>
     <div class="hgen">
       <span class="livepill"><span class="dot"></span>HIT RATE <b id="hr">&#8212;</b></span>
       <span id="gen"></span>
@@ -450,15 +484,18 @@
   </footer>
 </div>
 <script>
-const DATA = {"generated_at": "2026-09-09 11:17 UTC", "days": [{"date": "2026-09-08", "matchday": "MD1", "predictions": [{"home_team": "AEK Athens", "away_team": "LASK", "commence_time": "2026-09-08T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.5514, "draw": 0.2368, "away": 0.2117}, "rationale": "Market-derived pick, no dedicated research this round; AEK priced at 55% to beat LASK at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "1-0", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "Club Brugge", "away_team": "Aston Villa", "commence_time": "2026-09-08T16:45:00Z", "depth": "deep", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.3798, "draw": 0.268, "away": 0.3522}, "rationale": "The market is nearly three-way here (38/27/35) with Brugge only marginally ahead, so this started as a low-conviction lean. The research pushes the same way: Brugge are close to full strength (only Joel Ordonez out), have won four of their last five Pro League games and have lost just three of their last 22 European matches at Jan Breydel, while Aston Villa are goalless in three Premier League games, missing Madjo, Manzambi and Onana, and lost 1-0 on their previous visit to this ground. Pick and scoreline stay as the market had them, but confidence goes up a notch — a 1-0 fits a Villa side that has not scored domestically all season.", "sources": [{"title": "Club Brugge vs Aston Villa preview and prediction — The Hard Tackle", "url": "https://thehardtackle.com/round-up/2026/09/07/club-brugge-vs-aston-villa-preview-and-prediction-3/"}, {"title": "Club Brugge vs Aston Villa match preview and team news — The Football Faithful", "url": "https://thefootballfaithful.com/club-brugge-vs-aston-villa-match-preview-and-team-news-2/"}, {"title": "Emery's Mbaye call: predicted Aston Villa Champions League lineup vs Club Brugge — Sports Mole", "url": "https://www.sportsmole.co.uk/football/aston-villa/champions-league/predicted-lineups/emerys-mbaye-call-predicted-aston-villa-champions-league-lineup-vsclub-brugge_604576.html"}], "matchday": "MD1", "actual": {"final_score": "2-3", "result": "away", "pick_hit": false, "score_hit": false}}, {"home_team": "Borussia Dortmund", "away_team": "Villarreal", "commence_time": "2026-09-08T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 3, "market": {"home": 0.5316, "draw": 0.2368, "away": 0.2316}, "rationale": "Market-derived pick, no dedicated research this round; Dortmund priced at 53% to beat Villarreal at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "3-2", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "Real Madrid", "away_team": "Inter Milan", "commence_time": "2026-09-08T19:00:00Z", "depth": "deep", "pick": "home", "scoreline": "2-1", "confidence": 3, "market": {"home": 0.6008, "draw": 0.2143, "away": 0.185}, "rationale": "Madrid are priced at 60% at home, and this is the one deep card where the research is a genuine headwind rather than a confirmation. They are without seven — Camavinga, Guler and Bernardo Silva suspended, Militao, Rodrygo, Mendy and Asencio injured, with Tchouameni a late fitness call — leaving a gutted midfield, and they arrive off a 1-0 home defeat to Betis; Inter are unbeaten in Serie A with only Dimarco confirmed out. That is not enough to flip a 60% line against a side still starting Mbappe and Vinicius, so the home pick and the narrow 2-1 stand, but confidence drops a notch on the view that the price embeds squad depth Madrid do not currently have.", "disagreement": "Betting previews frame this as an open game rather than a home banker, with one flagging it as Inter's best upset chance of the round given Madrid's midfield absences — a lean against the market's 60%, though no outlet surveyed actually picks Inter to win.", "sources": [{"title": "Real Madrid vs Inter: injury and suspension list, predicted XIs — Sports Mole", "url": "https://www.sportsmole.co.uk/football/real-madrid/champions-league/team-news/real-madrid-vs-inter-injury-suspension-list-predicted-xis_604592.html"}, {"title": "Real Betis beat Real Madrid — Football Espana", "url": "https://www.football-espana.net/2026/09/05/real-betis-beat-real-madrid"}, {"title": "Real Madrid vs Inter Milan predictions — Goal.com betting tips", "url": "https://www.goal.com/en/betting/tips/real-madrid-vs-inter-milan-predictions-08-09-2026/A%3Abltb96d091b252da555"}, {"title": "Real Madrid vs Inter Milan draw odds: what prediction markets say — Bettors Insider", "url": "https://bettorsinsider.com/prediction-markets/2026/09/08/real-madrid-vs-inter-milan-draw-odds-what-prediction-markets-say-about-a-champions-league-stalemate/"}], "matchday": "MD1", "actual": {"final_score": "2-1", "result": "home", "pick_hit": true, "score_hit": true}}, {"home_team": "Lille", "away_team": "Real Betis", "commence_time": "2026-09-08T19:00:00Z", "depth": "deep", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.4361, "draw": 0.2763, "away": 0.2876}, "rationale": "Lille lead a tight three-way market at 44/28/29, and the research mildly reinforces that lean rather than moving it. Betis travel without Diego Llorente (injury), Abde Ezzalzouli (illness) and Aitor Ruibal, with Pellegrini pointedly non-committal on Isco's minutes and rotation flagged for the trip, while Lille's infirmary is described as clear and Giroud has a goal and two assists in three games. Market-derived pick and scoreline stand unchanged; previews' under-2.5 and defensive-discipline angle supports the 1-0 rather than a wider margin.", "sources": [{"title": "Pellegrini ante el estreno del Betis en Champions contra el Lille — Sevilla Actualidad", "url": "https://www.sevillaactualidad.com/deportes/betis/598044-pellegrini-ante-el-estreno-del-betis-en-champions-contra-el-lille-valles-titular-abde-fuera-y-dudas-con-isco/"}, {"title": "Quelles equipes pour LOSC - Real Betis ? — Le Petit Lillois", "url": "https://lepetitlillois.com/2026/09/08/mbappe-onal-quelles-equipes-losc-real-betis/"}, {"title": "Lille vs Real Betis prediction, 08/09/2026 — Football Whispers", "url": "https://footballwhispers.com/blog/lille-vs-real-betis-prediction-08-09-2026/"}], "matchday": "MD1", "actual": {"final_score": "2-3", "result": "away", "pick_hit": false, "score_hit": false}}, {"home_team": "Porto", "away_team": "Manchester City", "commence_time": "2026-09-08T19:00:00Z", "depth": "quick", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.1911, "draw": 0.2352, "away": 0.5737}, "rationale": "Market-derived pick, no dedicated research this round; Manchester City priced at 57% to win away at Porto.", "sources": [], "matchday": "MD1", "actual": {"final_score": "0-2", "result": "away", "pick_hit": true, "score_hit": false}}, {"home_team": "Barcelona", "away_team": "Feyenoord", "commence_time": "2026-09-09T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.881, "draw": 0.0772, "away": 0.0418}, "rationale": "Market-derived pick, no dedicated research this round; Barcelona priced at 88% to beat Feyenoord at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "VfB Stuttgart", "away_team": "Viking FK", "commence_time": "2026-09-09T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 5, "market": {"home": 0.7736, "draw": 0.1362, "away": 0.0901}, "rationale": "Market-derived pick, no dedicated research this round; Stuttgart priced at 77% to beat Viking FK at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Napoli", "away_team": "Arsenal", "commence_time": "2026-09-09T19:00:00Z", "depth": "deep", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.1936, "draw": 0.2564, "away": 0.5501}, "rationale": "Arsenal are a 55% away favourite and the research says that price is earned rather than an overreaction to reputation. Napoli lose Scott McTominay to a confirmed heart procedure on top of Buongiorno, Marianucci and Giovane, and arrive on back-to-back Serie A defeats, while Arsenal have won their opening three league games plus the Community Shield with a settled front four and no rotation signal — Saliba's back injury the one real blow. Away pick and the 1-2 both stand; if anything the market looks slightly conservative, but not enough to raise the margin.", "sources": [{"title": "Napoli XI vs Arsenal confirmed — Yahoo Sports", "url": "https://uk.sports.yahoo.com/news/napoli-xi-vs-arsenal-confirmed-100557834.html"}, {"title": "Napoli, intervento per McTominay — FC Inter 1908", "url": "https://www.fcinter1908.it/news/infortuni/napoli-intervento-mctominay-salta-inter/"}, {"title": "Napoli v Arsenal prediction and preview — Football365", "url": "https://www.football365.com/match-preview/napoli-v-arsenal-prediction-preview"}, {"title": "Napoli vs Arsenal prediction and Champions League tips — William Hill News", "url": "https://news.williamhill.com/football/napoli-vs-arsenal-prediction-champions-league-tips-2026/"}], "matchday": "MD1", "actual": null}, {"home_team": "Liverpool", "away_team": "Atlético Madrid", "commence_time": "2026-09-09T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.5585, "draw": 0.2357, "away": 0.2058}, "rationale": "Market-derived pick, no dedicated research this round; Liverpool priced at 56% to beat Atlético Madrid at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Sporting Lisbon", "away_team": "Galatasaray", "commence_time": "2026-09-09T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.5203, "draw": 0.2463, "away": 0.2334}, "rationale": "Market-derived pick, no dedicated research this round; Sporting priced at 52% to beat Galatasaray at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Paris Saint Germain", "away_team": "ŠK Slovan Bratislava", "commence_time": "2026-09-09T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.9214, "draw": 0.0547, "away": 0.024}, "rationale": "Market-derived pick, no dedicated research this round; PSG priced at 92% to beat Slovan Bratislava at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Fenerbahce", "away_team": "AS Roma", "commence_time": "2026-09-10T16:45:00Z", "depth": "deep", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.2889, "draw": 0.2734, "away": 0.4378}, "rationale": "The market makes Roma a 44% away favourite inside an otherwise tight line, and the team news pushes the same direction. Fenerbahce are reshuffling four regular starters — Semedo, İrfan Can Kahveci, Oğuz Aydın and target man Vedat Muriqi dropped in reaction to a derby defeat — while Gasperini makes a single change (Molina in at right-back) and fields Dybala alongside an in-form Malen with, in Gazzetta's words, no force conservation. Pick and scoreline unchanged from the market read, but confidence rises: disrupted hosts against a settled, six-match-winning visitor is agreement, not a new angle.", "disagreement": "Tipsters are split rather than aligned: one camp lands on 1-1, citing Fenerbahce's home crowd against an organised Roma. No source surveyed backs a Fenerbahce win.", "sources": [{"title": "Fenerbahçe'de Roma maçında 4 isim yedekte, kadro değişiyor — Timeturk", "url": "https://www.timeturk.com/fbahcede-roma-macinda-4-isim-yedekte-kadro-degisiyor"}, {"title": "Gasperini a Istanbul non cambia: all'assalto con Malen e tutti i big — ForzaRoma / Gazzetta dello Sport", "url": "https://www.forzaroma.info/rassegna-stampa/la-gazzetta-dello-sport/gasperini-a-istanbul-non-cambia-allassalto-con-malen-e-tutti-i-big/"}, {"title": "Fenerbahce vs Roma preview — Khel Now", "url": "https://khelnow.com/football/fenerbahce-vs-roma-preview-champions-league-202609"}, {"title": "Fenerbahce vs Roma tips — FreeTips", "url": "https://www.freetips.com/football/uefa-champions-league/fenerbahce-vs-roma-tips-20260908-0029/"}], "matchday": "MD1", "actual": null}, {"home_team": "PSV Eindhoven", "away_team": "Shakhtar Donetsk", "commence_time": "2026-09-10T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.6676, "draw": 0.1885, "away": 0.1439}, "rationale": "Market-derived pick, no dedicated research this round; PSV priced at 67% to beat Shakhtar Donetsk at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Bayern Munich", "away_team": "Bodø/Glimt", "commence_time": "2026-09-10T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.8642, "draw": 0.0843, "away": 0.0515}, "rationale": "Market-derived pick, no dedicated research this round; Bayern priced at 86% to beat Bodø/Glimt at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Como", "away_team": "RB Leipzig", "commence_time": "2026-09-10T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.5164, "draw": 0.2427, "away": 0.2408}, "rationale": "Market-derived pick, no dedicated research this round; Como priced at 52% to beat RB Leipzig at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Manchester United", "away_team": "Sabah FK", "commence_time": "2026-09-10T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.8508, "draw": 0.1054, "away": 0.0438}, "rationale": "Market-derived pick, no dedicated research this round; Manchester United priced at 85% to beat Sabah FK at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Slavia Praha", "away_team": "RC Lens", "commence_time": "2026-09-10T19:00:00Z", "depth": "deep", "pick": "home", "scoreline": "1-0", "confidence": 2, "market": {"home": 0.3741, "draw": 0.2748, "away": 0.3511}, "rationale": "The tightest line on the card at 37/27/35 — the market sees a genuine three-way coin flip, and nothing in the research earns a deviation from it. Slavia are down to their third goalkeeper, with Staněk, Kolář, Ogbu and Holeš all out and Markovič the only keeper available, but Lens travel without six squad players of their own, have an unsettled XI three days out and have lost two straight domestically after their opening win. Team news cancels out and the tipster sample splits three ways, so the market-derived home pick and narrow 1-0 stay put with confidence at its floor.", "sources": [{"title": "LDC : la liste du Slavia Prague publiée — Lensois.com", "url": "https://www.lensois.com/ldc-la-liste-du-slavia-prague-publiee-avec-un-ex-de-la-gaillette-et-une-ancienne-piste-du-rc-lens/"}, {"title": "Deux défaites, un nouveau Lens : le RC Lens retrouve la Ligue des Champions à Prague — Allez Lens", "url": "https://allezlens.fr/deux-defaites-un-nouveau-lens-le-rc-lens-retrouve-la-ligue-des-champions-a-prague/"}, {"title": "Champions League moneyline picks, Matchday 1 — Covers", "url": "https://www.covers.com/soccer/champions-league-moneyline-picks-matchday-1-2026"}], "matchday": "MD1", "actual": null}]}], "summary": {"graded": 6, "correct": 4, "hit_rate": 67, "exact": 1, "conf_right": 3.5, "conf_wrong": 3.0, "depth": {"deep": {"graded": 3, "correct": 1, "exact": 1, "hit_rate": 33}, "quick": {"graded": 3, "correct": 3, "exact": 0, "hit_rate": 100}}, "depth_edge": -67}, "outrights": {"lock_deadline": "2026-09-08T16:45:00Z", "generated_at": "2026-09-08", "markets": [{"key": "winner", "question": "Champions League winner", "pick": "Paris Saint Germain", "confidence": 3, "note": "Market favorite: DraftKings has PSG at +500 (captured 31 Aug 2026), clear of a four-way knot at +600 (Bayern Munich, Barcelona, Arsenal) and Real Madrid at +650. PSG are the two-time defending champion and the shortest price on the board, so this is a straight market read rather than a hunch. Worth flagging the market and the leading model disagree here: Opta's supercomputer (10,000 simulations) has Arsenal top at 20.9% and Bayern second at 19.4%, with PSG only fifth at 7.1% behind Man City too — the model thinks the market is overrating a two-time-in-a-row winner's chances of a three-peat. Going with the market as the system's default; confidence held to 3 (not higher) precisely because of that disagreement.", "alternatives": ["Bayern Munich (+600)", "Barcelona (+600)", "Arsenal (+600)", "Real Madrid (+650)", "Manchester City (+900)"], "result": null}, {"key": "top_8", "question": "Top 8 (direct to round of 16)", "picks": ["Paris Saint Germain", "Bayern Munich", "Barcelona", "Arsenal", "Real Madrid", "Manchester City", "Liverpool", "Manchester United"], "confidence": 3, "note": "The eight shortest-priced clubs on the DraftKings winner market (PSG +500 through Manchester United +2000), used as a proxy for overall squad strength across the 8-game league phase. Opta's model broadly agrees on the top of this list (Man City given 86.9% to reach the last 16, Arsenal 93.8% to progress) but rates Liverpool's chances of a deep run higher than the market does and is cooler on Manchester United; kept United in on market pricing since a top-8 pick set is inherently noisy across 36 teams and 8 slots.", "result": null}, {"key": "top_scorer", "question": "Champions League top scorer", "pick": "Kylian Mbappé (Real Madrid)", "confidence": 3, "note": "Consensus favorite across books: BetJets has him at 4.50, bet365 at 7/2, both clear of Harry Kane (8.00 / 7/1) and Erling Haaland (9.00). Mbappé is the reigning Champions League top scorer, having scored 15 in 11 appearances last season including a competition-record 13 in the league phase alone, so the market price matches recent, repeated form rather than reputation alone.", "alternatives": ["Harry Kane (8.00)", "Erling Haaland (9.00)"], "result": null}, {"key": "finalists", "question": "The two finalists", "picks": ["Paris Saint Germain", "Arsenal"], "confidence": 2, "note": "PSG as the outright market favorite (+500) is the straightforward pick. For the second finalist, going with Arsenal over the co-priced Bayern Munich/Barcelona (all +600): Arsenal is Opta's single highest-rated team to win the whole thing (20.9%, ahead of Bayern's 19.4%), which as a proxy suggests the model likes their route to the final specifically, not just their overall squad. Confidence is low (2) because picking 2 exact finalists from a 36-team field eight-plus months out is inherently a low-hit-rate market regardless of read quality.", "result": null}, {"key": "semi_finalists", "question": "The four semi-finalists", "picks": ["Arsenal", "Bayern Munich", "Paris Saint Germain", "Barcelona"], "confidence": 2, "note": "Arsenal, Bayern Munich, Paris Saint Germain and Barcelona are the four highest-rated clubs on a blend of the DraftKings winner board, Kalshi implied probabilities and Opta's 10,000-simulation model. Arsenal is the one pick all three sources agree on: DraftKings +600, Kalshi 20%, and Opta's outright leader at 20.9%. PSG and Barcelona are market-led picks the leading model actively dislikes — Opta has PSG only fifth at 7.1% despite PSG being the +500 outright favourite, and Barcelona at 8.2% — taken here on market-first doctrine rather than model conviction, with Manchester City (Opta 12.3%) and Real Madrid (the biggest market/model divergence: Kalshi 16% vs Opta 4.4%) named as the live alternatives. Honesty note: this is a low-hit-rate market — each pick is roughly a 40% shot to reach the semis, so the realistic expectation is about 1.6 of 4 correct, and all four landing together is only a ~3% event.", "alternatives": ["Manchester City (+900, Opta 12.3%)", "Real Madrid (+650, Opta 4.4%)", "Liverpool (+1200)"], "result": null}, {"key": "dark_horse", "question": "Dark horse — a club outside the favourites that over-performs", "pick": "Napoli", "confidence": 2, "note": "Napoli sit well outside the market's outright top tier (not among the DraftKings top 11 favorites found in research) despite entering as reigning Serie A champions with a squad built for a deep continental run. Uncertainty flagged: this pick is a qualitative read on squad quality relative to price rather than a specific researched outright quote for Napoli, since the sources checked did not surface their exact winner odds.", "result": null}]}, "table": {"provisional": false, "as_of": "2026-09-09", "matchdays_played": 0, "rows": [{"rank": 1, "team": "Manchester City", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 2, "ga": 0, "gd": 2, "points": 3}, {"rank": 2, "team": "Aston Villa", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 3, "ga": 2, "gd": 1, "points": 3}, {"rank": 3, "team": "Borussia Dortmund", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 3, "ga": 2, "gd": 1, "points": 3}, {"rank": 4, "team": "Real Betis", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 3, "ga": 2, "gd": 1, "points": 3}, {"rank": 5, "team": "Real Madrid", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 2, "ga": 1, "gd": 1, "points": 3}, {"rank": 6, "team": "AEK Athens", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 1, "ga": 0, "gd": 1, "points": 3}, {"rank": 7, "team": "Arsenal", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 8, "team": "AS Roma", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 9, "team": "Atlético Madrid", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 10, "team": "Barcelona", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 11, "team": "Bayern Munich", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 12, "team": "Bodø/Glimt", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 13, "team": "Como", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 14, "team": "Fenerbahce", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 15, "team": "Feyenoord", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 16, "team": "Galatasaray", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 17, "team": "Liverpool", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 18, "team": "Manchester United", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 19, "team": "Napoli", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 20, "team": "Paris Saint Germain", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 21, "team": "PSV Eindhoven", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 22, "team": "RB Leipzig", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 23, "team": "RC Lens", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 24, "team": "Sabah FK", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 25, "team": "Shakhtar Donetsk", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 26, "team": "ŠK Slovan Bratislava", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 27, "team": "Slavia Praha", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 28, "team": "Sporting Lisbon", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 29, "team": "VfB Stuttgart", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 30, "team": "Viking FK", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": 31, "team": "Club Brugge", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 2, "ga": 3, "gd": -1, "points": 0}, {"rank": 32, "team": "Lille", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 2, "ga": 3, "gd": -1, "points": 0}, {"rank": 33, "team": "Villarreal", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 2, "ga": 3, "gd": -1, "points": 0}, {"rank": 34, "team": "Inter Milan", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 1, "ga": 2, "gd": -1, "points": 0}, {"rank": 35, "team": "LASK", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 0, "ga": 1, "gd": -1, "points": 0}, {"rank": 36, "team": "Porto", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 0, "ga": 2, "gd": -2, "points": 0}], "note": null}, "teams": {"AEK Athens": ["AEK", "🇬🇷", "GRE", ["#FFDD00", "#000000"], "stripes"], "AS Roma": ["ROM", "🇮🇹", "ITA", ["#8E1F2F", "#F0BC42"], "solid"], "Arsenal": ["ARS", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#EF0107", "#FFFFFF"], "solid"], "Aston Villa": ["AVL", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#670E36", "#95BFE5"], "solid"], "Atlético Madrid": ["ATM", "🇪🇸", "ESP", ["#CB3524", "#FFFFFF"], "stripes"], "Barcelona": ["BAR", "🇪🇸", "ESP", ["#004D98", "#A50044"], "stripes"], "Bayern Munich": ["BAY", "🇩🇪", "GER", ["#DC052D", "#FFFFFF"], "solid"], "Bodø/Glimt": ["BOD", "🇳🇴", "NOR", ["#FFD400", "#000000"], "solid"], "Borussia Dortmund": ["DOR", "🇩🇪", "GER", ["#FDE100", "#000000"], "solid"], "Club Brugge": ["BRU", "🇧🇪", "BEL", ["#0031A0", "#000000"], "stripes"], "Como": ["COM", "🇮🇹", "ITA", ["#003DA5", "#FFFFFF"], "solid"], "Fenerbahce": ["FEN", "🇹🇷", "TUR", ["#16214D", "#FFED02"], "stripes"], "Feyenoord": ["FEY", "🇳🇱", "NED", ["#C1272D", "#FFFFFF"], "halves"], "Galatasaray": ["GAL", "🇹🇷", "TUR", ["#A61E2F", "#FDB913"], "halves"], "Inter Milan": ["INT", "🇮🇹", "ITA", ["#0068A8", "#010101"], "stripes"], "LASK": ["LAS", "🇦🇹", "AUT", ["#000000", "#FFFFFF"], "stripes"], "Lille": ["LIL", "🇫🇷", "FRA", ["#DA291C", "#041E42"], "solid"], "Liverpool": ["LIV", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#C8102E", "#F6EB61"], "solid"], "Manchester City": ["MCI", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#6CABDD", "#1C2C5B"], "solid"], "Manchester United": ["MUN", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#DA291C", "#FFFFFF"], "solid"], "Napoli": ["NAP", "🇮🇹", "ITA", ["#12A0D7", "#FFFFFF"], "solid"], "PSV Eindhoven": ["PSV", "🇳🇱", "NED", ["#ED1C24", "#FFFFFF"], "stripes"], "Paris Saint Germain": ["PSG", "🇫🇷", "FRA", ["#002B5C", "#DA020E"], "stripes"], "Porto": ["POR", "🇵🇹", "POR", ["#003DA5", "#FFFFFF"], "stripes"], "RB Leipzig": ["RBL", "🇩🇪", "GER", ["#FFFFFF", "#E4022D"], "solid"], "RC Lens": ["LEN", "🇫🇷", "FRA", ["#C8102E", "#FFCD00"], "stripes"], "Real Betis": ["BET", "🇪🇸", "ESP", ["#00A650", "#FFFFFF"], "stripes"], "Real Madrid": ["RMA", "🇪🇸", "ESP", ["#FFFFFF", "#FEBE10"], "solid"], "Sabah FK": ["SAB", "🇦🇿", "AZE", ["#000000", "#E6007E"], "solid"], "Shakhtar Donetsk": ["SHK", "🇺🇦", "UKR", ["#FF6C00", "#000000"], "stripes"], "Slavia Praha": ["SLA", "🇨🇿", "CZE", ["#CE1126", "#FFFFFF"], "halves"], "Sporting Lisbon": ["SPO", "🇵🇹", "POR", ["#006A4D", "#FFFFFF"], "hoops"], "VfB Stuttgart": ["STU", "🇩🇪", "GER", ["#FFFFFF", "#E32219"], "solid"], "Viking FK": ["VIK", "🇳🇴", "NOR", ["#002F6C", "#FFFFFF"], "solid"], "Villarreal": ["VIL", "🇪🇸", "ESP", ["#FFE667", "#005187"], "solid"], "ŠK Slovan Bratislava": ["SLO", "🇸🇰", "SVK", ["#4FA8DC", "#001F5B"], "solid"]}, "postmortem": {"n": 6, "ours": {"pts": 12, "exact": 1, "gd": 3, "win": 4}, "baselines": [{"label": "2-1 every match", "pts": 10, "exact": 1, "gd": 3, "win": 3}, {"label": "1-0 every match", "pts": 10, "exact": 1, "gd": 3, "win": 3}, {"label": "2-0 every match", "pts": 6, "exact": 0, "gd": 0, "win": 3}, {"label": "1-1 every match", "pts": 0, "exact": 0, "gd": 0, "win": 0}], "followed": 6, "blind_fav": 4, "deviations": [], "dev_hits": 0, "draws_actual": 0, "draws_picked": 0, "draws_hit": 0}};
-const TEAMS = DATA.teams || {};
+const DATA = {"generated_at": "2026-09-15 08:54 UTC", "season": "2026-27", "order": ["ucl", "uel"], "comps": {"ucl": {"name": "UEFA Champions League", "short": "UCL", "final": {"date": "2027-06-05", "venue": "Estadio Metropolitano, Madrid"}, "rounds": [{"id": "MD1", "dates": ["2026-09-08", "2026-09-09", "2026-09-10"], "name": "Matchday 1"}, {"id": "MD2", "dates": ["2026-10-13", "2026-10-14"], "name": "Matchday 2"}, {"id": "MD3", "dates": ["2026-10-20", "2026-10-21"], "name": "Matchday 3"}, {"id": "MD4", "dates": ["2026-11-03", "2026-11-04"], "name": "Matchday 4"}, {"id": "MD5", "dates": ["2026-11-24", "2026-11-25"], "name": "Matchday 5"}, {"id": "MD6", "dates": ["2026-12-08", "2026-12-09"], "name": "Matchday 6"}, {"id": "MD7", "dates": ["2027-01-19", "2027-01-20"], "name": "Matchday 7"}, {"id": "MD8", "dates": ["2027-01-27"], "name": "Matchday 8"}, {"id": "PO", "dates": ["2027-02-16", "2027-02-17", "2027-02-23", "2027-02-24"], "name": "Knockout play-offs"}, {"id": "R16", "dates": ["2027-03-09", "2027-03-10", "2027-03-16", "2027-03-17"], "name": "Round of 16"}, {"id": "QF", "dates": ["2027-04-06", "2027-04-07", "2027-04-13", "2027-04-14"], "name": "Quarter-finals"}, {"id": "SF", "dates": ["2027-04-27", "2027-04-28", "2027-05-04", "2027-05-05"], "name": "Semi-finals"}, {"id": "F", "dates": ["2027-06-05"], "name": "Final"}], "days": [{"date": "2026-09-08", "matchday": "MD1", "predictions": [{"home_team": "AEK Athens", "away_team": "LASK", "commence_time": "2026-09-08T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.5514, "draw": 0.2368, "away": 0.2117}, "rationale": "Market-derived pick, no dedicated research this round; AEK priced at 55% to beat LASK at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "1-0", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "Club Brugge", "away_team": "Aston Villa", "commence_time": "2026-09-08T16:45:00Z", "depth": "deep", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.3798, "draw": 0.268, "away": 0.3522}, "rationale": "The market is nearly three-way here (38/27/35) with Brugge only marginally ahead, so this started as a low-conviction lean. The research pushes the same way: Brugge are close to full strength (only Joel Ordonez out), have won four of their last five Pro League games and have lost just three of their last 22 European matches at Jan Breydel, while Aston Villa are goalless in three Premier League games, missing Madjo, Manzambi and Onana, and lost 1-0 on their previous visit to this ground. Pick and scoreline stay as the market had them, but confidence goes up a notch — a 1-0 fits a Villa side that has not scored domestically all season.", "sources": [{"title": "Club Brugge vs Aston Villa preview and prediction — The Hard Tackle", "url": "https://thehardtackle.com/round-up/2026/09/07/club-brugge-vs-aston-villa-preview-and-prediction-3/"}, {"title": "Club Brugge vs Aston Villa match preview and team news — The Football Faithful", "url": "https://thefootballfaithful.com/club-brugge-vs-aston-villa-match-preview-and-team-news-2/"}, {"title": "Emery's Mbaye call: predicted Aston Villa Champions League lineup vs Club Brugge — Sports Mole", "url": "https://www.sportsmole.co.uk/football/aston-villa/champions-league/predicted-lineups/emerys-mbaye-call-predicted-aston-villa-champions-league-lineup-vsclub-brugge_604576.html"}], "matchday": "MD1", "actual": {"final_score": "2-3", "result": "away", "pick_hit": false, "score_hit": false}}, {"home_team": "Borussia Dortmund", "away_team": "Villarreal", "commence_time": "2026-09-08T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 3, "market": {"home": 0.5316, "draw": 0.2368, "away": 0.2316}, "rationale": "Market-derived pick, no dedicated research this round; Dortmund priced at 53% to beat Villarreal at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "3-2", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "Real Madrid", "away_team": "Inter Milan", "commence_time": "2026-09-08T19:00:00Z", "depth": "deep", "pick": "home", "scoreline": "2-1", "confidence": 3, "market": {"home": 0.6008, "draw": 0.2143, "away": 0.185}, "rationale": "Madrid are priced at 60% at home, and this is the one deep card where the research is a genuine headwind rather than a confirmation. They are without seven — Camavinga, Guler and Bernardo Silva suspended, Militao, Rodrygo, Mendy and Asencio injured, with Tchouameni a late fitness call — leaving a gutted midfield, and they arrive off a 1-0 home defeat to Betis; Inter are unbeaten in Serie A with only Dimarco confirmed out. That is not enough to flip a 60% line against a side still starting Mbappe and Vinicius, so the home pick and the narrow 2-1 stand, but confidence drops a notch on the view that the price embeds squad depth Madrid do not currently have.", "disagreement": "Betting previews frame this as an open game rather than a home banker, with one flagging it as Inter's best upset chance of the round given Madrid's midfield absences — a lean against the market's 60%, though no outlet surveyed actually picks Inter to win.", "sources": [{"title": "Real Madrid vs Inter: injury and suspension list, predicted XIs — Sports Mole", "url": "https://www.sportsmole.co.uk/football/real-madrid/champions-league/team-news/real-madrid-vs-inter-injury-suspension-list-predicted-xis_604592.html"}, {"title": "Real Betis beat Real Madrid — Football Espana", "url": "https://www.football-espana.net/2026/09/05/real-betis-beat-real-madrid"}, {"title": "Real Madrid vs Inter Milan predictions — Goal.com betting tips", "url": "https://www.goal.com/en/betting/tips/real-madrid-vs-inter-milan-predictions-08-09-2026/A%3Abltb96d091b252da555"}, {"title": "Real Madrid vs Inter Milan draw odds: what prediction markets say — Bettors Insider", "url": "https://bettorsinsider.com/prediction-markets/2026/09/08/real-madrid-vs-inter-milan-draw-odds-what-prediction-markets-say-about-a-champions-league-stalemate/"}], "matchday": "MD1", "actual": {"final_score": "2-1", "result": "home", "pick_hit": true, "score_hit": true}}, {"home_team": "Lille", "away_team": "Real Betis", "commence_time": "2026-09-08T19:00:00Z", "depth": "deep", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.4361, "draw": 0.2763, "away": 0.2876}, "rationale": "Lille lead a tight three-way market at 44/28/29, and the research mildly reinforces that lean rather than moving it. Betis travel without Diego Llorente (injury), Abde Ezzalzouli (illness) and Aitor Ruibal, with Pellegrini pointedly non-committal on Isco's minutes and rotation flagged for the trip, while Lille's infirmary is described as clear and Giroud has a goal and two assists in three games. Market-derived pick and scoreline stand unchanged; previews' under-2.5 and defensive-discipline angle supports the 1-0 rather than a wider margin.", "sources": [{"title": "Pellegrini ante el estreno del Betis en Champions contra el Lille — Sevilla Actualidad", "url": "https://www.sevillaactualidad.com/deportes/betis/598044-pellegrini-ante-el-estreno-del-betis-en-champions-contra-el-lille-valles-titular-abde-fuera-y-dudas-con-isco/"}, {"title": "Quelles equipes pour LOSC - Real Betis ? — Le Petit Lillois", "url": "https://lepetitlillois.com/2026/09/08/mbappe-onal-quelles-equipes-losc-real-betis/"}, {"title": "Lille vs Real Betis prediction, 08/09/2026 — Football Whispers", "url": "https://footballwhispers.com/blog/lille-vs-real-betis-prediction-08-09-2026/"}], "matchday": "MD1", "actual": {"final_score": "2-3", "result": "away", "pick_hit": false, "score_hit": false}}, {"home_team": "Porto", "away_team": "Manchester City", "commence_time": "2026-09-08T19:00:00Z", "depth": "quick", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.1911, "draw": 0.2352, "away": 0.5737}, "rationale": "Market-derived pick, no dedicated research this round; Manchester City priced at 57% to win away at Porto.", "sources": [], "matchday": "MD1", "actual": {"final_score": "0-2", "result": "away", "pick_hit": true, "score_hit": false}}, {"home_team": "Barcelona", "away_team": "Feyenoord", "commence_time": "2026-09-09T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.881, "draw": 0.0772, "away": 0.0418}, "rationale": "Market-derived pick, no dedicated research this round; Barcelona priced at 88% to beat Feyenoord at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "5-1", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "VfB Stuttgart", "away_team": "Viking FK", "commence_time": "2026-09-09T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 5, "market": {"home": 0.7736, "draw": 0.1362, "away": 0.0901}, "rationale": "Market-derived pick, no dedicated research this round; Stuttgart priced at 77% to beat Viking FK at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "3-1", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "Napoli", "away_team": "Arsenal", "commence_time": "2026-09-09T19:00:00Z", "depth": "deep", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.1936, "draw": 0.2564, "away": 0.5501}, "rationale": "Arsenal are a 55% away favourite and the research says that price is earned rather than an overreaction to reputation. Napoli lose Scott McTominay to a confirmed heart procedure on top of Buongiorno, Marianucci and Giovane, and arrive on back-to-back Serie A defeats, while Arsenal have won their opening three league games plus the Community Shield with a settled front four and no rotation signal — Saliba's back injury the one real blow. Away pick and the 1-2 both stand; if anything the market looks slightly conservative, but not enough to raise the margin.", "sources": [{"title": "Napoli XI vs Arsenal confirmed — Yahoo Sports", "url": "https://uk.sports.yahoo.com/news/napoli-xi-vs-arsenal-confirmed-100557834.html"}, {"title": "Napoli, intervento per McTominay — FC Inter 1908", "url": "https://www.fcinter1908.it/news/infortuni/napoli-intervento-mctominay-salta-inter/"}, {"title": "Napoli v Arsenal prediction and preview — Football365", "url": "https://www.football365.com/match-preview/napoli-v-arsenal-prediction-preview"}, {"title": "Napoli vs Arsenal prediction and Champions League tips — William Hill News", "url": "https://news.williamhill.com/football/napoli-vs-arsenal-prediction-champions-league-tips-2026/"}], "matchday": "MD1", "actual": {"final_score": "0-1", "result": "away", "pick_hit": true, "score_hit": false}}, {"home_team": "Liverpool", "away_team": "Atlético Madrid", "commence_time": "2026-09-09T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.5585, "draw": 0.2357, "away": 0.2058}, "rationale": "Market-derived pick, no dedicated research this round; Liverpool priced at 56% to beat Atlético Madrid at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "2-1", "result": "home", "pick_hit": true, "score_hit": true}}, {"home_team": "Sporting Lisbon", "away_team": "Galatasaray", "commence_time": "2026-09-09T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.5203, "draw": 0.2463, "away": 0.2334}, "rationale": "Market-derived pick, no dedicated research this round; Sporting priced at 52% to beat Galatasaray at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "3-1", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "Paris Saint Germain", "away_team": "ŠK Slovan Bratislava", "commence_time": "2026-09-09T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.9214, "draw": 0.0547, "away": 0.024}, "rationale": "Market-derived pick, no dedicated research this round; PSG priced at 92% to beat Slovan Bratislava at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "6-1", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "Fenerbahce", "away_team": "AS Roma", "commence_time": "2026-09-10T16:45:00Z", "depth": "deep", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.2889, "draw": 0.2734, "away": 0.4378}, "rationale": "The market makes Roma a 44% away favourite inside an otherwise tight line, and the team news pushes the same direction. Fenerbahce are reshuffling four regular starters — Semedo, İrfan Can Kahveci, Oğuz Aydın and target man Vedat Muriqi dropped in reaction to a derby defeat — while Gasperini makes a single change (Molina in at right-back) and fields Dybala alongside an in-form Malen with, in Gazzetta's words, no force conservation. Pick and scoreline unchanged from the market read, but confidence rises: disrupted hosts against a settled, six-match-winning visitor is agreement, not a new angle.", "disagreement": "Tipsters are split rather than aligned: one camp lands on 1-1, citing Fenerbahce's home crowd against an organised Roma. No source surveyed backs a Fenerbahce win.", "sources": [{"title": "Fenerbahçe'de Roma maçında 4 isim yedekte, kadro değişiyor — Timeturk", "url": "https://www.timeturk.com/fbahcede-roma-macinda-4-isim-yedekte-kadro-degisiyor"}, {"title": "Gasperini a Istanbul non cambia: all'assalto con Malen e tutti i big — ForzaRoma / Gazzetta dello Sport", "url": "https://www.forzaroma.info/rassegna-stampa/la-gazzetta-dello-sport/gasperini-a-istanbul-non-cambia-allassalto-con-malen-e-tutti-i-big/"}, {"title": "Fenerbahce vs Roma preview — Khel Now", "url": "https://khelnow.com/football/fenerbahce-vs-roma-preview-champions-league-202609"}, {"title": "Fenerbahce vs Roma tips — FreeTips", "url": "https://www.freetips.com/football/uefa-champions-league/fenerbahce-vs-roma-tips-20260908-0029/"}], "matchday": "MD1", "actual": {"final_score": "1-1", "result": "draw", "pick_hit": false, "score_hit": false}}, {"home_team": "PSV Eindhoven", "away_team": "Shakhtar Donetsk", "commence_time": "2026-09-10T16:45:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.6676, "draw": 0.1885, "away": 0.1439}, "rationale": "Market-derived pick, no dedicated research this round; PSV priced at 67% to beat Shakhtar Donetsk at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "1-1", "result": "draw", "pick_hit": false, "score_hit": false}}, {"home_team": "Bayern Munich", "away_team": "Bodø/Glimt", "commence_time": "2026-09-10T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.8642, "draw": 0.0843, "away": 0.0515}, "rationale": "Market-derived pick, no dedicated research this round; Bayern priced at 86% to beat Bodø/Glimt at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "5-0", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "Como", "away_team": "RB Leipzig", "commence_time": "2026-09-10T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "1-0", "confidence": 3, "market": {"home": 0.5164, "draw": 0.2427, "away": 0.2408}, "rationale": "Market-derived pick, no dedicated research this round; Como priced at 52% to beat RB Leipzig at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "4-1", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "Manchester United", "away_team": "Sabah FK", "commence_time": "2026-09-10T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.8508, "draw": 0.1054, "away": 0.0438}, "rationale": "Market-derived pick, no dedicated research this round; Manchester United priced at 85% to beat Sabah FK at home.", "sources": [], "matchday": "MD1", "actual": {"final_score": "4-0", "result": "home", "pick_hit": true, "score_hit": false}}, {"home_team": "Slavia Praha", "away_team": "RC Lens", "commence_time": "2026-09-10T19:00:00Z", "depth": "deep", "pick": "home", "scoreline": "1-0", "confidence": 2, "market": {"home": 0.3741, "draw": 0.2748, "away": 0.3511}, "rationale": "The tightest line on the card at 37/27/35 — the market sees a genuine three-way coin flip, and nothing in the research earns a deviation from it. Slavia are down to their third goalkeeper, with Staněk, Kolář, Ogbu and Holeš all out and Markovič the only keeper available, but Lens travel without six squad players of their own, have an unsettled XI three days out and have lost two straight domestically after their opening win. Team news cancels out and the tipster sample splits three ways, so the market-derived home pick and narrow 1-0 stay put with confidence at its floor.", "sources": [{"title": "LDC : la liste du Slavia Prague publiée — Lensois.com", "url": "https://www.lensois.com/ldc-la-liste-du-slavia-prague-publiee-avec-un-ex-de-la-gaillette-et-une-ancienne-piste-du-rc-lens/"}, {"title": "Deux défaites, un nouveau Lens : le RC Lens retrouve la Ligue des Champions à Prague — Allez Lens", "url": "https://allezlens.fr/deux-defaites-un-nouveau-lens-le-rc-lens-retrouve-la-ligue-des-champions-a-prague/"}, {"title": "Champions League moneyline picks, Matchday 1 — Covers", "url": "https://www.covers.com/soccer/champions-league-moneyline-picks-matchday-1-2026"}], "matchday": "MD1", "actual": {"final_score": "2-3", "result": "away", "pick_hit": false, "score_hit": false}}]}], "summary": {"graded": 18, "correct": 13, "hit_rate": 72, "exact": 2, "conf_right": 4.1, "conf_wrong": 3.2, "depth": {"deep": {"graded": 6, "correct": 2, "exact": 1, "hit_rate": 33}, "quick": {"graded": 12, "correct": 11, "exact": 1, "hit_rate": 92}}, "depth_edge": -59, "deep_graded": 6, "deep_fav_correct": 2, "deep_deviations": 0, "deep_dev_correct": 0}, "outrights": {"lock_deadline": "2026-09-08T16:45:00Z", "generated_at": "2026-09-08", "markets": [{"key": "winner", "question": "Champions League winner", "pick": "Paris Saint Germain", "confidence": 3, "note": "Market favorite: DraftKings has PSG at +500 (captured 31 Aug 2026), clear of a four-way knot at +600 (Bayern Munich, Barcelona, Arsenal) and Real Madrid at +650. PSG are the two-time defending champion and the shortest price on the board, so this is a straight market read rather than a hunch. Worth flagging the market and the leading model disagree here: Opta's supercomputer (10,000 simulations) has Arsenal top at 20.9% and Bayern second at 19.4%, with PSG only fifth at 7.1% behind Man City too — the model thinks the market is overrating a two-time-in-a-row winner's chances of a three-peat. Going with the market as the system's default; confidence held to 3 (not higher) precisely because of that disagreement.", "alternatives": ["Bayern Munich (+600)", "Barcelona (+600)", "Arsenal (+600)", "Real Madrid (+650)", "Manchester City (+900)"], "result": null}, {"key": "top_8", "question": "Top 8 (direct to round of 16)", "picks": ["Paris Saint Germain", "Bayern Munich", "Barcelona", "Arsenal", "Real Madrid", "Manchester City", "Liverpool", "Manchester United"], "confidence": 3, "note": "The eight shortest-priced clubs on the DraftKings winner market (PSG +500 through Manchester United +2000), used as a proxy for overall squad strength across the 8-game league phase. Opta's model broadly agrees on the top of this list (Man City given 86.9% to reach the last 16, Arsenal 93.8% to progress) but rates Liverpool's chances of a deep run higher than the market does and is cooler on Manchester United; kept United in on market pricing since a top-8 pick set is inherently noisy across 36 teams and 8 slots.", "result": null}, {"key": "top_scorer", "question": "Champions League top scorer", "pick": "Kylian Mbappé (Real Madrid)", "confidence": 3, "note": "Consensus favorite across books: BetJets has him at 4.50, bet365 at 7/2, both clear of Harry Kane (8.00 / 7/1) and Erling Haaland (9.00). Mbappé is the reigning Champions League top scorer, having scored 15 in 11 appearances last season including a competition-record 13 in the league phase alone, so the market price matches recent, repeated form rather than reputation alone.", "alternatives": ["Harry Kane (8.00)", "Erling Haaland (9.00)"], "result": null}, {"key": "finalists", "question": "The two finalists", "picks": ["Paris Saint Germain", "Arsenal"], "confidence": 2, "note": "PSG as the outright market favorite (+500) is the straightforward pick. For the second finalist, going with Arsenal over the co-priced Bayern Munich/Barcelona (all +600): Arsenal is Opta's single highest-rated team to win the whole thing (20.9%, ahead of Bayern's 19.4%), which as a proxy suggests the model likes their route to the final specifically, not just their overall squad. Confidence is low (2) because picking 2 exact finalists from a 36-team field eight-plus months out is inherently a low-hit-rate market regardless of read quality.", "result": null}, {"key": "semi_finalists", "question": "The four semi-finalists", "picks": ["Arsenal", "Bayern Munich", "Paris Saint Germain", "Barcelona"], "confidence": 2, "note": "Arsenal, Bayern Munich, Paris Saint Germain and Barcelona are the four highest-rated clubs on a blend of the DraftKings winner board, Kalshi implied probabilities and Opta's 10,000-simulation model. Arsenal is the one pick all three sources agree on: DraftKings +600, Kalshi 20%, and Opta's outright leader at 20.9%. PSG and Barcelona are market-led picks the leading model actively dislikes — Opta has PSG only fifth at 7.1% despite PSG being the +500 outright favourite, and Barcelona at 8.2% — taken here on market-first doctrine rather than model conviction, with Manchester City (Opta 12.3%) and Real Madrid (the biggest market/model divergence: Kalshi 16% vs Opta 4.4%) named as the live alternatives. Honesty note: this is a low-hit-rate market — each pick is roughly a 40% shot to reach the semis, so the realistic expectation is about 1.6 of 4 correct, and all four landing together is only a ~3% event.", "alternatives": ["Manchester City (+900, Opta 12.3%)", "Real Madrid (+650, Opta 4.4%)", "Liverpool (+1200)"], "result": null}, {"key": "dark_horse", "question": "Dark horse — a club outside the favourites that over-performs", "pick": "Napoli", "confidence": 2, "note": "Napoli sit well outside the market's outright top tier (not among the DraftKings top 11 favorites found in research) despite entering as reigning Serie A champions with a squad built for a deep continental run. Uncertainty flagged: this pick is a qualitative read on squad quality relative to price rather than a specific researched outright quote for Napoli, since the sources checked did not surface their exact winner odds.", "result": null}]}, "table": {"provisional": false, "as_of": "2026-09-15", "matchdays_played": 1, "rows": [{"rank": 1, "team": "Paris Saint Germain", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 6, "ga": 1, "gd": 5, "points": 3}, {"rank": 2, "team": "Bayern Munich", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 5, "ga": 0, "gd": 5, "points": 3}, {"rank": 3, "team": "Barcelona", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 5, "ga": 1, "gd": 4, "points": 3}, {"rank": 4, "team": "Manchester United", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 4, "ga": 0, "gd": 4, "points": 3}, {"rank": 5, "team": "Como", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 4, "ga": 1, "gd": 3, "points": 3}, {"rank": 6, "team": "Sporting Lisbon", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 3, "ga": 1, "gd": 2, "points": 3}, {"rank": 7, "team": "VfB Stuttgart", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 3, "ga": 1, "gd": 2, "points": 3}, {"rank": 8, "team": "Manchester City", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 2, "ga": 0, "gd": 2, "points": 3}, {"rank": 9, "team": "Aston Villa", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 3, "ga": 2, "gd": 1, "points": 3}, {"rank": 10, "team": "Real Betis", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 3, "ga": 2, "gd": 1, "points": 3}, {"rank": 11, "team": "RC Lens", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 3, "ga": 2, "gd": 1, "points": 3}, {"rank": 12, "team": "Borussia Dortmund", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 3, "ga": 2, "gd": 1, "points": 3}, {"rank": 13, "team": "Liverpool", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 2, "ga": 1, "gd": 1, "points": 3}, {"rank": 14, "team": "Real Madrid", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 2, "ga": 1, "gd": 1, "points": 3}, {"rank": 15, "team": "Arsenal", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 1, "ga": 0, "gd": 1, "points": 3}, {"rank": 16, "team": "AEK Athens", "played": 1, "won": 1, "drawn": 0, "lost": 0, "gf": 1, "ga": 0, "gd": 1, "points": 3}, {"rank": 17, "team": "AS Roma", "played": 1, "won": 0, "drawn": 1, "lost": 0, "gf": 1, "ga": 1, "gd": 0, "points": 1}, {"rank": 18, "team": "Shakhtar Donetsk", "played": 1, "won": 0, "drawn": 1, "lost": 0, "gf": 1, "ga": 1, "gd": 0, "points": 1}, {"rank": 19, "team": "Fenerbahce", "played": 1, "won": 0, "drawn": 1, "lost": 0, "gf": 1, "ga": 1, "gd": 0, "points": 1}, {"rank": 20, "team": "PSV Eindhoven", "played": 1, "won": 0, "drawn": 1, "lost": 0, "gf": 1, "ga": 1, "gd": 0, "points": 1}, {"rank": 21, "team": "Villarreal", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 2, "ga": 3, "gd": -1, "points": 0}, {"rank": 22, "team": "Club Brugge", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 2, "ga": 3, "gd": -1, "points": 0}, {"rank": 23, "team": "Lille", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 2, "ga": 3, "gd": -1, "points": 0}, {"rank": 24, "team": "Slavia Praha", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 2, "ga": 3, "gd": -1, "points": 0}, {"rank": 25, "team": "Atlético Madrid", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 1, "ga": 2, "gd": -1, "points": 0}, {"rank": 26, "team": "Inter Milan", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 1, "ga": 2, "gd": -1, "points": 0}, {"rank": 27, "team": "LASK", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 0, "ga": 1, "gd": -1, "points": 0}, {"rank": 28, "team": "Napoli", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 0, "ga": 1, "gd": -1, "points": 0}, {"rank": 29, "team": "Galatasaray", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 1, "ga": 3, "gd": -2, "points": 0}, {"rank": 30, "team": "Viking FK", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 1, "ga": 3, "gd": -2, "points": 0}, {"rank": 31, "team": "Porto", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 0, "ga": 2, "gd": -2, "points": 0}, {"rank": 32, "team": "RB Leipzig", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 1, "ga": 4, "gd": -3, "points": 0}, {"rank": 33, "team": "Feyenoord", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 1, "ga": 5, "gd": -4, "points": 0}, {"rank": 34, "team": "Sabah FK", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 0, "ga": 4, "gd": -4, "points": 0}, {"rank": 35, "team": "ŠK Slovan Bratislava", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 1, "ga": 6, "gd": -5, "points": 0}, {"rank": 36, "team": "Bodø/Glimt", "played": 1, "won": 0, "drawn": 0, "lost": 1, "gf": 0, "ga": 5, "gd": -5, "points": 0}], "note": null}, "teams": {"AEK Athens": ["AEK", "🇬🇷", "GRE", ["#FFDD00", "#000000"], "stripes"], "AS Roma": ["ROM", "🇮🇹", "ITA", ["#8E1F2F", "#F0BC42"], "solid"], "Arsenal": ["ARS", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#EF0107", "#FFFFFF"], "solid"], "Aston Villa": ["AVL", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#670E36", "#95BFE5"], "solid"], "Atlético Madrid": ["ATM", "🇪🇸", "ESP", ["#CB3524", "#FFFFFF"], "stripes"], "Barcelona": ["BAR", "🇪🇸", "ESP", ["#004D98", "#A50044"], "stripes"], "Bayern Munich": ["BAY", "🇩🇪", "GER", ["#DC052D", "#FFFFFF"], "solid"], "Bodø/Glimt": ["BOD", "🇳🇴", "NOR", ["#FFD400", "#000000"], "solid"], "Borussia Dortmund": ["DOR", "🇩🇪", "GER", ["#FDE100", "#000000"], "solid"], "Club Brugge": ["BRU", "🇧🇪", "BEL", ["#0031A0", "#000000"], "stripes"], "Como": ["COM", "🇮🇹", "ITA", ["#003DA5", "#FFFFFF"], "solid"], "Fenerbahce": ["FEN", "🇹🇷", "TUR", ["#16214D", "#FFED02"], "stripes"], "Feyenoord": ["FEY", "🇳🇱", "NED", ["#C1272D", "#FFFFFF"], "halves"], "Galatasaray": ["GAL", "🇹🇷", "TUR", ["#A61E2F", "#FDB913"], "halves"], "Inter Milan": ["INT", "🇮🇹", "ITA", ["#0068A8", "#010101"], "stripes"], "LASK": ["LAS", "🇦🇹", "AUT", ["#000000", "#FFFFFF"], "stripes"], "Lille": ["LIL", "🇫🇷", "FRA", ["#DA291C", "#041E42"], "solid"], "Liverpool": ["LIV", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#C8102E", "#F6EB61"], "solid"], "Manchester City": ["MCI", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#6CABDD", "#1C2C5B"], "solid"], "Manchester United": ["MUN", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#DA291C", "#FFFFFF"], "solid"], "Napoli": ["NAP", "🇮🇹", "ITA", ["#12A0D7", "#FFFFFF"], "solid"], "PSV Eindhoven": ["PSV", "🇳🇱", "NED", ["#ED1C24", "#FFFFFF"], "stripes"], "Paris Saint Germain": ["PSG", "🇫🇷", "FRA", ["#002B5C", "#DA020E"], "stripes"], "Porto": ["POR", "🇵🇹", "POR", ["#003DA5", "#FFFFFF"], "stripes"], "RB Leipzig": ["RBL", "🇩🇪", "GER", ["#FFFFFF", "#E4022D"], "solid"], "RC Lens": ["LEN", "🇫🇷", "FRA", ["#C8102E", "#FFCD00"], "stripes"], "Real Betis": ["BET", "🇪🇸", "ESP", ["#00A650", "#FFFFFF"], "stripes"], "Real Madrid": ["RMA", "🇪🇸", "ESP", ["#FFFFFF", "#FEBE10"], "solid"], "Sabah FK": ["SAB", "🇦🇿", "AZE", ["#000000", "#E6007E"], "solid"], "Shakhtar Donetsk": ["SHK", "🇺🇦", "UKR", ["#FF6C00", "#000000"], "stripes"], "Slavia Praha": ["SLA", "🇨🇿", "CZE", ["#CE1126", "#FFFFFF"], "halves"], "Sporting Lisbon": ["SPO", "🇵🇹", "POR", ["#006A4D", "#FFFFFF"], "hoops"], "VfB Stuttgart": ["STU", "🇩🇪", "GER", ["#FFFFFF", "#E32219"], "solid"], "Viking FK": ["VIK", "🇳🇴", "NOR", ["#002F6C", "#FFFFFF"], "solid"], "Villarreal": ["VIL", "🇪🇸", "ESP", ["#FFE667", "#005187"], "solid"], "ŠK Slovan Bratislava": ["SLO", "🇸🇰", "SVK", ["#4FA8DC", "#001F5B"], "solid"]}, "postmortem": {"n": 18, "ours": {"pts": 33, "exact": 2, "gd": 5, "win": 13}, "baselines": [{"label": "2-1 every match", "pts": 28, "exact": 2, "gd": 4, "win": 11}, {"label": "1-0 every match", "pts": 27, "exact": 1, "gd": 4, "win": 11}, {"label": "2-0 every match", "pts": 24, "exact": 0, "gd": 2, "win": 11}, {"label": "1-1 every match", "pts": 8, "exact": 2, "gd": 2, "win": 2}], "followed": 18, "blind_fav": 13, "deviations": [], "dev_hits": 0, "draws_actual": 2, "draws_picked": 0, "draws_hit": 0}}, "uel": {"name": "UEFA Europa League", "short": "UEL", "final": {"date": "2027-05-26", "venue": "Waldstadion, Frankfurt"}, "rounds": [{"id": "MD1", "dates": ["2026-09-16", "2026-09-17"], "name": "Matchday 1"}, {"id": "MD2", "dates": ["2026-10-15"], "name": "Matchday 2"}, {"id": "MD3", "dates": ["2026-10-22"], "name": "Matchday 3"}, {"id": "MD4", "dates": ["2026-11-05"], "name": "Matchday 4"}, {"id": "MD5", "dates": ["2026-11-26"], "name": "Matchday 5"}, {"id": "MD6", "dates": ["2026-12-10"], "name": "Matchday 6"}, {"id": "MD7", "dates": ["2027-01-21"], "name": "Matchday 7"}, {"id": "MD8", "dates": ["2027-01-28"], "name": "Matchday 8"}, {"id": "PO", "dates": ["2027-02-18", "2027-02-25"], "name": "Knockout play-offs"}, {"id": "R16", "dates": ["2027-03-11", "2027-03-18"], "name": "Round of 16"}, {"id": "QF", "dates": ["2027-04-08", "2027-04-15"], "name": "Quarter-finals"}, {"id": "SF", "dates": ["2027-04-29", "2027-05-06"], "name": "Semi-finals"}, {"id": "F", "dates": ["2027-05-26"], "name": "Final"}], "days": [{"date": "2026-09-15", "matchday": "MD1", "predictions": [{"home_team": "Omonoia FC", "away_team": "Celta Vigo", "commence_time": "2026-09-16T16:45:00Z", "depth": "quick", "pick": "away", "scoreline": "0-1", "confidence": 3, "market": {"home": 0.238, "draw": 0.2797, "away": 0.4822}, "rationale": "Market-derived pick, no dedicated research this round; Celta Vigo priced at 48% to win away at Omonoia.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "FC Ararat-Armenia", "away_team": "Sparta Prague", "commence_time": "2026-09-16T16:45:00Z", "depth": "quick", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.1893, "draw": 0.2317, "away": 0.579}, "rationale": "Market-derived pick, no dedicated research this round; Sparta Prague priced at 58% to win away at FC Ararat-Armenia.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "AC Milan", "away_team": "Benfica", "commence_time": "2026-09-16T19:00:00Z", "depth": "deep", "pick": "home", "scoreline": "2-1", "confidence": 3, "market": {"home": 0.4589, "draw": 0.2616, "away": 0.2795}, "rationale": "AC Milan are a 46% home favourite (46/26/28), and the research splits rather than points one way. Benfica's form is the case against the price — second in the Primeira Liga on six straight league wins, with Vangelis Pavlidis on 14 goals in 11 matches, against a Milan side that has conceded 6 in 4 Serie A games and drawn its last two — but Marco Silva is reported on 15 Sep, the day the odds were taken, to be changing personnel in every line to rest players before the Porto derby, with right-back Alexander Bah out injured, a heavier rotation than Milan resting Modrić and benching De Winter. The two roughly cancel, so the home pick and confidence 3 are held at the market read, with the scoreline set at 2-1 rather than 1-0 because both previews surveyed land on both teams to score and over 2.5 goals.", "disagreement": "Tipsters split: Goal.com's preview gives a slight edge to Benfica on the form gap, against the market, while Football Whispers backs Milan 2-1 citing home advantage and Bah's absence. Both agree on an open, both-teams-score game.", "sources": [{"title": "Probabile formazione Milan-Benfica: Amorim rivoluziona tutto — PianetaMilan", "url": "https://www.pianetamilan.it/partite/probabili-formazioni/probabile-formazione-milan-benfica-amorim-rivoluziona-tutto/"}, {"title": "Benfica: Marco Silva prepara mudança em todas as linhas para o jogo contra o AC Milan — Bola na Rede", "url": "https://bolanarede.pt/especial-bola-na-rede/atualidade/benfica-marco-silva-prepara-mudanca-em-todas-as-linhas-para-o-jogo-contra-o-ac-milan/"}, {"title": "AC Milan vs Benfica prediction, 16/09/2026 — Football Whispers", "url": "https://footballwhispers.com/blog/ac-milan-vs-benfica-prediction-16-09-2026/"}, {"title": "AC Milan vs Benfica Europa League preview — Goal.com", "url": "https://www.goal.com/en/news/ac-milan-benfica-europa-league-preview/blta2172a304c11abd2"}, {"title": "Marco Silva só perde para Béla Guttmann: arranque avassalador da águia no campeonato — Record", "url": "https://www.record.pt/futebol/futebol-nacional/liga-betclic/benfica/detalhe/marco-silva-so-perde-para-bela-guttmann-arranque-avassalador-da-aguia-no-campeonato"}, {"title": "Amorim in conferenza stampa prima di Milan-Lazio — Il Napolista", "url": "https://www.ilnapolista.it/2026/09/amorim-milan-conferenza-stampa-lazio-gattuso/"}], "matchday": "MD1", "actual": null}, {"home_team": "Sunderland", "away_team": "AZ Alkmaar", "commence_time": "2026-09-16T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.5743, "draw": 0.2341, "away": 0.1916}, "rationale": "Market-derived pick, no dedicated research this round; Sunderland priced at 57% to beat AZ Alkmaar at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Anderlecht", "away_team": "Lyon", "commence_time": "2026-09-16T19:00:00Z", "depth": "quick", "pick": "away", "scoreline": "0-1", "confidence": 3, "market": {"home": 0.2792, "draw": 0.2567, "away": 0.4641}, "rationale": "Market-derived pick, no dedicated research this round; Lyon priced at 46% to win away at Anderlecht.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Bayer Leverkusen", "away_team": "NK Celje", "commence_time": "2026-09-16T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-0", "confidence": 5, "market": {"home": 0.8224, "draw": 0.1138, "away": 0.0638}, "rationale": "Market-derived pick, no dedicated research this round; Bayer Leverkusen priced at 82% to beat NK Celje at home, the shortest price of the round.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Hapoel Be'er Sheva", "away_team": "Dinamo Zagreb", "commence_time": "2026-09-16T19:00:00Z", "depth": "quick", "pick": "away", "scoreline": "0-1", "confidence": 3, "market": {"home": 0.2634, "draw": 0.2497, "away": 0.4869}, "rationale": "Market-derived pick, no dedicated research this round; Dinamo Zagreb priced at 49% to win away at Hapoel Be'er Sheva.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Olympiakos Piraeus", "away_team": "Jagiellonia Białystok", "commence_time": "2026-09-16T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.6916, "draw": 0.1919, "away": 0.1165}, "rationale": "Market-derived pick, no dedicated research this round; Olympiakos priced at 69% to beat Jagiellonia Białystok at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "SK Sturm Graz", "away_team": "Rennes", "commence_time": "2026-09-16T19:00:00Z", "depth": "quick", "pick": "away", "scoreline": "0-1", "confidence": 3, "market": {"home": 0.2602, "draw": 0.2472, "away": 0.4927}, "rationale": "Market-derived pick, no dedicated research this round; Rennes priced at 49% to win away at Sturm Graz.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "OFI Crete", "away_team": "TSG Hoffenheim", "commence_time": "2026-09-17T16:45:00Z", "depth": "quick", "pick": "away", "scoreline": "1-2", "confidence": 4, "market": {"home": 0.1332, "draw": 0.1978, "away": 0.6689}, "rationale": "Market-derived pick, no dedicated research this round; TSG Hoffenheim priced at 67% to win away at OFI Crete.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "PFC Levski Sofia", "away_team": "Salzburg", "commence_time": "2026-09-17T16:45:00Z", "depth": "quick", "pick": "away", "scoreline": "0-1", "confidence": 3, "market": {"home": 0.3218, "draw": 0.2641, "away": 0.4141}, "rationale": "Market-derived pick, no dedicated research this round; Salzburg priced at 41% to win away at Levski Sofia in one of the tighter lines on the card.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Besiktas JK", "away_team": "Marseille", "commence_time": "2026-09-17T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 3, "market": {"home": 0.5293, "draw": 0.239, "away": 0.2317}, "rationale": "Market-derived pick, no dedicated research this round; Besiktas priced at 53% to beat Marseille at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Real Sociedad", "away_team": "Bournemouth", "commence_time": "2026-09-17T19:00:00Z", "depth": "deep", "pick": "away", "scoreline": "1-2", "confidence": 1, "market": {"home": 0.3445, "draw": 0.2707, "away": 0.3848}, "rationale": "Bournemouth are a narrow 38% away favourite over Real Sociedad (34/27/38), and the intel leans the other way: Bournemouth are confirmed without Éli Kroupi Jr (13 goals last season), Amine Adli, Julián Araujo and Veljko Milosavljević, and Marco Rose is expected to rotate — Di Gregorio in goal, Tyler Adams likely out of midfield — three days before hosting Liverpool, while Sociedad miss only Odriozola and the suspended Aramburu, with Zubeldia a doubt. None of that is a concrete unpriced reason to flip a four-point line set by 37 books: the absences were in previews the day before the odds were taken, the Liverpool fixture was always on the calendar, the expected rotation is milder than the eight changes Rose made in the League Cup, and Sociedad arrive off a 0-3 home defeat to Atlético Madrid with 11 conceded in six league games. The away pick stands, but confidence drops from 2 to 1 to record that the research points against the call, and the scoreline is 1-2 rather than 0-1 because both defences have been leaking.", "disagreement": "PenseBet's tipster backs Real Sociedad double chance (home or draw), citing home advantage, Oyarzabal and Guedes, Bournemouth's four injuries and their run of dropping points from winning positions — a lean against the market's Bournemouth edge.", "sources": [{"title": "Pronostic Real Sociedad vs Bournemouth, Europa League 17/09/2026 — PenseBet", "url": "https://pensebet.com/pronostic-real-sociedad-bournemouth-europa-league-17-09-2026/"}, {"title": "Pre-match analysis: Bournemouth begin their European tour — VAVEL", "url": "https://www.vavel.com/en/football/2026/09/14/bournemouth/1271392-pre-match-analysis-bournemouth-begin-their-european-tour.html"}, {"title": "Real Sociedad vs Bournemouth Europa League preview — Goal.com", "url": "https://www.goal.com/en/news/real-sociedad-bournemouth-uefa-europa-league-preview/blt221699918ec37ce4"}, {"title": "La Real ante el Bournemouth en la Europa League — Noticias de Gipuzkoa", "url": "https://www.noticiasdegipuzkoa.eus/reala/2026/09/12/visitara-real-haber-ganado-bournemouth-sociedad-europa-league-brentford-11534433.html"}, {"title": "Europa League predictions 2026-27: Opta supercomputer — The Analyst", "url": "https://theanalyst.com/articles/europa-league-predictions-2026-27-opta-supercomputer"}], "matchday": "MD1", "actual": null}, {"home_team": "Celtic", "away_team": "Ferencváros TC", "commence_time": "2026-09-17T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.5556, "draw": 0.2316, "away": 0.2129}, "rationale": "Market-derived pick, no dedicated research this round; Celtic priced at 56% to beat Ferencváros at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Crystal Palace", "away_team": "Lech Poznań", "commence_time": "2026-09-17T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.6739, "draw": 0.1963, "away": 0.1299}, "rationale": "Market-derived pick, no dedicated research this round; Crystal Palace priced at 67% to beat Lech Poznań at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Juventus", "away_team": "NEC Nijmegen", "commence_time": "2026-09-17T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 5, "market": {"home": 0.7617, "draw": 0.1528, "away": 0.0856}, "rationale": "Market-derived pick, no dedicated research this round; Juventus priced at 76% to beat NEC Nijmegen at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Lillestrom", "away_team": "Torreense", "commence_time": "2026-09-17T19:00:00Z", "depth": "quick", "pick": "home", "scoreline": "2-1", "confidence": 4, "market": {"home": 0.6188, "draw": 0.2112, "away": 0.17}, "rationale": "Market-derived pick, no dedicated research this round; Lillestrom priced at 62% to beat Torreense at home.", "sources": [], "matchday": "MD1", "actual": null}, {"home_team": "Viktoria Plzeň", "away_team": "Union Saint-Gilloise", "commence_time": "2026-09-17T19:00:00Z", "depth": "deep", "pick": "away", "scoreline": "1-2", "confidence": 2, "market": {"home": 0.354, "draw": 0.2739, "away": 0.3722}, "rationale": "The tightest line on the card (35/27/37), with Union Saint-Gilloise a hair ahead away from home. The research pulls both ways: Union are down to 13 fit outfield players and three recognised centre-backs (Kevin Mac Allister's ACL tear on top of earlier injuries, three suspensions carried over from qualifying, two players left off the European list), but they also co-lead the Belgian league unbeaten in 10, against a Plzeň side ninth in the Czech league in uneven form under new manager Radoslav Kováč. The squad news was in Belgian reporting on 14 Sep and rests largely on suspensions and a squad registration that predate the odds, so it is not a concrete unpriced reason to flip the pick — away pick and confidence 2 held at the market read, with the scoreline 1-2 rather than 0-1 because Plzeň have scored in nine straight home games and both teams have scored in all six of their home fixtures this season.", "sources": [{"title": "Union telt amper 13 veldspelers voor duel met Plzeň — Voetbalprimeur", "url": "https://www.voetbalprimeur.be/nieuws/2135540/union-telt-amper-13-veldspelers-voor-duel-met-plzen.html"}, {"title": "Viktoria Plzeň vs Union St-Gilloise preview — WhoScored", "url": "https://www.whoscored.com/matches/2029561/preview/europe-europa-league-2026-2027-viktoria-plzen-union-st-gilloise"}, {"title": "Viktoria Plzeň vs RU Saint-Gilloise preview — Eurofotbal.cz", "url": "https://www.eurofotbal.cz/evropska-liga/2026-2027/preview/viktoria-plzen-ru-saint-gilloise-1115641/"}, {"title": "FC Viktoria Plzeň news — iSport.cz", "url": "https://isport.blesk.cz/fotbal-fc-viktoria-plzen-29"}, {"title": "Pronostic FC Viktoria Plzeň vs Royale Union Saint-Gilloise, 17/09 — MediaPronos", "url": "https://mediapronos.com/pronostic-fc-viktoria-plzen-royale-union-saint-gillo-17-09/"}, {"title": "Pronostic Viktoria Plzeň vs Union Saint-Gilloise, Europa League 17/09/2026 — PenseBet", "url": "https://pensebet.com/pronostic-viktoria-plzen-union-saint-gilloise-europa-league-17-09-2026/"}], "matchday": "MD1", "actual": null}]}], "summary": {"graded": 0, "correct": 0, "hit_rate": null, "exact": 0, "conf_right": null, "conf_wrong": null, "depth": {"deep": {"graded": 0, "correct": 0, "exact": 0, "hit_rate": null}, "quick": {"graded": 0, "correct": 0, "exact": 0, "hit_rate": null}}, "depth_edge": null, "deep_graded": 0, "deep_fav_correct": 0, "deep_deviations": 0, "deep_dev_correct": 0}, "outrights": {"lock_deadline": "2026-09-16T16:45:00Z", "generated_at": "2026-09-15", "markets": [{"key": "winner", "question": "Europa League winner", "pick": "Juventus", "confidence": 2, "note": "Market favorite by consensus: Scotsman, Racing Post and gg.co.uk all had Juventus at 7/1 (captured 15 Sep 2026), just clear of AC Milan at 15/2 and Bayer Leverkusen at 9/1 — a genuinely flat market with no club shorter than 7/1 in a wide-open post-Aston Villa field. Worth flagging a bigger-than-usual gap between market and model here: Polymarket's exchange pricing has it closer still, with AC Milan (15%) marginally ahead of Juventus (14%), and Opta's supercomputer (10,000 simulations) disagrees more sharply again — its top two are Bournemouth (14.3%) and Benfica (14.0%), with Juventus only 6th (7.8%) and Milan 8th (5.3%). Going with the bookmaker-consensus favorite per market-first doctrine, but confidence held to 2 (below the UCL equivalent) because three separate sources (fixed-odds books, an exchange, and a leading model) each point at a different favorite.", "alternatives": ["AC Milan (15/2)", "Bayer Leverkusen (9/1)", "Bournemouth (10/1)", "Marseille (10/1)", "Real Sociedad (11/1)"], "result": null}, {"key": "top_8", "question": "Top 8 (proxy for deepest run — no fixed knockout-seeding threshold published yet)", "picks": ["Juventus", "AC Milan", "Bayer Leverkusen", "Bournemouth", "Marseille", "Real Sociedad", "Celta Vigo", "Crystal Palace"], "confidence": 3, "note": "The eight shortest-priced clubs on the bookmaker-consensus winner market (Juventus 7/1 through Crystal Palace 14/1), used as a proxy for overall squad strength across the league phase. Opta's model tells a different story: three of its five highest win-probability clubs sit outside this set entirely — Benfica (14.0%, 2nd in the model, no bookmaker price found for them anywhere researched), Union Saint-Gilloise (8.6%, 4th) and Sunderland (8.3%, 5th, with an Opta-quoted 82.3% chance of reaching the last 16) — while Juventus and Milan, the market's top two, rank only 6th (7.8%) and 8th (5.3%) in the model. Kept the set to market pricing since a top-8 pick set from 36 teams and 8 slots is inherently noisy regardless of read quality.", "result": null}, {"key": "semi_finalists", "question": "The four semi-finalists", "picks": ["Juventus", "AC Milan", "Bayer Leverkusen", "Bournemouth"], "confidence": 2, "note": "The four shortest-priced clubs on the bookmaker-consensus winner market (Juventus 7/1, AC Milan 15/2, Bayer Leverkusen 9/1, Bournemouth 10/1). Leverkusen and Bournemouth get real model backing too — Opta has Leverkusen 3rd (10.2%) and Bournemouth 1st (14.3%) of all 36 clubs — but Juventus (7.8%, 6th) and Milan (5.3%, 8th) are market-led picks the model actively downgrades, taken here on market-first doctrine rather than model conviction. Benfica (14.0% in the model, 2nd overall, but no bookmaker price found), Union Saint-Gilloise (8.6%, 4th) and Sunderland (18/1 market, 8.3%/4th-in-last-16-odds model) are the live alternatives if the model turns out to be closer to right than the books. Honesty note: this is a low-hit-rate market — each pick is roughly a 25-35% shot to reach the semis from a 36-team field, so realistically expect only around 1-1.5 of 4 correct, and all four landing together is a long shot.", "alternatives": ["Benfica (no bookmaker price found, Opta 14.0%)", "Union Saint-Gilloise (Opta 8.6%)", "Sunderland (18/1, Opta 8.3%)"], "result": null}, {"key": "finalists", "question": "The two finalists", "picks": ["Juventus", "Bournemouth"], "confidence": 2, "note": "Juventus as the bookmaker-consensus favorite (7/1) is the straightforward half of this pick. For the second finalist, going with Bournemouth over the similarly-priced Marseille (10/1) and Real Sociedad (11/1): Bournemouth is Opta's single highest-rated club to win the whole competition (14.3% across 10,000 simulations, and the best projected league-phase finish at 15.1%), which as a proxy suggests the model likes their route through the bracket specifically rather than just their overall squad. This pairs the market's top pick with the model's top pick rather than doubling up on either source alone. Confidence held low (2) because picking 2 exact finalists from a 36-team field, in a market that only opened odds in the days after the 28 Aug league-phase draw, is inherently a low-hit-rate call regardless of read quality.", "result": null}, {"key": "top_scorer", "question": "Europa League top scorer", "pick": "Christian Pulisic (AC Milan)", "confidence": 2, "note": "No sportsbook has opened a 2026-27 Europa League top-scorer market yet: bettingodds.com's dedicated top-scorer page states outright that odds 'are not available yet,' and no other tracker checked (Scotsman, Racing Post, gg.co.uk, Squawka) surfaced one either. In the absence of any price, this is a qualitative read tied to the winner market rather than a researched quote: Christian Pulisic is the attacking focal point of an AC Milan side priced among the top two or three outright favorites (15/2 bookmaker consensus, and marginally ahead of the field on Polymarket at 15%). Uncertainty flagged clearly: no specific top-scorer price or model projection exists for him or any rival, so this pick could look very different once books open the market.", "result": null}, {"key": "dark_horse", "question": "Dark horse — a club outside the favourites that over-performs", "pick": "Benfica", "confidence": 2, "note": "Benfica sit well outside the bookmaker top 8 found in research — no outright price for them turned up across Scotsman, Racing Post, gg.co.uk or bettingodds.com — yet Opta's supercomputer rates them the 2nd most likely winner of all 36 clubs (14.0%, in the same range as market favorite Bournemouth at 14.3%, well clear of market favorite Juventus at 7.8%). That combination of an apparently unpriced club and one of the model's two highest win probabilities is unusual and exactly what a dark-horse pick should look for. Uncertainty flagged: this is a model-only read with no market check — no bookmaker has priced Benfica at all in anything found in research.", "result": null}]}, "table": {"provisional": true, "as_of": null, "matchdays_played": 0, "rows": [{"rank": null, "team": "AC Milan", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "AZ Alkmaar", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Anderlecht", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Bayer Leverkusen", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Benfica", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Besiktas JK", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Bournemouth", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Celta Vigo", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Celtic", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Crystal Palace", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Dinamo Zagreb", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "FC Ararat-Armenia", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Ferencváros TC", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Hapoel Be'er Sheva", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Jagiellonia Białystok", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Juventus", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Lech Poznań", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Lillestrom", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Lyon", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Marseille", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "NEC Nijmegen", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "NK Celje", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "OFI Crete", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Olympiakos Piraeus", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Omonoia FC", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "PFC Levski Sofia", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Real Sociedad", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Rennes", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "SK Sturm Graz", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Salzburg", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Sparta Prague", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Sunderland", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "TSG Hoffenheim", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Torreense", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Union Saint-Gilloise", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}, {"rank": null, "team": "Viktoria Plzeň", "played": 0, "won": 0, "drawn": 0, "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}], "note": "League phase starts 16 September — 36 clubs, one table, eight matchdays. Nothing played yet."}, "teams": {"AC Milan": ["MIL", "🇮🇹", "ITA", ["#FB090B", "#000000"], "stripes"], "AZ Alkmaar": ["ALK", "🇳🇱", "NED", ["#D2122E", "#FFFFFF"], "solid"], "Anderlecht": ["AND", "🇧🇪", "BEL", ["#5F259F", "#FFFFFF"], "solid"], "Bayer Leverkusen": ["LEV", "🇩🇪", "GER", ["#E32221", "#000000"], "solid"], "Benfica": ["BEN", "🇵🇹", "POR", ["#E31B23", "#FFFFFF"], "solid"], "Besiktas JK": ["BJK", "🇹🇷", "TUR", ["#000000", "#FFFFFF"], "stripes"], "Bournemouth": ["BOU", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#DA291C", "#000000"], "stripes"], "Celta Vigo": ["VIG", "🇪🇸", "ESP", ["#4A90D9", "#FFFFFF"], "solid"], "Celtic": ["CEL", "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "SCO", ["#018749", "#FFFFFF"], "hoops"], "Crystal Palace": ["CRY", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#1B458F", "#C4122E"], "stripes"], "Dinamo Zagreb": ["DIN", "🇭🇷", "CRO", ["#0033A0", "#FFFFFF"], "solid"], "FC Ararat-Armenia": ["ARA", "🇦🇲", "ARM", ["#D0021B", "#FFFFFF"], "solid"], "Ferencváros TC": ["FTC", "🇭🇺", "HUN", ["#00693E", "#FFFFFF"], "stripes"], "Hapoel Be'er Sheva": ["HBS", "🇮🇱", "ISR", ["#ED1C24", "#FFFFFF"], "solid"], "Jagiellonia Białystok": ["JAG", "🇵🇱", "POL", ["#FFD500", "#CC0000"], "solid"], "Juventus": ["JUV", "🇮🇹", "ITA", ["#000000", "#FFFFFF"], "stripes"], "Lech Poznań": ["LEC", "🇵🇱", "POL", ["#003DA5", "#FFFFFF"], "stripes"], "Lillestrom": ["LSK", "🇳🇴", "NOR", ["#FFD400", "#000000"], "solid"], "Lyon": ["LYO", "🇫🇷", "FRA", ["#FFFFFF", "#0A3B7C"], "solid"], "Marseille": ["MAR", "🇫🇷", "FRA", ["#FFFFFF", "#0F76BC"], "solid"], "NEC Nijmegen": ["NEC", "🇳🇱", "NED", ["#E2001A", "#00843D"], "sash"], "NK Celje": ["CEJ", "🇸🇮", "SVN", ["#0C2340", "#FFD100"], "solid"], "OFI Crete": ["OFI", "🇬🇷", "GRE", ["#000000", "#FFFFFF"], "solid"], "Olympiakos Piraeus": ["OLY", "🇬🇷", "GRE", ["#E2001A", "#FFFFFF"], "stripes"], "Omonoia FC": ["OMO", "🇨🇾", "CYP", ["#00843D", "#FFFFFF"], "stripes"], "PFC Levski Sofia": ["LSF", "🇧🇬", "BUL", ["#0033A0", "#FFFFFF"], "solid"], "Real Sociedad": ["RSO", "🇪🇸", "ESP", ["#0D3F8C", "#FFFFFF"], "stripes"], "Rennes": ["REN", "🇫🇷", "FRA", ["#E3242B", "#000000"], "solid"], "SK Sturm Graz": ["STG", "🇦🇹", "AUT", ["#000000", "#FFFFFF"], "solid"], "Salzburg": ["SAL", "🇦🇹", "AUT", ["#ED1C24", "#FFFFFF"], "solid"], "Sparta Prague": ["SPA", "🇨🇿", "CZE", ["#9E1B32", "#000000"], "solid"], "Sunderland": ["SUN", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "ENG", ["#E03A3E", "#FFFFFF"], "stripes"], "TSG Hoffenheim": ["HOF", "🇩🇪", "GER", ["#1C63B7", "#FFFFFF"], "solid"], "Torreense": ["TOR", "🇵🇹", "POR", ["#1E4C9A", "#B22234"], "halves"], "Union Saint-Gilloise": ["USG", "🇧🇪", "BEL", ["#F5C300", "#00246B"], "solid"], "Viktoria Plzeň": ["VPL", "🇨🇿", "CZE", ["#C8102E", "#00338D"], "stripes"]}, "postmortem": null}}};
+const ORDER = (DATA.order||[]).filter(k => DATA.comps && DATA.comps[k]);
 const PICK = {home:"Home win", draw:"Draw", away:"Away win"};
 const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const pct = x => Math.round((x||0)*100);
 const pad = n => String(n).padStart(2,"0");
-const code = t => (TEAMS[t]||[])[0] || (t||"").slice(0,3).toUpperCase();
-const flag = t => (TEAMS[t]||[])[1] || "";
+// Every team lookup is scoped to one competition (C = DATA.comps[key]); the
+// clubs registries are never merged.
+const teamInfo = (C, t) => (C.teams||{})[t] || [];
+const code = (C, t) => teamInfo(C, t)[0] || (t||"").slice(0,3).toUpperCase();
+const flag = (C, t) => teamInfo(C, t)[1] || "";
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,
   c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -469,13 +506,13 @@ const CREST_HEX = /^#[0-9a-f]{6}$/i;
 const CREST_SLATE = ["#2a3358", "#171d38"];
 let crestSeq = 0;
 
-function crestColors(t){
-  const c = (TEAMS[t]||[])[3];
+function crestColors(C, t){
+  const c = teamInfo(C, t)[3];
   if(Array.isArray(c) && c.length===2 && CREST_HEX.test(c[0]) && CREST_HEX.test(c[1])) return c;
   return null;
 }
 const CREST_PATTERNS = new Set(["solid","stripes","halves","hoops","sash"]);
-const crestPattern = t => { const p = (TEAMS[t]||[])[4]; return CREST_PATTERNS.has(p) ? p : "solid"; };
+const crestPattern = (C, t) => { const p = teamInfo(C, t)[4]; return CREST_PATTERNS.has(p) ? p : "solid"; };
 
 // relative luminance (WCAG), 0 (black) .. 1 (white)
 function crestLuminance(hex){
@@ -511,12 +548,12 @@ function crestFill(pattern, c1, c2){
   }
 }
 
-function crest(name, sizeCls){
-  const label = esc(name || code(name) || "?");
-  const short = esc((code(name) || "?").slice(0,3).toUpperCase());
-  const colors = crestColors(name);
+function crest(C, name, sizeCls){
+  const label = esc(name || code(C, name) || "?");
+  const short = esc((code(C, name) || "?").slice(0,3).toUpperCase());
+  const colors = crestColors(C, name);
   const [c1, c2] = colors || CREST_SLATE;
-  const pattern = colors ? crestPattern(name) : "solid";
+  const pattern = colors ? crestPattern(C, name) : "solid";
   const uid = "crc" + (crestSeq++);
   // Multi-tone patterns (stripes/hoops/halves/sash) put the monogram across
   // alternating light/dark bands, so it needs its own solid backing plate —
@@ -556,33 +593,35 @@ function prettyDate(ds){
   return `${DOW[dt.getDay()]} ${d} ${MON[m-1]}`;
 }
 
-// one entry per real fixture (latest forecast wins — DATA.days is newest-first),
-// tagged with the local calendar date it is played on, sorted chronologically.
-const seen = {};
-const MATCHES = [];
-(DATA.days||[]).forEach(d => (d.predictions||[]).forEach(p => {
-  const k = p.home_team + "|" + p.away_team;
-  if(seen[k]) return; seen[k] = 1;
-  const o = {...p, _pub:d.date};
-  o._date = o.commence_time ? localDate(o.commence_time) : d.date;
-  o._deep = o.depth !== "quick";
-  MATCHES.push(o);
-}));
-MATCHES.sort((a,b) => (a.commence_time||a._date).localeCompare(b.commence_time||b._date));
+// Per competition, derived once at boot and stored on the block as C._matches
+// and C._groups.
+function prepare(C){
+  // one entry per real fixture (latest forecast wins — C.days is newest-first),
+  // tagged with the local calendar date it is played on, sorted chronologically.
+  const seen = {};
+  const matches = [];
+  (C.days||[]).forEach(d => (d.predictions||[]).forEach(p => {
+    const k = p.home_team + "|" + p.away_team;
+    if(seen[k]) return; seen[k] = 1;
+    const o = {...p, _pub:d.date};
+    o._date = o.commence_time ? localDate(o.commence_time) : d.date;
+    o._deep = o.depth !== "quick";
+    matches.push(o);
+  }));
+  matches.sort((a,b) => (a.commence_time||a._date).localeCompare(b.commence_time||b._date));
 
-// matchday -> section. UCL plays 18 games over three days, then goes quiet for
-// weeks, so the round is the unit that matters; fall back to the date when a
-// predictions file carries no matchday label.
-const GROUPS = [];
-{
+  // matchday -> section. A league phase round is played over a few days, then
+  // goes quiet for weeks, so the round is the unit that matters; fall back to
+  // the date when a predictions file carries no matchday label.
+  const groups = [];
   const idx = {};
-  MATCHES.forEach(p => {
+  matches.forEach(p => {
     const key = p.matchday || ("date:" + p._date);
-    if(idx[key] == null){ idx[key] = GROUPS.length;
-      GROUPS.push({key, md:p.matchday || null, items:[], dates:[]}); }
-    GROUPS[idx[key]].items.push(p);
+    if(idx[key] == null){ idx[key] = groups.length;
+      groups.push({key, md:p.matchday || null, items:[], dates:[]}); }
+    groups[idx[key]].items.push(p);
   });
-  GROUPS.forEach(g => {
+  groups.forEach(g => {
     g.dates = [...new Set(g.items.map(x => x._date))].sort();
     g.start = g.dates[0]; g.end = g.dates[g.dates.length-1];
     g.label = g.md || prettyDate(g.start);
@@ -591,6 +630,23 @@ const GROUPS = [];
     g.graded = g.items.filter(p => p.actual).length;
     g.hits = g.items.filter(p => p.actual && p.actual.pick_hit).length;
   });
+  C._matches = matches;
+  C._groups = groups;
+}
+
+// The registry round that is under way or next up, as human copy for the
+// empty fixtures board, e.g. "Matchday 1 starts Wednesday 16 September".
+function roundCopy(C){
+  const today = localDate(Date.now());
+  const r = (C.rounds||[]).find(x => (x.dates||[]).length && x.dates[x.dates.length-1] >= today);
+  const long = ds => { const [y,m,d] = ds.split("-").map(Number);
+    return new Date(y, m-1, d).toLocaleDateString("en-GB", {weekday:"long", day:"numeric", month:"long"}); };
+  if(!r){
+    const f = (C.final||{}).date;
+    return f ? `The season is over \u2014 the final was played on ${long(f)}.` : "";
+  }
+  return r.dates[0] > today ? `${r.name} starts ${long(r.dates[0])}.`
+                            : `${r.name} is under way (until ${long(r.dates[r.dates.length-1])}).`;
 }
 
 const confBlocks = (c, lab) => {
@@ -621,39 +677,78 @@ function renderStats(s){
     `<div class="rcell ${cls}"><div class="v">${v}${suf||""}</div><div class="k">${k}</div></div>`).join("");
 }
 
-/* ---------- deep vs quick: is the research earning its keep? ---------- */
+/* ---------- deep vs quick: is the research earning its keep? ----------
+   The fair test is not deep-vs-quick (quick picks are drawn from a
+   different, easier pool \u2014 the market's 85%+ favourites). It's: on the
+   SAME matches that got research, did the researched pick beat a blind bet
+   on the market favourite? That comparison lives in deep_graded /
+   deep_fav_correct / deep_deviations / deep_dev_correct, computed once in
+   Python (grade()) and never re-derived here. */
 function renderSplit(s){
   const el = document.getElementById("splitwrap");
-  const d = (s.depth||{}).deep, q = (s.depth||{}).quick;
-  if(!d || !q || (!d.graded && !q.graded)){ el.innerHTML = ""; return; }
-  const cell = (cls, key, b, sub) => {
-    const rate = b.hit_rate!=null ? b.hit_rate+"%" : "\u2014";
-    const meta = b.graded ? `${b.correct}/${b.graded} correct \u00b7 ${b.exact} exact`
-                          : "nothing graded yet";
-    return `<div class="sp ${cls}"><div class="spk">${key}</div>
-      <div class="spv">${rate}</div><div class="spm">${meta}</div>
-      <div class="spm">${sub}</div></div>`;
-  };
-  const e = s.depth_edge;
-  const edgeCls = e==null ? "flat" : (e>0 ? "up" : (e<0 ? "down" : "flat"));
-  const edgeVal = e==null ? "\u2014" : (e>0 ? "+"+e : String(e));
-  const edge = `<div class="sp edge"><div class="spk">Research edge</div>
-    <div class="spv ${edgeCls}">${edgeVal}${e==null?"":"<span style='font-size:15px'>pts</span>"}</div>
-    <div class="spm">${e==null ? "needs a graded match in both buckets"
-      : "percentage points, deep minus quick"}</div>
-    <div class="spm">${e==null ? "" : (e>0 ? "the reading is paying for itself"
-      : e<0 ? "the market-derived picks are ahead" : "dead level so far")}</div></div>`;
+  const dg = s.deep_graded || 0;
+  const q = (s.depth||{}).quick || {};
+  if(!dg && !q.graded){ el.innerHTML = ""; return; }
+
+  const deep = (s.depth||{}).deep || {};
+  const researchedRate = dg ? Math.round(100*(deep.correct||0)/dg) : null;
+  const favCorrect = s.deep_fav_correct || 0;
+  const favRate = dg ? Math.round(100*favCorrect/dg) : null;
+  const edge = (researchedRate!=null && favRate!=null) ? researchedRate - favRate : null;
+  const devN = s.deep_deviations || 0;
+  const devHits = s.deep_dev_correct || 0;
+
+  const cell = (cls, key, rate, meta, sub) => `<div class="sp ${cls}"><div class="spk">${key}</div>
+    <div class="spv">${rate==null ? "\u2014" : rate+"%"}</div>
+    <div class="spm">${dg ? meta : "nothing graded yet"}</div>
+    <div class="spm">${sub}</div></div>`;
+
+  const researched = cell("deep", "Researched picks", researchedRate,
+    `${deep.correct||0}/${dg} correct`, "full preview, team news, sources");
+  const favourite = cell("quick", "Market favourite, same matches", favRate,
+    `${favCorrect}/${dg} correct`, "blind bet on the shortest price, no research");
+
+  const edgeCls = edge==null ? "flat" : (edge>0 ? "up" : (edge<0 ? "down" : "flat"));
+  const edgeVal = edge==null ? "\u2014" : (edge>0 ? "+"+edge : String(edge));
+  const trend = edge>0 ? "the reading is paying for itself"
+    : edge<0 ? "the market-derived picks are ahead" : "dead level so far";
+  const caption = !dg ? ""
+    : devN === 0
+      ? "Research hasn't moved a pick off the favourite yet, so the edge is zero by "
+        + "construction \u2014 it only becomes measurable when a researched pick "
+        + "disagrees with the market."
+      : `Research changed ${devN} pick${devN===1?"":"s"}; ${devHits} of them were right. ${trend}.`;
+  const edgeHtml = `<div class="sp edge"><div class="spk">Research edge</div>
+    <div class="spv ${edgeCls}">${edgeVal}${edge==null?"":"<span style='font-size:15px'>pts</span>"}</div>
+    <div class="spm">${dg ? "researched minus favourite, percentage points" : "needs a graded deep pick"}</div>
+    <div class="spm">${caption}</div></div>`;
+
+  const quickLine = q.graded
+    ? `<div class="spm" style="margin-top:11px">Quick picks: ${q.hit_rate}% (${q.correct}/${q.graded})
+       \u2014 not a fair benchmark: researched matches are chosen from the tightest lines.</div>`
+    : "";
+
   el.innerHTML = `<div class="splitwrap">
     <div class="splith">Is the research earning its keep?</div>
-    <div class="split">
-      ${cell("deep","Deep research picks", d, "full preview, team news, sources")}
-      ${cell("quick","Quick picks", q, "derived from the market in seconds")}
-      ${edge}
-    </div></div>`;
+    <div class="split">${researched}${favourite}${edgeHtml}</div>
+    ${quickLine}</div>`;
 }
 
 /* ---------- season-long outright markets ---------- */
-function renderOutrights(o){
+// A single-pick outright can hold a club ("winner", "dark_horse") or a
+// player ("top_scorer", e.g. "Kylian Mbapp\u00e9 (Real Madrid)"). Only render a
+// crest when the pick IS a club, or names one in parentheses \u2014 never derive
+// a fake club code from an arbitrary player string.
+function outrightCrest(C, pick){
+  if(!pick) return "";
+  if(teamInfo(C, pick).length) return crest(C, pick, 'sm');
+  const m = /\(([^()]+)\)\s*$/.exec(pick);
+  if(m && teamInfo(C, m[1]).length) return crest(C, m[1], 'sm');
+  return "";
+}
+
+function renderOutrights(C){
+  const o = C.outrights || {};
   const el = document.getElementById("outrights");
   const ms = (o.markets||[]).filter(m => m && (m.pick || (m.picks||[]).length));
   if(!ms.length){ el.innerHTML = ""; return; }
@@ -667,7 +762,7 @@ function renderOutrights(o){
         let cls = "";
         if(actual) cls = actual.indexOf(p) >= 0 ? "hit" : "miss";
         const mark = cls ? (cls==="hit" ? " \u2713" : " \u2717") : "";
-        return `<span class="chip ${cls}">${crest(p,'sm')} ${esc(p)}${mark}</span>`;
+        return `<span class="chip ${cls}">${crest(C,p,'sm')} ${esc(p)}${mark}</span>`;
       }).join("")}</div>`;
       if(r){
         const of = r.of != null ? r.of : m.picks.length;
@@ -677,7 +772,7 @@ function renderOutrights(o){
         res = `<div><span class="badge ${good?'hit':'miss'}">${hits}/${of} right</span></div>`;
       }
     } else {
-      pickHtml = `<div class="op">${crest(m.pick,'sm')} ${esc(m.pick)}</div>`;
+      pickHtml = `<div class="op">${outrightCrest(C,m.pick)} ${esc(m.pick)}</div>`;
       if(r){
         const hit = !!r.correct;
         res = `<div><span class="badge ${hit?'hit':'miss'}">${hit?'\u2713':'\u2717'} ${esc(r.actual)}</span></div>`;
@@ -779,12 +874,12 @@ function renderPostmortem(pm){
 }
 
 /* ---------- league table ---------- */
-function renderTable(){
-  const t = DATA.table || {};
+function renderTable(C){
+  const t = C.table || {};
   const rows = t.rows || [];
   const el = document.getElementById("ltable");
   if(!rows.length){
-    el.innerHTML = '<div class="empty">No league table yet.</div>'; return;
+    el.innerHTML = `<div class="empty">${esc(t.note || "No league table yet.")}</div>`; return;
   }
   const prov = !!t.provisional;
   // Bands/cutlines only mean something once a full round is complete. A
@@ -804,8 +899,8 @@ function renderTable(){
     const gd = (r.gd>0 ? "+" : "") + r.gd;
     body += `<tr class="${band}" data-t="${esc(r.team)}" title="show this club's predictions">
       <td class="rk">${prov ? "\u00b7" : rank}</td>
-      <td class="club">${crest(r.team,'sm')} <span class="fl">${flag(r.team)}</span
-        ><span class="full">${esc(r.team)}</span><span class="short">${esc(code(r.team))}</span></td>
+      <td class="club">${crest(C,r.team,'sm')} <span class="fl">${flag(C,r.team)}</span
+        ><span class="full">${esc(r.team)}</span><span class="short">${esc(code(C,r.team))}</span></td>
       <td>${r.played}</td>
       <td class="opt">${r.won}</td><td class="opt">${r.drawn}</td><td class="opt">${r.lost}</td>
       <td class="opt">${r.gf}</td><td class="opt">${r.ga}</td>
@@ -851,7 +946,7 @@ function renderTable(){
       <tbody>${body}</tbody>
     </table>`;
   el.querySelectorAll("tr[data-t]").forEach(tr =>
-    tr.onclick = () => focusClub(tr.dataset.t));
+    tr.onclick = () => focusClub(C, tr.dataset.t));
 }
 
 /* ---------- match cards ---------- */
@@ -860,7 +955,7 @@ function marketBar(m){
   return {h, d, a};
 }
 
-function deepCard(p, i){
+function deepCard(C, p, i){
   const {h, d, a} = marketBar(p.market||{});
   const kick = p.commence_time ? new Date(p.commence_time).toLocaleString([], {
     weekday:"short", month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"}) : "";
@@ -888,9 +983,9 @@ function deepCard(p, i){
   return `<div class="match" style="animation-delay:${Math.min(i*45,400)}ms">
     <div class="sb">
       <div class="side home">
-        <div class="fl">${crest(p.home_team,'lg')}</div>
+        <div class="fl">${crest(C,p.home_team,'lg')}</div>
         <div class="name">${esc(p.home_team)}</div>
-        <div class="sub">${esc(code(p.home_team))} \u00b7 HOME</div>
+        <div class="sub">${esc(code(C,p.home_team))} \u00b7 HOME</div>
       </div>
       <div class="mid">
         ${mid}
@@ -898,9 +993,9 @@ function deepCard(p, i){
         ${p.matchday ? `<div class="mdchipsm">${esc(p.matchday)}</div>` : ""}
       </div>
       <div class="side away">
-        <div class="fl">${crest(p.away_team,'lg')}</div>
+        <div class="fl">${crest(C,p.away_team,'lg')}</div>
         <div class="name">${esc(p.away_team)}</div>
-        <div class="sub">AWAY \u00b7 ${esc(code(p.away_team))}</div>
+        <div class="sub">AWAY \u00b7 ${esc(code(C,p.away_team))}</div>
       </div>
     </div>
     <div class="callrow">
@@ -917,9 +1012,9 @@ function deepCard(p, i){
         <div class="a" style="width:${a}%">${a>=10?a+"%":""}</div>
       </div>
       <div class="leg">
-        <span><i style="background:var(--home)"></i>${esc(code(p.home_team))} ${h}%</span>
+        <span><i style="background:var(--home)"></i>${esc(code(C,p.home_team))} ${h}%</span>
         <span><i style="background:var(--draw)"></i>Draw ${d}%</span>
-        <span><i style="background:var(--away)"></i>${esc(code(p.away_team))} ${a}%</span>
+        <span><i style="background:var(--away)"></i>${esc(code(C,p.away_team))} ${a}%</span>
       </div>
       ${result}
       ${details}
@@ -927,7 +1022,7 @@ function deepCard(p, i){
   </div>`;
 }
 
-function quickCard(p, i){
+function quickCard(C, p, i){
   const {h, d, a} = marketBar(p.market||{});
   const kick = p.commence_time ? new Date(p.commence_time).toLocaleString([], {
     hour:"2-digit", minute:"2-digit"}) : "";
@@ -941,9 +1036,9 @@ function quickCard(p, i){
   }
   return `<div class="qcard" style="animation-delay:${Math.min(i*35,320)}ms">
     <div class="qt">
-      <span>${crest(p.home_team,'sm')}</span><span class="nm">${esc(p.home_team)}</span>
+      <span>${crest(C,p.home_team,'sm')}</span><span class="nm">${esc(p.home_team)}</span>
       <span class="v">v</span>
-      <span>${crest(p.away_team,'sm')}</span><span class="nm">${esc(p.away_team)}</span>
+      <span>${crest(C,p.away_team,'sm')}</span><span class="nm">${esc(p.away_team)}</span>
       <span class="qmeta">${kick ? esc(kick)+" \u00b7 " : ""}${p.matchday ? esc(p.matchday)+" \u00b7 " : ""}quick pick</span>
     </div>
     <div class="qbarw">
@@ -964,7 +1059,7 @@ function quickCard(p, i){
   </div>`;
 }
 
-const card = (p, i) => p._deep ? deepCard(p, i) : quickCard(p, i);
+const card = (C, p, i) => p._deep ? deepCard(C, p, i) : quickCard(C, p, i);
 
 /* ---------- fixtures view ---------- */
 let allOpen = false;
@@ -976,21 +1071,22 @@ function setExpandAll(open){
     open ? "\u2715 collapse analysis" : "\u2922 expand analysis";
 }
 
-function sectionsHtml(){
+function sectionsHtml(C){
   const today = (DATA.generated_at||"").slice(0,10);
+  const groups = C._groups;
   // open the round being played now, else the next one up, else the last played
-  let cur = GROUPS.findIndex(g => g.start <= today && today <= g.end);
-  if(cur < 0) cur = GROUPS.findIndex(g => g.start >= today);
-  if(cur < 0) cur = GROUPS.length - 1;
+  let cur = groups.findIndex(g => g.start <= today && today <= g.end);
+  if(cur < 0) cur = groups.findIndex(g => g.start >= today);
+  if(cur < 0) cur = groups.length - 1;
   let i = 0;
-  return GROUPS.map((g, gi) => {
+  return groups.map((g, gi) => {
     const byDate = {}; const order = [];
     g.items.forEach(p => { if(!byDate[p._date]){ byDate[p._date] = []; order.push(p._date); }
       byDate[p._date].push(p); });
     let inner = "";
     order.forEach(ds => {
       if(order.length > 1 || g.md) inner += `<div class="daydiv">${prettyDate(ds)}</div>`;
-      byDate[ds].forEach(p => { inner += card(p, i++); });
+      byDate[ds].forEach(p => { inner += card(C, p, i++); });
     });
     const rec = g.graded
       ? `<span class="mdcount">${g.hits}/${g.graded} correct</span>` : "";
@@ -1007,44 +1103,45 @@ function sectionsHtml(){
   }).join("");
 }
 
-function renderFixtures(){
+function renderFixtures(C){
   const el = document.getElementById("mdwrap");
   const hdr = document.getElementById("mhdr");
-  if(!MATCHES.length){
+  const matches = C._matches;
+  if(!matches.length){
     hdr.textContent = "Match predictions";
-    el.innerHTML = '<div class="empty">No predictions yet. Run the daily agent to populate this board.</div>';
+    el.innerHTML = `<div class="empty">No ${esc(C.short)} predictions yet. ${esc(roundCopy(C))}</div>`;
     return;
   }
   if(focusTeam){
-    const list = MATCHES.filter(p => p.home_team===focusTeam || p.away_team===focusTeam);
+    const list = matches.filter(p => p.home_team===focusTeam || p.away_team===focusTeam);
     const g = list.filter(p => p.actual).length;
     const c = list.filter(p => p.actual && p.actual.pick_hit).length;
     hdr.textContent = "Club focus";
     el.innerHTML = `<div class="focusbar">
-        <span>${crest(focusTeam)}</span><span class="fname">${esc(focusTeam)}</span>
+        <span>${crest(C,focusTeam)}</span><span class="fname">${esc(focusTeam)}</span>
         <span class="frec">${list.length} fixture${list.length===1?'':'s'} predicted${
           g ? ` \u00b7 ${c}/${g} calls right` : ""}</span>
         <span class="fclear" id="fclear">\u21BA back to matchdays</span>
-      </div>` + (list.length ? list.map((p,i) => card(p,i)).join("")
+      </div>` + (list.length ? list.map((p,i) => card(C,p,i)).join("")
         : '<div class="empty">No predictions for this club yet.</div>');
-    document.getElementById("fclear").onclick = () => { focusTeam = null; renderFixtures(); renderRail(); };
+    document.getElementById("fclear").onclick = () => { focusTeam = null; renderFixtures(C); renderRail(C); };
     applyFold();
     return;
   }
-  hdr.textContent = `Match predictions \u00b7 ${MATCHES.length}`;
-  el.innerHTML = sectionsHtml();
+  hdr.textContent = `Match predictions \u00b7 ${matches.length}`;
+  el.innerHTML = sectionsHtml(C);
   applyFold();
 }
 
-function renderRail(){
+function renderRail(C){
   const el = document.getElementById("rail");
-  if(!GROUPS.length){ el.innerHTML = ""; return; }
-  el.innerHTML = GROUPS.map(g => {
+  if(!C._groups.length){ el.innerHTML = ""; return; }
+  el.innerHTML = C._groups.map(g => {
     const sub = g.graded ? `${g.hits}/${g.graded} \u2713` : `${g.items.length} matches`;
     return `<div class="mdchip" data-k="${esc(g.key)}">
       <span class="cl">${esc(g.label)}</span><span class="cs">${sub}</span></div>`;
   }).join("");
-  el.querySelectorAll(".mdchip").forEach(c => c.onclick = () => openMatchday(c.dataset.k));
+  el.querySelectorAll(".mdchip").forEach(c => c.onclick = () => openMatchday(C, c.dataset.k));
   syncRail();
 }
 
@@ -1057,8 +1154,8 @@ function syncRail(){
     c.classList.toggle("on", !focusTeam && !!open[c.dataset.k]));
 }
 
-function openMatchday(key){
-  if(focusTeam){ focusTeam = null; renderFixtures(); }
+function openMatchday(C, key){
+  if(focusTeam){ focusTeam = null; renderFixtures(C); }
   showView("fixtures");
   let target = null;
   eachSection(s => { const on = s.dataset.k === key; s.open = on; if(on) target = s; });
@@ -1066,10 +1163,10 @@ function openMatchday(key){
   if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
-function focusClub(name){
+function focusClub(C, name){
   focusTeam = name;
   showView("fixtures");
-  renderFixtures();
+  renderFixtures(C);
   syncRail();
   document.getElementById("mhdr").scrollIntoView({behavior:"smooth", block:"start"});
 }
@@ -1083,15 +1180,86 @@ function showView(v){
 }
 document.querySelectorAll("#switch button").forEach(b => b.onclick = () => showView(b.dataset.v));
 
+/* ---------- competition switcher ---------- */
+let activeComp = null;
+
+function renderTabs(){
+  const el = document.getElementById("comptabs");
+  el.innerHTML = ORDER.map(k => {
+    const C = DATA.comps[k], s = C.summary || {};
+    const on = k === activeComp;
+    const hr = s.graded && s.hit_rate != null ? `<b>${s.hit_rate}%</b>` : "";
+    return `<button class="comptab${on ? " on" : ""}" role="tab" data-k="${esc(k)}"
+      aria-selected="${on}" tabindex="${on ? 0 : -1}" title="${esc(C.name)}"><span class="full"
+      >${esc(C.name)}</span><span class="abbr">${esc(C.short)}</span>${hr}</button>`;
+  }).join("");
+  el.querySelectorAll(".comptab").forEach(b => b.onclick = () => goComp(b.dataset.k));
+}
+
+function selectComp(k){
+  const C = DATA.comps[k];
+  activeComp = k;
+  focusTeam = null;
+  document.documentElement.dataset.comp = k;  // CSS swaps accent + mark on this
+  const title = `${C.name} ${DATA.season||""}`.trim();
+  document.title = `${title} \u2014 Predictions`;
+  document.getElementById("wordmark").textContent = title;
+  renderTabs();
+  renderStats(C.summary||{});
+  renderSplit(C.summary||{});
+  renderOutrights(C);
+  renderPostmortem(C.postmortem);
+  renderTable(C);
+  renderFixtures(C);
+  renderRail(C);
+  document.getElementById("openall").innerHTML = "\u2630 open every matchday";
+}
+
+// Tabs rewrite the hash without adding history entries; a typed or pasted
+// hash is picked up by the hashchange listener below. Some browsers refuse
+// replaceState on file:// pages, so fall back to a plain hash assignment
+// (selectComp runs first, so the resulting hashchange is a no-op).
+function goComp(k){
+  if(k !== activeComp) selectComp(k);
+  try { history.replaceState(null, "", "#" + k); } catch(_) { location.hash = k; }
+}
+
+const compFromHash = () => { const k = location.hash.slice(1); return ORDER.includes(k) ? k : null; };
+
+// No hash: open the competition whose next unplayed predicted fixture is
+// soonest (a kick-off within the last LIVE_MS still counts as unplayed);
+// with none anywhere, the first competition in registry order.
+const LIVE_MS = 3 * 3600 * 1000;
+function defaultComp(){
+  const from = Date.now() - LIVE_MS;
+  let best = null, bestT = Infinity;
+  ORDER.forEach(k => DATA.comps[k]._matches.forEach(p => {
+    const t = Date.parse(p.commence_time || "");
+    if(!p.actual && t >= from && t < bestT){ bestT = t; best = k; }
+  }));
+  return best || ORDER[0];
+}
+
+document.getElementById("comptabs").addEventListener("keydown", e => {
+  const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+  const i = ORDER.indexOf(activeComp);
+  if(!step || i < 0) return;
+  e.preventDefault();
+  goComp(ORDER[(i + step + ORDER.length) % ORDER.length]);
+  const on = document.querySelector("#comptabs .comptab.on");
+  if(on) on.focus();
+});
+window.addEventListener("hashchange", () => {
+  const k = compFromHash();
+  if(k && k !== activeComp) selectComp(k);
+});
+
 /* ---------- boot ---------- */
 document.getElementById("gen").textContent = "updated " + (DATA.generated_at||"");
-renderStats(DATA.summary||{});
-renderSplit(DATA.summary||{});
-renderOutrights(DATA.outrights||{});
-renderPostmortem(DATA.postmortem);
-renderTable();
-renderFixtures();
-renderRail();
+ORDER.forEach(k => prepare(DATA.comps[k]));
+if(ORDER.length) selectComp(compFromHash() || defaultComp());
+else document.getElementById("mdwrap").innerHTML =
+  '<div class="empty">No competitions configured yet (config/competitions.json).</div>';
 document.getElementById("expandall").onclick = () => setExpandAll(!allOpen);
 document.getElementById("openall").onclick = () => {
   const anyClosed = [...document.querySelectorAll("#mdwrap .mdsec")].some(s => !s.open);

@@ -1,0 +1,243 @@
+{
+  "matchday": "MD1",
+  "predictions": [
+    {
+      "home_team": "Omonoia FC",
+      "away_team": "Celta Vigo",
+      "commence_time": "2026-09-16T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "market": {"home": 0.238, "draw": 0.2797, "away": 0.4822},
+      "rationale": "Market-derived pick, no dedicated research this round; Celta Vigo priced at 48% to win away at Omonoia.",
+      "sources": []
+    },
+    {
+      "home_team": "FC Ararat-Armenia",
+      "away_team": "Sparta Prague",
+      "commence_time": "2026-09-16T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {"home": 0.1893, "draw": 0.2317, "away": 0.579},
+      "rationale": "Market-derived pick, no dedicated research this round; Sparta Prague priced at 58% to win away at FC Ararat-Armenia.",
+      "sources": []
+    },
+    {
+      "home_team": "AC Milan",
+      "away_team": "Benfica",
+      "commence_time": "2026-09-16T19:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {"home": 0.4589, "draw": 0.2616, "away": 0.2795},
+      "rationale": "AC Milan are a 46% home favourite (46/26/28), and the research splits rather than points one way. Benfica's form is the case against the price — second in the Primeira Liga on six straight league wins, with Vangelis Pavlidis on 14 goals in 11 matches, against a Milan side that has conceded 6 in 4 Serie A games and drawn its last two — but Marco Silva is reported on 15 Sep, the day the odds were taken, to be changing personnel in every line to rest players before the Porto derby, with right-back Alexander Bah out injured, a heavier rotation than Milan resting Modrić and benching De Winter. The two roughly cancel, so the home pick and confidence 3 are held at the market read, with the scoreline set at 2-1 rather than 1-0 because both previews surveyed land on both teams to score and over 2.5 goals.",
+      "disagreement": "Tipsters split: Goal.com's preview gives a slight edge to Benfica on the form gap, against the market, while Football Whispers backs Milan 2-1 citing home advantage and Bah's absence. Both agree on an open, both-teams-score game.",
+      "sources": [
+        {"title": "Probabile formazione Milan-Benfica: Amorim rivoluziona tutto — PianetaMilan", "url": "https://www.pianetamilan.it/partite/probabili-formazioni/probabile-formazione-milan-benfica-amorim-rivoluziona-tutto/"},
+        {"title": "Benfica: Marco Silva prepara mudança em todas as linhas para o jogo contra o AC Milan — Bola na Rede", "url": "https://bolanarede.pt/especial-bola-na-rede/atualidade/benfica-marco-silva-prepara-mudanca-em-todas-as-linhas-para-o-jogo-contra-o-ac-milan/"},
+        {"title": "AC Milan vs Benfica prediction, 16/09/2026 — Football Whispers", "url": "https://footballwhispers.com/blog/ac-milan-vs-benfica-prediction-16-09-2026/"},
+        {"title": "AC Milan vs Benfica Europa League preview — Goal.com", "url": "https://www.goal.com/en/news/ac-milan-benfica-europa-league-preview/blta2172a304c11abd2"},
+        {"title": "Marco Silva só perde para Béla Guttmann: arranque avassalador da águia no campeonato — Record", "url": "https://www.record.pt/futebol/futebol-nacional/liga-betclic/benfica/detalhe/marco-silva-so-perde-para-bela-guttmann-arranque-avassalador-da-aguia-no-campeonato"},
+        {"title": "Amorim in conferenza stampa prima di Milan-Lazio — Il Napolista", "url": "https://www.ilnapolista.it/2026/09/amorim-milan-conferenza-stampa-lazio-gattuso/"}
+      ]
+    },
+    {
+      "home_team": "Sunderland",
+      "away_team": "AZ Alkmaar",
+      "commence_time": "2026-09-16T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {"home": 0.5743, "draw": 0.2341, "away": 0.1916},
+      "rationale": "Market-derived pick, no dedicated research this round; Sunderland priced at 57% to beat AZ Alkmaar at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Anderlecht",
+      "away_team": "Lyon",
+      "commence_time": "2026-09-16T19:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "market": {"home": 0.2792, "draw": 0.2567, "away": 0.4641},
+      "rationale": "Market-derived pick, no dedicated research this round; Lyon priced at 46% to win away at Anderlecht.",
+      "sources": []
+    },
+    {
+      "home_team": "Bayer Leverkusen",
+      "away_team": "NK Celje",
+      "commence_time": "2026-09-16T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {"home": 0.8224, "draw": 0.1138, "away": 0.0638},
+      "rationale": "Market-derived pick, no dedicated research this round; Bayer Leverkusen priced at 82% to beat NK Celje at home, the shortest price of the round.",
+      "sources": []
+    },
+    {
+      "home_team": "Hapoel Be'er Sheva",
+      "away_team": "Dinamo Zagreb",
+      "commence_time": "2026-09-16T19:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "market": {"home": 0.2634, "draw": 0.2497, "away": 0.4869},
+      "rationale": "Market-derived pick, no dedicated research this round; Dinamo Zagreb priced at 49% to win away at Hapoel Be'er Sheva.",
+      "sources": []
+    },
+    {
+      "home_team": "Olympiakos Piraeus",
+      "away_team": "Jagiellonia Białystok",
+      "commence_time": "2026-09-16T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {"home": 0.6916, "draw": 0.1919, "away": 0.1165},
+      "rationale": "Market-derived pick, no dedicated research this round; Olympiakos priced at 69% to beat Jagiellonia Białystok at home.",
+      "sources": []
+    },
+    {
+      "home_team": "SK Sturm Graz",
+      "away_team": "Rennes",
+      "commence_time": "2026-09-16T19:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "market": {"home": 0.2602, "draw": 0.2472, "away": 0.4927},
+      "rationale": "Market-derived pick, no dedicated research this round; Rennes priced at 49% to win away at Sturm Graz.",
+      "sources": []
+    },
+    {
+      "home_team": "OFI Crete",
+      "away_team": "TSG Hoffenheim",
+      "commence_time": "2026-09-17T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {"home": 0.1332, "draw": 0.1978, "away": 0.6689},
+      "rationale": "Market-derived pick, no dedicated research this round; TSG Hoffenheim priced at 67% to win away at OFI Crete.",
+      "sources": []
+    },
+    {
+      "home_team": "PFC Levski Sofia",
+      "away_team": "Salzburg",
+      "commence_time": "2026-09-17T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "market": {"home": 0.3218, "draw": 0.2641, "away": 0.4141},
+      "rationale": "Market-derived pick, no dedicated research this round; Salzburg priced at 41% to win away at Levski Sofia in one of the tighter lines on the card.",
+      "sources": []
+    },
+    {
+      "home_team": "Besiktas JK",
+      "away_team": "Marseille",
+      "commence_time": "2026-09-17T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {"home": 0.5293, "draw": 0.239, "away": 0.2317},
+      "rationale": "Market-derived pick, no dedicated research this round; Besiktas priced at 53% to beat Marseille at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Real Sociedad",
+      "away_team": "Bournemouth",
+      "commence_time": "2026-09-17T19:00:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 1,
+      "market": {"home": 0.3445, "draw": 0.2707, "away": 0.3848},
+      "rationale": "Bournemouth are a narrow 38% away favourite over Real Sociedad (34/27/38), and the intel leans the other way: Bournemouth are confirmed without Éli Kroupi Jr (13 goals last season), Amine Adli, Julián Araujo and Veljko Milosavljević, and Marco Rose is expected to rotate — Di Gregorio in goal, Tyler Adams likely out of midfield — three days before hosting Liverpool, while Sociedad miss only Odriozola and the suspended Aramburu, with Zubeldia a doubt. None of that is a concrete unpriced reason to flip a four-point line set by 37 books: the absences were in previews the day before the odds were taken, the Liverpool fixture was always on the calendar, the expected rotation is milder than the eight changes Rose made in the League Cup, and Sociedad arrive off a 0-3 home defeat to Atlético Madrid with 11 conceded in six league games. The away pick stands, but confidence drops from 2 to 1 to record that the research points against the call, and the scoreline is 1-2 rather than 0-1 because both defences have been leaking.",
+      "disagreement": "PenseBet's tipster backs Real Sociedad double chance (home or draw), citing home advantage, Oyarzabal and Guedes, Bournemouth's four injuries and their run of dropping points from winning positions — a lean against the market's Bournemouth edge.",
+      "sources": [
+        {"title": "Pronostic Real Sociedad vs Bournemouth, Europa League 17/09/2026 — PenseBet", "url": "https://pensebet.com/pronostic-real-sociedad-bournemouth-europa-league-17-09-2026/"},
+        {"title": "Pre-match analysis: Bournemouth begin their European tour — VAVEL", "url": "https://www.vavel.com/en/football/2026/09/14/bournemouth/1271392-pre-match-analysis-bournemouth-begin-their-european-tour.html"},
+        {"title": "Real Sociedad vs Bournemouth Europa League preview — Goal.com", "url": "https://www.goal.com/en/news/real-sociedad-bournemouth-uefa-europa-league-preview/blt221699918ec37ce4"},
+        {"title": "La Real ante el Bournemouth en la Europa League — Noticias de Gipuzkoa", "url": "https://www.noticiasdegipuzkoa.eus/reala/2026/09/12/visitara-real-haber-ganado-bournemouth-sociedad-europa-league-brentford-11534433.html"},
+        {"title": "Europa League predictions 2026-27: Opta supercomputer — The Analyst", "url": "https://theanalyst.com/articles/europa-league-predictions-2026-27-opta-supercomputer"}
+      ]
+    },
+    {
+      "home_team": "Celtic",
+      "away_team": "Ferencváros TC",
+      "commence_time": "2026-09-17T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {"home": 0.5556, "draw": 0.2316, "away": 0.2129},
+      "rationale": "Market-derived pick, no dedicated research this round; Celtic priced at 56% to beat Ferencváros at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Crystal Palace",
+      "away_team": "Lech Poznań",
+      "commence_time": "2026-09-17T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {"home": 0.6739, "draw": 0.1963, "away": 0.1299},
+      "rationale": "Market-derived pick, no dedicated research this round; Crystal Palace priced at 67% to beat Lech Poznań at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Juventus",
+      "away_team": "NEC Nijmegen",
+      "commence_time": "2026-09-17T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 5,
+      "market": {"home": 0.7617, "draw": 0.1528, "away": 0.0856},
+      "rationale": "Market-derived pick, no dedicated research this round; Juventus priced at 76% to beat NEC Nijmegen at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Lillestrom",
+      "away_team": "Torreense",
+      "commence_time": "2026-09-17T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {"home": 0.6188, "draw": 0.2112, "away": 0.17},
+      "rationale": "Market-derived pick, no dedicated research this round; Lillestrom priced at 62% to beat Torreense at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Viktoria Plzeň",
+      "away_team": "Union Saint-Gilloise",
+      "commence_time": "2026-09-17T19:00:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 2,
+      "market": {"home": 0.354, "draw": 0.2739, "away": 0.3722},
+      "rationale": "The tightest line on the card (35/27/37), with Union Saint-Gilloise a hair ahead away from home. The research pulls both ways: Union are down to 13 fit outfield players and three recognised centre-backs (Kevin Mac Allister's ACL tear on top of earlier injuries, three suspensions carried over from qualifying, two players left off the European list), but they also co-lead the Belgian league unbeaten in 10, against a Plzeň side ninth in the Czech league in uneven form under new manager Radoslav Kováč. The squad news was in Belgian reporting on 14 Sep and rests largely on suspensions and a squad registration that predate the odds, so it is not a concrete unpriced reason to flip the pick — away pick and confidence 2 held at the market read, with the scoreline 1-2 rather than 0-1 because Plzeň have scored in nine straight home games and both teams have scored in all six of their home fixtures this season.",
+      "sources": [
+        {"title": "Union telt amper 13 veldspelers voor duel met Plzeň — Voetbalprimeur", "url": "https://www.voetbalprimeur.be/nieuws/2135540/union-telt-amper-13-veldspelers-voor-duel-met-plzen.html"},
+        {"title": "Viktoria Plzeň vs Union St-Gilloise preview — WhoScored", "url": "https://www.whoscored.com/matches/2029561/preview/europe-europa-league-2026-2027-viktoria-plzen-union-st-gilloise"},
+        {"title": "Viktoria Plzeň vs RU Saint-Gilloise preview — Eurofotbal.cz", "url": "https://www.eurofotbal.cz/evropska-liga/2026-2027/preview/viktoria-plzen-ru-saint-gilloise-1115641/"},
+        {"title": "FC Viktoria Plzeň news — iSport.cz", "url": "https://isport.blesk.cz/fotbal-fc-viktoria-plzen-29"},
+        {"title": "Pronostic FC Viktoria Plzeň vs Royale Union Saint-Gilloise, 17/09 — MediaPronos", "url": "https://mediapronos.com/pronostic-fc-viktoria-plzen-royale-union-saint-gillo-17-09/"},
+        {"title": "Pronostic Viktoria Plzeň vs Union Saint-Gilloise, Europa League 17/09/2026 — PenseBet", "url": "https://pensebet.com/pronostic-viktoria-plzen-union-saint-gilloise-europa-league-17-09-2026/"}
+      ]
+    }
+  ]
+}

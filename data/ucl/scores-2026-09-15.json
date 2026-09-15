@@ -1,0 +1,200 @@
+{
+  "generated_at": "2026-09-15T08:37:13Z",
+  "source": "manual — web sources; The Odds API scores endpoint only reaches back 3 days",
+  "matches": [
+    {
+      "match": "Barcelona vs Feyenoord",
+      "home_team": "Barcelona",
+      "away_team": "Feyenoord",
+      "commence_time": "2026-09-09T16:45:00Z",
+      "completed": true,
+      "home_score": "5",
+      "away_score": "1",
+      "final_score": "5-1",
+      "result": "home",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "VfB Stuttgart vs Viking FK",
+      "home_team": "VfB Stuttgart",
+      "away_team": "Viking FK",
+      "commence_time": "2026-09-09T16:45:00Z",
+      "completed": true,
+      "home_score": "3",
+      "away_score": "1",
+      "final_score": "3-1",
+      "result": "home",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "Napoli vs Arsenal",
+      "home_team": "Napoli",
+      "away_team": "Arsenal",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "completed": true,
+      "home_score": "0",
+      "away_score": "1",
+      "final_score": "0-1",
+      "result": "away",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "Liverpool vs Atlético Madrid",
+      "home_team": "Liverpool",
+      "away_team": "Atlético Madrid",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "completed": true,
+      "home_score": "2",
+      "away_score": "1",
+      "final_score": "2-1",
+      "result": "home",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "Sporting Lisbon vs Galatasaray",
+      "home_team": "Sporting Lisbon",
+      "away_team": "Galatasaray",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "completed": true,
+      "home_score": "3",
+      "away_score": "1",
+      "final_score": "3-1",
+      "result": "home",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "Paris Saint Germain vs ŠK Slovan Bratislava",
+      "home_team": "Paris Saint Germain",
+      "away_team": "ŠK Slovan Bratislava",
+      "commence_time": "2026-09-09T19:00:00Z",
+      "completed": true,
+      "home_score": "6",
+      "away_score": "1",
+      "final_score": "6-1",
+      "result": "home",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "Fenerbahce vs AS Roma",
+      "home_team": "Fenerbahce",
+      "away_team": "AS Roma",
+      "commence_time": "2026-09-10T16:45:00Z",
+      "completed": true,
+      "home_score": "1",
+      "away_score": "1",
+      "final_score": "1-1",
+      "result": "draw",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "PSV Eindhoven vs Shakhtar Donetsk",
+      "home_team": "PSV Eindhoven",
+      "away_team": "Shakhtar Donetsk",
+      "commence_time": "2026-09-10T16:45:00Z",
+      "completed": true,
+      "home_score": "1",
+      "away_score": "1",
+      "final_score": "1-1",
+      "result": "draw",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "Bayern Munich vs Bodø/Glimt",
+      "home_team": "Bayern Munich",
+      "away_team": "Bodø/Glimt",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "completed": true,
+      "home_score": "5",
+      "away_score": "0",
+      "final_score": "5-0",
+      "result": "home",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "Como vs RB Leipzig",
+      "home_team": "Como",
+      "away_team": "RB Leipzig",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "completed": true,
+      "home_score": "4",
+      "away_score": "1",
+      "final_score": "4-1",
+      "result": "home",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "Manchester United vs Sabah FK",
+      "home_team": "Manchester United",
+      "away_team": "Sabah FK",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "completed": true,
+      "home_score": "4",
+      "away_score": "0",
+      "final_score": "4-0",
+      "result": "home",
+      "last_update": "2026-09-15T08:37:13Z"
+    },
+    {
+      "match": "Slavia Praha vs RC Lens",
+      "home_team": "Slavia Praha",
+      "away_team": "RC Lens",
+      "commence_time": "2026-09-10T19:00:00Z",
+      "completed": true,
+      "home_score": "2",
+      "away_score": "3",
+      "final_score": "2-3",
+      "result": "away",
+      "last_update": "2026-09-15T08:37:13Z"
+    }
+  ],
+  "sources": {
+    "Barcelona|Feyenoord": [
+      "https://www.espn.com/soccer/match/_/gameId/401915424/feyenoord-rotterdam-barcelona",
+      "https://www.vavel.com/en-us/soccer/2026/09/09/1270597-barcelona-vs-feyenoord-live-score-uefa-champions-league.html"
+    ],
+    "VfB Stuttgart|Viking FK": [
+      "https://www.espn.com/soccer/match/_/gameId/401915448/viking-fk-vfb-stuttgart",
+      "https://www.foxsports.com/soccer/champions-league-vfb-stuttgart-vs-viking-fk-sep-09-2026-game-boxscore-1003192"
+    ],
+    "Napoli|Arsenal": [
+      "https://www.espn.com/soccer/match/_/gameId/401915423/arsenal-napoli",
+      "https://www.vavel.com/en-us/soccer/2026/09/09/1270590-napoli-vs-arsenal-live-score-uefa-champions-league.html"
+    ],
+    "Liverpool|Atlético Madrid": [
+      "https://www.espn.com/soccer/match/_/gameId/401915446/atletico-madrid-liverpool",
+      "https://www.365scores.com/en-us/football/match/uefa-champions-league-572/atletico-madrid-liverpool-108-134-572"
+    ],
+    "Sporting Lisbon|Galatasaray": [
+      "https://www.espn.com/soccer/match/_/gameId/401915447/galatasaray-sporting-cp",
+      "https://www.vavel.com/en-us/soccer/2026/09/09/1270678-sporting-vs-galatasaray-live-score-uefa-champions-league.html"
+    ],
+    "Paris Saint Germain|ŠK Slovan Bratislava": [
+      "https://www.skysports.com/football/paris-saint-germain-vs-sk-slovan-bratislava/577606",
+      "https://www.espn.com/soccer/match/_/gameId/401915445/slovan-bratislava-paris-saint-germain"
+    ],
+    "Fenerbahce|AS Roma": [
+      "https://www.espn.com/soccer/match/_/gameId/401915444/as-roma-fenerbahce",
+      "https://www.foxsports.com/soccer/champions-league-fenerbahce-vs-roma-sep-10-2026-game-boxscore-1003333"
+    ],
+    "PSV Eindhoven|Shakhtar Donetsk": [
+      "https://www.espn.com/soccer/match/_/gameId/401915422/shakhtar-donetsk-psv-eindhoven",
+      "https://www.sofascore.com/football/match/shakhtar-donetsk-psv-eindhoven/cjbsnqb"
+    ],
+    "Bayern Munich|Bodø/Glimt": [
+      "https://www.espn.com/soccer/match/_/gameId/401915443/bodoglimt-bayern-munich",
+      "https://www.vavel.com/en-us/soccer/2026/09/10/1270843-bayern-vs-bodo-glimt-live-score-uefa-champions-league.html"
+    ],
+    "Como|RB Leipzig": [
+      "https://www.espn.com/soccer/match/_/gameId/401915441/rb-leipzig-como",
+      "https://www.fotmob.com/matches/como-vs-rb-leipzig/86a1nu8"
+    ],
+    "Manchester United|Sabah FK": [
+      "https://www.espn.com/soccer/match/_/gameId/401915442/sabah-fk-manchester-united",
+      "https://www.vavel.com/en-us/soccer/2026/09/10/1270670-manchester-united-vs-sabah-live-score-uefa-champions.html"
+    ],
+    "Slavia Praha|RC Lens": [
+      "https://www.espn.com/soccer/match/_/gameId/401915440/lens-slavia-prague",
+      "https://www.vavel.com/en-us/soccer/2026/09/10/1270765-slavia-praha-vs-lens-live-score-uefa-champions.html"
+    ]
+  }
+}

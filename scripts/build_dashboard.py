@@ -2,14 +2,15 @@
 """
 Build a self-contained dashboard.html from the project's data files.
 
-Reads:
-    config/teams.json          (the 36 clubs: short code, country, flag)
-    data/predictions-*.json    (agent-written: picks, confidence, depth, rationale, market)
-    data/scores-*.json         (actual final scores, for grading)
-    data/standings-*.json      (the official 36-row league table)
-    data/outrights-*.json      (season-long markets: winner, top 8, ...)
+Reads, for every competition in config/competitions.json (registry order):
+    <teams_file>                     (the 36 clubs: short code, country, flag)
+    data/<comp>/predictions-*.json   (agent-written: picks, confidence, depth, rationale, market)
+    data/<comp>/scores-*.json        (actual final scores, for grading)
+    data/<comp>/standings-*.json     (the official 36-row league table)
+    data/<comp>/outrights-*.json     (season-long markets: winner, top 8, ...)
 Writes:
-    dashboard.html            (one file, no dependencies — just open it)
+    dashboard.html            (one file, no dependencies — just open it;
+                               a tab per competition, deep-linkable as #<comp>)
     index.html                (copy for GitHub Pages)
 
 Everything is baked into the HTML, so it works from file:// with no server, no
@@ -26,11 +27,10 @@ import os
 import re
 from datetime import datetime, timezone
 
-TEAMS_PATH = "config/teams.json"
-
-# Shown instead of an empty table before the first matchday is played.
-PRESEASON_NOTE = ("League phase starts 8 September — 36 clubs, one table, "
-                  "eight matchdays. Nothing played yet.")
+REGISTRY_PATH = "config/competitions.json"
+DATA_ROOT = "data"
+NUMBER_WORDS = ("no", "one", "two", "three", "four", "five", "six", "seven",
+                "eight", "nine", "ten", "eleven", "twelve")
 
 
 def load_json(path: str) -> dict:
@@ -45,8 +45,15 @@ CREST_PATTERNS = {"solid", "stripes", "halves", "hoops", "sash"}
 _HEX_RE = re.compile(r"^#[0-9a-fA-F]{6}$")
 
 
-def load_teams() -> dict:
-    """config/teams.json -> {name: [short, flag, country, colors, pattern]}.
+def load_registry() -> tuple[str, dict]:
+    """config/competitions.json -> (season, {comp_key: {...}}) in registry (display) order."""
+    doc = load_json(REGISTRY_PATH)
+    comps = doc.get("competitions")
+    return str(doc.get("season") or ""), (comps if isinstance(comps, dict) else {})
+
+
+def load_teams(path: str) -> dict:
+    """A competition's teams file -> {name: [short, flag, country, colors, pattern]}.
 
     The list shape is what the render code indexes into ([0] short, [1] flag,
     [2] country, [3] colors, [4] pattern). A missing, malformed or mid-edit
@@ -54,7 +61,7 @@ def load_teams() -> dict:
     club rather than raising, so the dashboard still builds and the JS crest
     helper falls back to a neutral badge.
     """
-    raw = load_json(TEAMS_PATH).get("teams") or {}
+    raw = load_json(path).get("teams") or {}
     out: dict[str, list] = {}
     if not isinstance(raw, dict):
         return out
@@ -81,7 +88,12 @@ def load_teams() -> dict:
     return out
 
 
-def latest_scores() -> dict:
+def data_files(data_dir: str, kind: str) -> list[str]:
+    """data/<comp>/<kind>-*.json, oldest first (the date is in the name)."""
+    return sorted(glob.glob(os.path.join(data_dir, f"{kind}-*.json")))
+
+
+def latest_scores(data_dir: str) -> dict:
     """Merge every scores file (oldest -> newest) -> {home|away: {...}}.
 
     fetch_scores.py only writes a rolling window (--days-from), so the newest
@@ -91,7 +103,7 @@ def latest_scores() -> dict:
     already-completed result.
     """
     out = {}
-    for path in sorted(glob.glob("data/scores-*.json")):
+    for path in data_files(data_dir, "scores"):
         for m in load_json(path).get("matches", []):
             key = f"{m.get('home_team')}|{m.get('away_team')}"
             prev = out.get(key)
@@ -101,19 +113,19 @@ def latest_scores() -> dict:
     return out
 
 
-def latest_outrights() -> dict:
+def latest_outrights(data_dir: str) -> dict:
     """Most recent outrights file -> {lock_deadline, markets:[...]}."""
-    files = sorted(glob.glob("data/outrights-*.json"))
+    files = data_files(data_dir, "outrights")
     return load_json(files[-1]) if files else {}
 
 
-def latest_standings() -> dict:
+def latest_standings(data_dir: str) -> dict:
     """Most recent standings file -> {as_of, matchdays_played, table:[...]}."""
-    files = sorted(glob.glob("data/standings-*.json"))
+    files = data_files(data_dir, "standings")
     return load_json(files[-1]) if files else {}
 
 
-def all_predictions() -> list[dict]:
+def all_predictions(data_dir: str) -> list[dict]:
     """Every prediction we've ever made, newest day first, de-duped by match.
 
     The matchday label lives at file level (`matchday: "MD1"`); stamp it onto
@@ -121,7 +133,7 @@ def all_predictions() -> list[dict]:
     without re-deriving it from dates.
     """
     days = []
-    for path in sorted(glob.glob("data/predictions-*.json"), reverse=True):
+    for path in reversed(data_files(data_dir, "predictions")):
         date = os.path.basename(path)[len("predictions-"):-len(".json")]
         data = load_json(path)
         preds = data.get("predictions") or data.get("matches") or []
@@ -160,17 +172,38 @@ def _bucket() -> dict:
     return {"graded": 0, "correct": 0, "exact": 0}
 
 
+def _favourite(market: dict) -> str | None:
+    """The result ('home'/'draw'/'away') the market rates most likely, or None.
+
+    Used to separate research's contribution from a selection effect: deep
+    picks are drawn from the tightest three-way lines, so their hit rate is
+    never comparable to a blind bet on the market favourite unless that
+    favourite is measured on the exact same matches.
+    """
+    probs = {k: v for k, v in (market or {}).items() if isinstance(v, (int, float))}
+    return max(probs, key=probs.get) if probs else None
+
+
 def grade(days: list[dict], scores: dict) -> dict:
     """Attach actual results to predictions and compute an accuracy summary.
 
     The deep/quick split answers the one question the headline number can't:
     are the researched cards actually beating the picks we derived from the
     market in thirty seconds? Both buckets are derived here, never hardcoded.
+
+    Alongside it, `deep_fav_correct`/`deep_graded` answer the fairer question:
+    on the matches that got research, did the researched pick beat a blind
+    bet on the market favourite for those SAME matches — not quick picks,
+    which are drawn from a different (easier) pool of matches entirely.
+    `deep_deviations`/`deep_dev_correct` isolate the picks where research
+    actually disagreed with the market, since agreement with the favourite
+    can't demonstrate an edge either way.
     """
     seen = set()
     correct = exact = graded = 0
     conf_right, conf_wrong = [], []
     depth_split = {"deep": _bucket(), "quick": _bucket()}
+    deep_graded = deep_fav_correct = deep_deviations = deep_dev_correct = 0
 
     for day in days:
         for p in day["predictions"]:
@@ -189,11 +222,21 @@ def grade(days: list[dict], scores: dict) -> dict:
                 if key not in seen:
                     seen.add(key)
                     graded += 1
-                    # Only the pick we last published counts, and DATA.days is
+                    # Only the pick we last published counts, and `days` is
                     # newest-first, so the first sighting is the live one.
                     bucket = depth_split.get(p.get("depth"))
                     if bucket is not None:
                         bucket["graded"] += 1
+                    if p.get("depth") == "deep":
+                        deep_graded += 1
+                        fav = _favourite(p.get("market"))
+                        if fav is not None:
+                            if fav == sc.get("result"):
+                                deep_fav_correct += 1
+                            if p.get("pick") != fav:
+                                deep_deviations += 1
+                                if p["actual"]["pick_hit"]:
+                                    deep_dev_correct += 1
                     if p["actual"]["pick_hit"]:
                         correct += 1
                         if bucket is not None:
@@ -226,6 +269,10 @@ def grade(days: list[dict], scores: dict) -> dict:
         "conf_wrong": avg(conf_wrong),
         "depth": depth_split,
         "depth_edge": edge,
+        "deep_graded": deep_graded,
+        "deep_fav_correct": deep_fav_correct,
+        "deep_deviations": deep_deviations,
+        "deep_dev_correct": deep_dev_correct,
     }
 
 
@@ -236,12 +283,13 @@ def _int(v, default: int = 0) -> int:
         return default
 
 
-def league_table(standings: dict, teams: dict) -> dict:
+def league_table(standings: dict, teams: dict, preseason_note: str) -> dict:
     """The 36-row league phase table, ready to render.
 
     The official UEFA table is authoritative — we never recompute it from our
     partial score history. Before the first matchday there is no file yet, so
-    fall back to the 36 clubs at zero rather than an empty box.
+    fall back to the 36 clubs at zero rather than an empty box. With no teams
+    file either, `rows` is empty and the note explains why.
     """
     raw = standings.get("table") or []
     rows = []
@@ -276,7 +324,37 @@ def league_table(standings: dict, teams: dict) -> dict:
              "lost": 0, "gf": 0, "ga": 0, "gd": 0, "points": 0}
             for t in sorted(teams)]
     return {"provisional": True, "as_of": None, "matchdays_played": 0,
-            "rows": rows, "note": PRESEASON_NOTE}
+            "rows": rows, "note": preseason_note}
+
+
+def rounds(comp: dict) -> list[dict]:
+    """The registry calendar as [{id, name, dates}] — league phase, then knockouts."""
+    out = []
+    for r in comp.get("league_phase") or []:
+        m = re.fullmatch(r"MD(\d+)", str(r.get("id") or ""))
+        out.append({"id": r.get("id"), "dates": sorted(r.get("dates") or []),
+                    "name": f"Matchday {m.group(1)}" if m else r.get("id")})
+    for r in comp.get("knockouts") or []:
+        out.append({"id": r.get("id"), "dates": sorted(r.get("dates") or []),
+                    "name": r.get("name") or r.get("id")})
+    return out
+
+
+def preseason_note(comp: dict, n_clubs: int, today: str) -> str:
+    """The provisional table's caption, derived from the registry calendar."""
+    phase = comp.get("league_phase") or []
+    first = min((d for r in phase for d in (r.get("dates") or [])), default=None)
+    try:
+        day = datetime.strptime(first or "", "%Y-%m-%d")
+        verb = "started" if first < today else "starts"
+        start = f"League phase {verb} {day.day} {day.strftime('%B')}"
+    except ValueError:
+        start = "League phase dates not published yet"
+    if not n_clubs:
+        return (f"Club list not loaded yet ({comp.get('teams_file') or 'no teams file'} "
+                f"is missing or empty). {start}.")
+    count = NUMBER_WORDS[len(phase)] if len(phase) < len(NUMBER_WORDS) else str(len(phase))
+    return f"{start} — {n_clubs} clubs, one table, {count} matchdays. Nothing played yet."
 
 
 def postmortem(days: list[dict], scores: dict) -> dict | None:
@@ -365,37 +443,60 @@ def postmortem(days: list[dict], scores: dict) -> dict | None:
     }
 
 
-def build_data() -> dict:
-    teams = load_teams()
-    scores = latest_scores()
-    days = all_predictions()
-    summary = grade(days, scores)
+def build_comp(key: str, comp: dict, teams: dict, today: str) -> dict:
+    """One competition's whole page block, loaded from data/<key>/."""
+    data_dir = os.path.join(DATA_ROOT, key)
+    scores = latest_scores(data_dir)
+    days = all_predictions(data_dir)
     return {
-        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        "name": comp.get("name") or key.upper(),
+        "short": comp.get("short") or key.upper(),
+        "final": comp.get("final") or {},
+        "rounds": rounds(comp),
         "days": days,
-        "summary": summary,
-        "outrights": latest_outrights(),
-        "table": league_table(latest_standings(), teams),
+        "summary": grade(days, scores),
+        "outrights": latest_outrights(data_dir),
+        "table": league_table(latest_standings(data_dir), teams,
+                              preseason_note(comp, len(teams), today)),
         "teams": teams,
         "postmortem": postmortem(days, scores),
+    }
+
+
+def build_data(season: str, registry: dict, teams_by_comp: dict) -> dict:
+    now = datetime.now(timezone.utc)
+    today = now.strftime("%Y-%m-%d")
+    return {
+        "generated_at": now.strftime("%Y-%m-%d %H:%M UTC"),
+        "season": season,
+        "order": list(registry),
+        "comps": {key: build_comp(key, comp, teams_by_comp[key], today)
+                  for key, comp in registry.items()},
     }
 
 
 HTML = """<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Champions League 2026-27 — Predictions</title>
+<title>Prediction Desk</title>
 <style>
   :root{
     --bg:#04060f; --bg2:#080b1b; --panel:#0d1229; --panel2:#131a3a;
     --line:#212a55; --line2:#2f3a72;
     --ink:#eef2ff; --muted:#98a2cf; --faint:#69719f;
     --star:#9dbcff; --star2:#4a7bf0; --silver:#cfd9f7;
+    --star-rgb:157,188,255; --star2-rgb:74,123,240; --glow3-rgb:46,78,168; --starfield:.55;
     --home:#6ea8ff; --draw:#8b95c4; --away:#ff7fa3;
     --gold:#f2cd7a; --win:#57e0a5; --loss:#ff6f8e;
     --f-ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,system-ui,sans-serif;
     --f-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,"Cascadia Mono",Consolas,monospace;
     --shadow:0 24px 55px -30px rgba(0,0,0,.95);
+  }
+  /* Per-competition identity: only the accent moves; ground, panels and layout
+     stay put. The :root values above are the Champions League midnight look. */
+  html[data-comp="uel"]{
+    --star:#ffb46b; --star2:#e8741c; --silver:#f1dccb;
+    --star-rgb:255,180,107; --star2-rgb:232,116,28; --glow3-rgb:150,70,20; --starfield:.2;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -404,22 +505,22 @@ HTML = """<!DOCTYPE html>
   /* stadium glow: floodlights over a midnight ground */
   body::before{content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
     background:
-      radial-gradient(1100px 620px at 50% -14%, rgba(74,123,240,.20), transparent 62%),
-      radial-gradient(760px 520px at 92% 6%, rgba(157,188,255,.08), transparent 60%),
-      radial-gradient(680px 460px at 2% 22%, rgba(46,78,168,.12), transparent 62%),
+      radial-gradient(1100px 620px at 50% -14%, rgba(var(--star2-rgb),.20), transparent 62%),
+      radial-gradient(760px 520px at 92% 6%, rgba(var(--star-rgb),.08), transparent 60%),
+      radial-gradient(680px 460px at 2% 22%, rgba(var(--glow3-rgb),.12), transparent 62%),
       var(--bg);}
   /* starfield — pure CSS, tiles so it covers any page height */
-  body::after{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.55;
+  body::after{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:var(--starfield);
     background-repeat:repeat; background-size:820px 620px;
     background-image:
       radial-gradient(1.5px 1.5px at 6% 12%, rgba(255,255,255,.85), transparent 60%),
       radial-gradient(1.2px 1.2px at 23% 41%, rgba(207,217,247,.7), transparent 60%),
       radial-gradient(1px 1px at 38% 8%, rgba(255,255,255,.6), transparent 60%),
-      radial-gradient(1.6px 1.6px at 52% 63%, rgba(157,188,255,.75), transparent 60%),
+      radial-gradient(1.6px 1.6px at 52% 63%, rgba(var(--star-rgb),.75), transparent 60%),
       radial-gradient(1.1px 1.1px at 67% 26%, rgba(255,255,255,.55), transparent 60%),
       radial-gradient(1.4px 1.4px at 81% 71%, rgba(207,217,247,.6), transparent 60%),
       radial-gradient(1px 1px at 94% 34%, rgba(255,255,255,.5), transparent 60%),
-      radial-gradient(1.3px 1.3px at 14% 78%, rgba(157,188,255,.55), transparent 60%),
+      radial-gradient(1.3px 1.3px at 14% 78%, rgba(var(--star-rgb),.55), transparent 60%),
       radial-gradient(1px 1px at 45% 91%, rgba(255,255,255,.45), transparent 60%),
       radial-gradient(1.2px 1.2px at 73% 96%, rgba(207,217,247,.5), transparent 60%),
       radial-gradient(1px 1px at 88% 15%, rgba(255,255,255,.4), transparent 60%);}
@@ -432,7 +533,22 @@ HTML = """<!DOCTYPE html>
     backdrop-filter:blur(9px); display:flex; align-items:center; justify-content:space-between;
     gap:16px; flex-wrap:wrap;}
   .brand{display:flex; align-items:center; gap:14px; min-width:0;}
-  .crest{width:46px; height:46px; flex:none; filter:drop-shadow(0 6px 16px rgba(74,123,240,.5));}
+  .crest{width:46px; height:46px; flex:none; filter:drop-shadow(0 6px 16px rgba(var(--star2-rgb),.5));}
+  /* the starball mark is the Champions League's alone; everything else gets the neutral mark */
+  html[data-comp="ucl"] .crest.neutral, html:not([data-comp="ucl"]) .crest.starball{display:none;}
+
+  /* ---- competition tabs ---- */
+  .comptabs{display:flex; gap:4px; padding:4px; border-radius:12px; background:var(--panel);
+    border:1px solid var(--line);}
+  .comptabs:empty{display:none;}
+  .comptab{font-family:var(--f-ui); font-weight:700; font-size:13px; color:var(--muted);
+    background:none; border:none; padding:7px 14px; border-radius:9px; cursor:pointer;
+    display:flex; align-items:center; gap:8px; white-space:nowrap; transition:.18s;}
+  .comptab:hover{color:var(--ink);}
+  .comptab:focus-visible{outline:2px solid var(--star); outline-offset:1px;}
+  .comptab.on{background:var(--panel2); color:var(--ink); box-shadow:inset 0 -2px 0 var(--star);}
+  .comptab .abbr{display:none;}
+  .comptab b{font-family:var(--f-mono); font-size:11px; font-weight:700; color:var(--star);}
 
   /* ---- club crests: generated colour badges, not real club emblems ---- */
   .crestbadge{width:28px; height:28px; flex:none; vertical-align:middle; overflow:visible;}
@@ -449,8 +565,8 @@ HTML = """<!DOCTYPE html>
     padding:5px 12px; border-radius:999px;}
   .livepill b{color:var(--star);}
   .dot{width:7px; height:7px; border-radius:50%; background:var(--star);
-    box-shadow:0 0 0 0 rgba(157,188,255,.6); animation:pulse 2.4s infinite;}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(157,188,255,.55)}70%{box-shadow:0 0 0 8px rgba(157,188,255,0)}100%{box-shadow:0 0 0 0 rgba(157,188,255,0)}}
+    box-shadow:0 0 0 0 rgba(var(--star-rgb),.6); animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(var(--star-rgb),.55)}70%{box-shadow:0 0 0 8px rgba(var(--star-rgb),0)}100%{box-shadow:0 0 0 0 rgba(var(--star-rgb),0)}}
 
   /* ---- stat ribbon ---- */
   .ribbon{display:flex; flex-wrap:wrap; margin:22px 0 12px; border:1px solid var(--line);
@@ -476,7 +592,7 @@ HTML = """<!DOCTYPE html>
     color:var(--muted); display:flex; align-items:center; gap:7px;}
   .sp .spv{font-size:33px; font-weight:800; letter-spacing:-1px; line-height:1.15;}
   .sp .spm{font-family:var(--f-mono); font-size:11px; color:var(--faint);}
-  .sp.deep{border-color:rgba(157,188,255,.42);}
+  .sp.deep{border-color:rgba(var(--star-rgb),.42);}
   .sp.deep .spv{color:var(--star);}
   .sp.quick .spv{color:var(--silver);}
   .sp.edge .spv.up{color:var(--win);} .sp.edge .spv.down{color:var(--loss);}
@@ -487,7 +603,7 @@ HTML = """<!DOCTYPE html>
   .out{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px 16px;
     display:flex; flex-direction:column; gap:7px; position:relative; overflow:hidden;}
   .out::before{content:""; position:absolute; inset:0 0 auto 0; height:1px;
-    background:linear-gradient(90deg,transparent,rgba(157,188,255,.5),transparent);}
+    background:linear-gradient(90deg,transparent,rgba(var(--star-rgb),.5),transparent);}
   .out .ok{font-family:var(--f-mono); font-size:10px; letter-spacing:1.4px; text-transform:uppercase;
     color:var(--muted);}
   .out .op{font-size:21px; font-weight:800; letter-spacing:-.3px; line-height:1.15;}
@@ -515,7 +631,7 @@ HTML = """<!DOCTYPE html>
   .sectools{display:flex; align-items:center; gap:18px;}
   .toolbtn{font-family:var(--f-mono); font-size:12px; color:var(--muted); cursor:pointer;
     border-bottom:1px dashed transparent; transition:.15s; white-space:nowrap;}
-  .toolbtn:hover{color:var(--star); border-color:rgba(157,188,255,.45);}
+  .toolbtn:hover{color:var(--star); border-color:rgba(var(--star-rgb),.45);}
 
   /* ---- matchday rail ---- */
   .rail{display:flex; gap:8px; overflow-x:auto; padding:3px 2px 11px; margin:0 -2px;
@@ -526,7 +642,7 @@ HTML = """<!DOCTYPE html>
     border-radius:11px; padding:8px 13px; display:flex; flex-direction:column; gap:2px;
     transition:.16s; min-width:78px;}
   .mdchip:hover{border-color:var(--star2); transform:translateY(-2px);}
-  .mdchip.on{border-color:var(--star); background:linear-gradient(180deg,rgba(74,123,240,.22),var(--panel));}
+  .mdchip.on{border-color:var(--star); background:linear-gradient(180deg,rgba(var(--star2-rgb),.22),var(--panel));}
   .mdchip .cl{font-size:13px; font-weight:800; letter-spacing:.2px; white-space:nowrap;}
   .mdchip .cs{font-family:var(--f-mono); font-size:9.5px; color:var(--muted); white-space:nowrap;}
   .mdchip.on .cs{color:var(--star);}
@@ -537,7 +653,7 @@ HTML = """<!DOCTYPE html>
   .mdsec>summary{list-style:none; cursor:pointer; padding:14px 18px; display:flex;
     align-items:center; gap:13px; flex-wrap:wrap;}
   .mdsec>summary::-webkit-details-marker{display:none;}
-  .mdsec>summary:hover{background:rgba(157,188,255,.04);}
+  .mdsec>summary:hover{background:rgba(var(--star-rgb),.04);}
   .mdsec>summary:focus-visible{outline:2px solid var(--star); outline-offset:-3px;}
   .mdsec .mdname{font-size:18px; font-weight:800; letter-spacing:-.2px;}
   .mdsec .mdsub{font-family:var(--f-mono); font-size:11px; color:var(--muted);}
@@ -560,7 +676,7 @@ HTML = """<!DOCTYPE html>
   @keyframes rise{to{opacity:1; transform:none;}}
   .sb{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px;
     padding:18px 20px 16px;
-    background:radial-gradient(130% 150% at 50% -50%, rgba(74,123,240,.16), transparent 62%);}
+    background:radial-gradient(130% 150% at 50% -50%, rgba(var(--star2-rgb),.16), transparent 62%);}
   .side{display:flex; flex-direction:column; gap:4px; min-width:0;}
   .side.away{align-items:flex-end; text-align:right;}
   .side .fl{font-size:26px; line-height:1;}
@@ -571,7 +687,7 @@ HTML = """<!DOCTYPE html>
   .mid .fin{font-size:30px; font-weight:800; letter-spacing:-.5px;}
   .mid .kick{font-family:var(--f-mono); font-size:10px; color:var(--muted); white-space:nowrap;}
   .mdchipsm{font-family:var(--f-mono); font-size:9.5px; letter-spacing:1.2px; color:var(--star);
-    border:1px solid rgba(157,188,255,.32); border-radius:6px; padding:1px 7px; cursor:default;}
+    border:1px solid rgba(var(--star-rgb),.32); border-radius:6px; padding:1px 7px; cursor:default;}
 
   .callrow{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
     padding:11px 20px; background:var(--panel2); border-top:1px solid var(--line);
@@ -589,7 +705,7 @@ HTML = """<!DOCTYPE html>
 
   .tag{font-family:var(--f-mono); font-size:9px; letter-spacing:1.4px; text-transform:uppercase;
     border-radius:5px; padding:2px 7px; white-space:nowrap;}
-  .tag.deep{color:var(--star); border:1px solid rgba(157,188,255,.4); background:rgba(74,123,240,.14);}
+  .tag.deep{color:var(--star); border:1px solid rgba(var(--star-rgb),.4); background:rgba(var(--star2-rgb),.14);}
   .tag.quick{color:var(--faint); border:1px solid var(--line2);}
 
   .body{padding:15px 20px 18px;}
@@ -675,8 +791,8 @@ HTML = """<!DOCTYPE html>
   table.ltbl td.club .short{display:none; font-family:var(--f-mono); font-size:12.5px;}
   table.ltbl td.pts{font-weight:800; font-size:15px; padding-right:16px;}
   table.ltbl tr[data-t]{cursor:pointer; transition:.13s;}
-  table.ltbl tr[data-t]:hover td{background:rgba(157,188,255,.08);}
-  table.ltbl tr.b1 td{background:linear-gradient(90deg, rgba(74,123,240,.17), rgba(74,123,240,.03));}
+  table.ltbl tr[data-t]:hover td{background:rgba(var(--star-rgb),.08);}
+  table.ltbl tr.b1 td{background:linear-gradient(90deg, rgba(var(--star2-rgb),.17), rgba(var(--star2-rgb),.03));}
   table.ltbl tr.b1 td.rk{border-left-color:var(--star); color:var(--star);}
   table.ltbl tr.b2 td{background:rgba(255,255,255,.014);}
   table.ltbl tr.b2 td.rk{border-left-color:var(--line2);}
@@ -685,7 +801,7 @@ HTML = """<!DOCTYPE html>
   table.ltbl tr.cut td{padding:0; background:none; border-bottom:none;}
   .cutline{display:flex; align-items:center; gap:11px; padding:9px 14px; flex-wrap:wrap;
     border-top:2px solid var(--star2); border-bottom:1px solid var(--line);
-    background:linear-gradient(90deg, rgba(74,123,240,.16), transparent);}
+    background:linear-gradient(90deg, rgba(var(--star2-rgb),.16), transparent);}
   .cutline.out{border-top:2px dashed rgba(255,111,142,.6);
     background:linear-gradient(90deg, rgba(255,111,142,.12), transparent);}
   .cutline .cw{font-family:var(--f-mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
@@ -698,7 +814,7 @@ HTML = """<!DOCTYPE html>
   .focusbar .fname{font-size:17px; font-weight:800; letter-spacing:-.3px;}
   .focusbar .frec{font-family:var(--f-mono); font-size:11px; color:var(--muted);}
   .focusbar .fclear{margin-left:auto; font-family:var(--f-mono); font-size:11px; color:var(--star);
-    cursor:pointer; border-bottom:1px dashed rgba(157,188,255,.45);}
+    cursor:pointer; border-bottom:1px dashed rgba(var(--star-rgb),.45);}
 
   .empty{text-align:center; color:var(--muted); padding:56px 20px; border:1px dashed var(--line2);
     border-radius:17px; font-family:var(--f-mono); font-size:13px;}
@@ -752,6 +868,9 @@ HTML = """<!DOCTYPE html>
     font-family:var(--f-mono); font-size:11px; color:var(--faint); line-height:1.7;}
 
   @media (max-width:760px){
+    .comptabs{order:3; width:100%;}
+    .comptab{flex:1; justify-content:center;}
+    .comptab .full{display:none;} .comptab .abbr{display:inline;}
     table.ltbl .opt{display:none;}
     table.ltbl td.club .full{display:none;}
     table.ltbl td.club .short{display:inline;}
@@ -774,7 +893,7 @@ HTML = """<!DOCTYPE html>
 <body><div class="wrap">
   <header>
     <div class="brand">
-      <svg class="crest" viewBox="0 0 64 64" aria-hidden="true">
+      <svg class="crest starball" viewBox="0 0 64 64" aria-hidden="true">
         <defs>
           <radialGradient id="cg" cx="50%" cy="28%" r="78%">
             <stop offset="0" stop-color="#2b3f8f"/><stop offset="1" stop-color="#070b1c"/>
@@ -789,11 +908,20 @@ HTML = """<!DOCTYPE html>
         <use href="#st" x="32" y="53"/><use href="#st" x="17.15" y="46.85"/>
         <use href="#st" x="11" y="32"/><use href="#st" x="17.15" y="17.15"/>
       </svg>
+      <!-- neutral mark: a plain dial in the active accent, deliberately not any competition's logo -->
+      <svg class="crest neutral" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="#0b0f22" style="stroke:var(--star2)" stroke-opacity=".7"/>
+        <circle cx="32" cy="32" r="21" fill="none" style="stroke:var(--star)" stroke-opacity=".35"
+          stroke-width="1.5" stroke-dasharray="3 4.33"/>
+        <circle cx="32" cy="32" r="11" fill="none" style="stroke:var(--star)" stroke-width="2.5"/>
+        <circle cx="32" cy="32" r="3.5" style="fill:var(--star)"/>
+      </svg>
       <div class="wordmark">
-        <div class="l1">UEFA Champions League 2026-27</div>
+        <div class="l1" id="wordmark">&#8203;</div>
         <div class="l2">Prediction Desk</div>
       </div>
     </div>
+    <nav class="comptabs" id="comptabs" role="tablist" aria-label="Competition"></nav>
     <div class="hgen">
       <span class="livepill"><span class="dot"></span>HIT RATE <b id="hr">&#8212;</b></span>
       <span id="gen"></span>
@@ -834,14 +962,17 @@ HTML = """<!DOCTYPE html>
 </div>
 <script>
 const DATA = __DATA__;
-const TEAMS = DATA.teams || {};
+const ORDER = (DATA.order||[]).filter(k => DATA.comps && DATA.comps[k]);
 const PICK = {home:"Home win", draw:"Draw", away:"Away win"};
 const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const pct = x => Math.round((x||0)*100);
 const pad = n => String(n).padStart(2,"0");
-const code = t => (TEAMS[t]||[])[0] || (t||"").slice(0,3).toUpperCase();
-const flag = t => (TEAMS[t]||[])[1] || "";
+// Every team lookup is scoped to one competition (C = DATA.comps[key]); the
+// clubs registries are never merged.
+const teamInfo = (C, t) => (C.teams||{})[t] || [];
+const code = (C, t) => teamInfo(C, t)[0] || (t||"").slice(0,3).toUpperCase();
+const flag = (C, t) => teamInfo(C, t)[1] || "";
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,
   c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -852,13 +983,13 @@ const CREST_HEX = /^#[0-9a-f]{6}$/i;
 const CREST_SLATE = ["#2a3358", "#171d38"];
 let crestSeq = 0;
 
-function crestColors(t){
-  const c = (TEAMS[t]||[])[3];
+function crestColors(C, t){
+  const c = teamInfo(C, t)[3];
   if(Array.isArray(c) && c.length===2 && CREST_HEX.test(c[0]) && CREST_HEX.test(c[1])) return c;
   return null;
 }
 const CREST_PATTERNS = new Set(["solid","stripes","halves","hoops","sash"]);
-const crestPattern = t => { const p = (TEAMS[t]||[])[4]; return CREST_PATTERNS.has(p) ? p : "solid"; };
+const crestPattern = (C, t) => { const p = teamInfo(C, t)[4]; return CREST_PATTERNS.has(p) ? p : "solid"; };
 
 // relative luminance (WCAG), 0 (black) .. 1 (white)
 function crestLuminance(hex){
@@ -894,12 +1025,12 @@ function crestFill(pattern, c1, c2){
   }
 }
 
-function crest(name, sizeCls){
-  const label = esc(name || code(name) || "?");
-  const short = esc((code(name) || "?").slice(0,3).toUpperCase());
-  const colors = crestColors(name);
+function crest(C, name, sizeCls){
+  const label = esc(name || code(C, name) || "?");
+  const short = esc((code(C, name) || "?").slice(0,3).toUpperCase());
+  const colors = crestColors(C, name);
   const [c1, c2] = colors || CREST_SLATE;
-  const pattern = colors ? crestPattern(name) : "solid";
+  const pattern = colors ? crestPattern(C, name) : "solid";
   const uid = "crc" + (crestSeq++);
   // Multi-tone patterns (stripes/hoops/halves/sash) put the monogram across
   // alternating light/dark bands, so it needs its own solid backing plate —
@@ -939,33 +1070,35 @@ function prettyDate(ds){
   return `${DOW[dt.getDay()]} ${d} ${MON[m-1]}`;
 }
 
-// one entry per real fixture (latest forecast wins — DATA.days is newest-first),
-// tagged with the local calendar date it is played on, sorted chronologically.
-const seen = {};
-const MATCHES = [];
-(DATA.days||[]).forEach(d => (d.predictions||[]).forEach(p => {
-  const k = p.home_team + "|" + p.away_team;
-  if(seen[k]) return; seen[k] = 1;
-  const o = {...p, _pub:d.date};
-  o._date = o.commence_time ? localDate(o.commence_time) : d.date;
-  o._deep = o.depth !== "quick";
-  MATCHES.push(o);
-}));
-MATCHES.sort((a,b) => (a.commence_time||a._date).localeCompare(b.commence_time||b._date));
+// Per competition, derived once at boot and stored on the block as C._matches
+// and C._groups.
+function prepare(C){
+  // one entry per real fixture (latest forecast wins — C.days is newest-first),
+  // tagged with the local calendar date it is played on, sorted chronologically.
+  const seen = {};
+  const matches = [];
+  (C.days||[]).forEach(d => (d.predictions||[]).forEach(p => {
+    const k = p.home_team + "|" + p.away_team;
+    if(seen[k]) return; seen[k] = 1;
+    const o = {...p, _pub:d.date};
+    o._date = o.commence_time ? localDate(o.commence_time) : d.date;
+    o._deep = o.depth !== "quick";
+    matches.push(o);
+  }));
+  matches.sort((a,b) => (a.commence_time||a._date).localeCompare(b.commence_time||b._date));
 
-// matchday -> section. UCL plays 18 games over three days, then goes quiet for
-// weeks, so the round is the unit that matters; fall back to the date when a
-// predictions file carries no matchday label.
-const GROUPS = [];
-{
+  // matchday -> section. A league phase round is played over a few days, then
+  // goes quiet for weeks, so the round is the unit that matters; fall back to
+  // the date when a predictions file carries no matchday label.
+  const groups = [];
   const idx = {};
-  MATCHES.forEach(p => {
+  matches.forEach(p => {
     const key = p.matchday || ("date:" + p._date);
-    if(idx[key] == null){ idx[key] = GROUPS.length;
-      GROUPS.push({key, md:p.matchday || null, items:[], dates:[]}); }
-    GROUPS[idx[key]].items.push(p);
+    if(idx[key] == null){ idx[key] = groups.length;
+      groups.push({key, md:p.matchday || null, items:[], dates:[]}); }
+    groups[idx[key]].items.push(p);
   });
-  GROUPS.forEach(g => {
+  groups.forEach(g => {
     g.dates = [...new Set(g.items.map(x => x._date))].sort();
     g.start = g.dates[0]; g.end = g.dates[g.dates.length-1];
     g.label = g.md || prettyDate(g.start);
@@ -974,6 +1107,23 @@ const GROUPS = [];
     g.graded = g.items.filter(p => p.actual).length;
     g.hits = g.items.filter(p => p.actual && p.actual.pick_hit).length;
   });
+  C._matches = matches;
+  C._groups = groups;
+}
+
+// The registry round that is under way or next up, as human copy for the
+// empty fixtures board, e.g. "Matchday 1 starts Wednesday 16 September".
+function roundCopy(C){
+  const today = localDate(Date.now());
+  const r = (C.rounds||[]).find(x => (x.dates||[]).length && x.dates[x.dates.length-1] >= today);
+  const long = ds => { const [y,m,d] = ds.split("-").map(Number);
+    return new Date(y, m-1, d).toLocaleDateString("en-GB", {weekday:"long", day:"numeric", month:"long"}); };
+  if(!r){
+    const f = (C.final||{}).date;
+    return f ? `The season is over \\u2014 the final was played on ${long(f)}.` : "";
+  }
+  return r.dates[0] > today ? `${r.name} starts ${long(r.dates[0])}.`
+                            : `${r.name} is under way (until ${long(r.dates[r.dates.length-1])}).`;
 }
 
 const confBlocks = (c, lab) => {
@@ -1004,39 +1154,78 @@ function renderStats(s){
     `<div class="rcell ${cls}"><div class="v">${v}${suf||""}</div><div class="k">${k}</div></div>`).join("");
 }
 
-/* ---------- deep vs quick: is the research earning its keep? ---------- */
+/* ---------- deep vs quick: is the research earning its keep? ----------
+   The fair test is not deep-vs-quick (quick picks are drawn from a
+   different, easier pool \\u2014 the market's 85%+ favourites). It's: on the
+   SAME matches that got research, did the researched pick beat a blind bet
+   on the market favourite? That comparison lives in deep_graded /
+   deep_fav_correct / deep_deviations / deep_dev_correct, computed once in
+   Python (grade()) and never re-derived here. */
 function renderSplit(s){
   const el = document.getElementById("splitwrap");
-  const d = (s.depth||{}).deep, q = (s.depth||{}).quick;
-  if(!d || !q || (!d.graded && !q.graded)){ el.innerHTML = ""; return; }
-  const cell = (cls, key, b, sub) => {
-    const rate = b.hit_rate!=null ? b.hit_rate+"%" : "\\u2014";
-    const meta = b.graded ? `${b.correct}/${b.graded} correct \\u00b7 ${b.exact} exact`
-                          : "nothing graded yet";
-    return `<div class="sp ${cls}"><div class="spk">${key}</div>
-      <div class="spv">${rate}</div><div class="spm">${meta}</div>
-      <div class="spm">${sub}</div></div>`;
-  };
-  const e = s.depth_edge;
-  const edgeCls = e==null ? "flat" : (e>0 ? "up" : (e<0 ? "down" : "flat"));
-  const edgeVal = e==null ? "\\u2014" : (e>0 ? "+"+e : String(e));
-  const edge = `<div class="sp edge"><div class="spk">Research edge</div>
-    <div class="spv ${edgeCls}">${edgeVal}${e==null?"":"<span style='font-size:15px'>pts</span>"}</div>
-    <div class="spm">${e==null ? "needs a graded match in both buckets"
-      : "percentage points, deep minus quick"}</div>
-    <div class="spm">${e==null ? "" : (e>0 ? "the reading is paying for itself"
-      : e<0 ? "the market-derived picks are ahead" : "dead level so far")}</div></div>`;
+  const dg = s.deep_graded || 0;
+  const q = (s.depth||{}).quick || {};
+  if(!dg && !q.graded){ el.innerHTML = ""; return; }
+
+  const deep = (s.depth||{}).deep || {};
+  const researchedRate = dg ? Math.round(100*(deep.correct||0)/dg) : null;
+  const favCorrect = s.deep_fav_correct || 0;
+  const favRate = dg ? Math.round(100*favCorrect/dg) : null;
+  const edge = (researchedRate!=null && favRate!=null) ? researchedRate - favRate : null;
+  const devN = s.deep_deviations || 0;
+  const devHits = s.deep_dev_correct || 0;
+
+  const cell = (cls, key, rate, meta, sub) => `<div class="sp ${cls}"><div class="spk">${key}</div>
+    <div class="spv">${rate==null ? "\\u2014" : rate+"%"}</div>
+    <div class="spm">${dg ? meta : "nothing graded yet"}</div>
+    <div class="spm">${sub}</div></div>`;
+
+  const researched = cell("deep", "Researched picks", researchedRate,
+    `${deep.correct||0}/${dg} correct`, "full preview, team news, sources");
+  const favourite = cell("quick", "Market favourite, same matches", favRate,
+    `${favCorrect}/${dg} correct`, "blind bet on the shortest price, no research");
+
+  const edgeCls = edge==null ? "flat" : (edge>0 ? "up" : (edge<0 ? "down" : "flat"));
+  const edgeVal = edge==null ? "\\u2014" : (edge>0 ? "+"+edge : String(edge));
+  const trend = edge>0 ? "the reading is paying for itself"
+    : edge<0 ? "the market-derived picks are ahead" : "dead level so far";
+  const caption = !dg ? ""
+    : devN === 0
+      ? "Research hasn't moved a pick off the favourite yet, so the edge is zero by "
+        + "construction \\u2014 it only becomes measurable when a researched pick "
+        + "disagrees with the market."
+      : `Research changed ${devN} pick${devN===1?"":"s"}; ${devHits} of them were right. ${trend}.`;
+  const edgeHtml = `<div class="sp edge"><div class="spk">Research edge</div>
+    <div class="spv ${edgeCls}">${edgeVal}${edge==null?"":"<span style='font-size:15px'>pts</span>"}</div>
+    <div class="spm">${dg ? "researched minus favourite, percentage points" : "needs a graded deep pick"}</div>
+    <div class="spm">${caption}</div></div>`;
+
+  const quickLine = q.graded
+    ? `<div class="spm" style="margin-top:11px">Quick picks: ${q.hit_rate}% (${q.correct}/${q.graded})
+       \\u2014 not a fair benchmark: researched matches are chosen from the tightest lines.</div>`
+    : "";
+
   el.innerHTML = `<div class="splitwrap">
     <div class="splith">Is the research earning its keep?</div>
-    <div class="split">
-      ${cell("deep","Deep research picks", d, "full preview, team news, sources")}
-      ${cell("quick","Quick picks", q, "derived from the market in seconds")}
-      ${edge}
-    </div></div>`;
+    <div class="split">${researched}${favourite}${edgeHtml}</div>
+    ${quickLine}</div>`;
 }
 
 /* ---------- season-long outright markets ---------- */
-function renderOutrights(o){
+// A single-pick outright can hold a club ("winner", "dark_horse") or a
+// player ("top_scorer", e.g. "Kylian Mbapp\\u00e9 (Real Madrid)"). Only render a
+// crest when the pick IS a club, or names one in parentheses \\u2014 never derive
+// a fake club code from an arbitrary player string.
+function outrightCrest(C, pick){
+  if(!pick) return "";
+  if(teamInfo(C, pick).length) return crest(C, pick, 'sm');
+  const m = /\\(([^()]+)\\)\\s*$/.exec(pick);
+  if(m && teamInfo(C, m[1]).length) return crest(C, m[1], 'sm');
+  return "";
+}
+
+function renderOutrights(C){
+  const o = C.outrights || {};
   const el = document.getElementById("outrights");
   const ms = (o.markets||[]).filter(m => m && (m.pick || (m.picks||[]).length));
   if(!ms.length){ el.innerHTML = ""; return; }
@@ -1050,7 +1239,7 @@ function renderOutrights(o){
         let cls = "";
         if(actual) cls = actual.indexOf(p) >= 0 ? "hit" : "miss";
         const mark = cls ? (cls==="hit" ? " \\u2713" : " \\u2717") : "";
-        return `<span class="chip ${cls}">${crest(p,'sm')} ${esc(p)}${mark}</span>`;
+        return `<span class="chip ${cls}">${crest(C,p,'sm')} ${esc(p)}${mark}</span>`;
       }).join("")}</div>`;
       if(r){
         const of = r.of != null ? r.of : m.picks.length;
@@ -1060,7 +1249,7 @@ function renderOutrights(o){
         res = `<div><span class="badge ${good?'hit':'miss'}">${hits}/${of} right</span></div>`;
       }
     } else {
-      pickHtml = `<div class="op">${crest(m.pick,'sm')} ${esc(m.pick)}</div>`;
+      pickHtml = `<div class="op">${outrightCrest(C,m.pick)} ${esc(m.pick)}</div>`;
       if(r){
         const hit = !!r.correct;
         res = `<div><span class="badge ${hit?'hit':'miss'}">${hit?'\\u2713':'\\u2717'} ${esc(r.actual)}</span></div>`;
@@ -1162,12 +1351,12 @@ function renderPostmortem(pm){
 }
 
 /* ---------- league table ---------- */
-function renderTable(){
-  const t = DATA.table || {};
+function renderTable(C){
+  const t = C.table || {};
   const rows = t.rows || [];
   const el = document.getElementById("ltable");
   if(!rows.length){
-    el.innerHTML = '<div class="empty">No league table yet.</div>'; return;
+    el.innerHTML = `<div class="empty">${esc(t.note || "No league table yet.")}</div>`; return;
   }
   const prov = !!t.provisional;
   // Bands/cutlines only mean something once a full round is complete. A
@@ -1187,8 +1376,8 @@ function renderTable(){
     const gd = (r.gd>0 ? "+" : "") + r.gd;
     body += `<tr class="${band}" data-t="${esc(r.team)}" title="show this club's predictions">
       <td class="rk">${prov ? "\\u00b7" : rank}</td>
-      <td class="club">${crest(r.team,'sm')} <span class="fl">${flag(r.team)}</span
-        ><span class="full">${esc(r.team)}</span><span class="short">${esc(code(r.team))}</span></td>
+      <td class="club">${crest(C,r.team,'sm')} <span class="fl">${flag(C,r.team)}</span
+        ><span class="full">${esc(r.team)}</span><span class="short">${esc(code(C,r.team))}</span></td>
       <td>${r.played}</td>
       <td class="opt">${r.won}</td><td class="opt">${r.drawn}</td><td class="opt">${r.lost}</td>
       <td class="opt">${r.gf}</td><td class="opt">${r.ga}</td>
@@ -1234,7 +1423,7 @@ function renderTable(){
       <tbody>${body}</tbody>
     </table>`;
   el.querySelectorAll("tr[data-t]").forEach(tr =>
-    tr.onclick = () => focusClub(tr.dataset.t));
+    tr.onclick = () => focusClub(C, tr.dataset.t));
 }
 
 /* ---------- match cards ---------- */
@@ -1243,7 +1432,7 @@ function marketBar(m){
   return {h, d, a};
 }
 
-function deepCard(p, i){
+function deepCard(C, p, i){
   const {h, d, a} = marketBar(p.market||{});
   const kick = p.commence_time ? new Date(p.commence_time).toLocaleString([], {
     weekday:"short", month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"}) : "";
@@ -1271,9 +1460,9 @@ function deepCard(p, i){
   return `<div class="match" style="animation-delay:${Math.min(i*45,400)}ms">
     <div class="sb">
       <div class="side home">
-        <div class="fl">${crest(p.home_team,'lg')}</div>
+        <div class="fl">${crest(C,p.home_team,'lg')}</div>
         <div class="name">${esc(p.home_team)}</div>
-        <div class="sub">${esc(code(p.home_team))} \\u00b7 HOME</div>
+        <div class="sub">${esc(code(C,p.home_team))} \\u00b7 HOME</div>
       </div>
       <div class="mid">
         ${mid}
@@ -1281,9 +1470,9 @@ function deepCard(p, i){
         ${p.matchday ? `<div class="mdchipsm">${esc(p.matchday)}</div>` : ""}
       </div>
       <div class="side away">
-        <div class="fl">${crest(p.away_team,'lg')}</div>
+        <div class="fl">${crest(C,p.away_team,'lg')}</div>
         <div class="name">${esc(p.away_team)}</div>
-        <div class="sub">AWAY \\u00b7 ${esc(code(p.away_team))}</div>
+        <div class="sub">AWAY \\u00b7 ${esc(code(C,p.away_team))}</div>
       </div>
     </div>
     <div class="callrow">
@@ -1300,9 +1489,9 @@ function deepCard(p, i){
         <div class="a" style="width:${a}%">${a>=10?a+"%":""}</div>
       </div>
       <div class="leg">
-        <span><i style="background:var(--home)"></i>${esc(code(p.home_team))} ${h}%</span>
+        <span><i style="background:var(--home)"></i>${esc(code(C,p.home_team))} ${h}%</span>
         <span><i style="background:var(--draw)"></i>Draw ${d}%</span>
-        <span><i style="background:var(--away)"></i>${esc(code(p.away_team))} ${a}%</span>
+        <span><i style="background:var(--away)"></i>${esc(code(C,p.away_team))} ${a}%</span>
       </div>
       ${result}
       ${details}
@@ -1310,7 +1499,7 @@ function deepCard(p, i){
   </div>`;
 }
 
-function quickCard(p, i){
+function quickCard(C, p, i){
   const {h, d, a} = marketBar(p.market||{});
   const kick = p.commence_time ? new Date(p.commence_time).toLocaleString([], {
     hour:"2-digit", minute:"2-digit"}) : "";
@@ -1324,9 +1513,9 @@ function quickCard(p, i){
   }
   return `<div class="qcard" style="animation-delay:${Math.min(i*35,320)}ms">
     <div class="qt">
-      <span>${crest(p.home_team,'sm')}</span><span class="nm">${esc(p.home_team)}</span>
+      <span>${crest(C,p.home_team,'sm')}</span><span class="nm">${esc(p.home_team)}</span>
       <span class="v">v</span>
-      <span>${crest(p.away_team,'sm')}</span><span class="nm">${esc(p.away_team)}</span>
+      <span>${crest(C,p.away_team,'sm')}</span><span class="nm">${esc(p.away_team)}</span>
       <span class="qmeta">${kick ? esc(kick)+" \\u00b7 " : ""}${p.matchday ? esc(p.matchday)+" \\u00b7 " : ""}quick pick</span>
     </div>
     <div class="qbarw">
@@ -1347,7 +1536,7 @@ function quickCard(p, i){
   </div>`;
 }
 
-const card = (p, i) => p._deep ? deepCard(p, i) : quickCard(p, i);
+const card = (C, p, i) => p._deep ? deepCard(C, p, i) : quickCard(C, p, i);
 
 /* ---------- fixtures view ---------- */
 let allOpen = false;
@@ -1359,21 +1548,22 @@ function setExpandAll(open){
     open ? "\\u2715 collapse analysis" : "\\u2922 expand analysis";
 }
 
-function sectionsHtml(){
+function sectionsHtml(C){
   const today = (DATA.generated_at||"").slice(0,10);
+  const groups = C._groups;
   // open the round being played now, else the next one up, else the last played
-  let cur = GROUPS.findIndex(g => g.start <= today && today <= g.end);
-  if(cur < 0) cur = GROUPS.findIndex(g => g.start >= today);
-  if(cur < 0) cur = GROUPS.length - 1;
+  let cur = groups.findIndex(g => g.start <= today && today <= g.end);
+  if(cur < 0) cur = groups.findIndex(g => g.start >= today);
+  if(cur < 0) cur = groups.length - 1;
   let i = 0;
-  return GROUPS.map((g, gi) => {
+  return groups.map((g, gi) => {
     const byDate = {}; const order = [];
     g.items.forEach(p => { if(!byDate[p._date]){ byDate[p._date] = []; order.push(p._date); }
       byDate[p._date].push(p); });
     let inner = "";
     order.forEach(ds => {
       if(order.length > 1 || g.md) inner += `<div class="daydiv">${prettyDate(ds)}</div>`;
-      byDate[ds].forEach(p => { inner += card(p, i++); });
+      byDate[ds].forEach(p => { inner += card(C, p, i++); });
     });
     const rec = g.graded
       ? `<span class="mdcount">${g.hits}/${g.graded} correct</span>` : "";
@@ -1390,44 +1580,45 @@ function sectionsHtml(){
   }).join("");
 }
 
-function renderFixtures(){
+function renderFixtures(C){
   const el = document.getElementById("mdwrap");
   const hdr = document.getElementById("mhdr");
-  if(!MATCHES.length){
+  const matches = C._matches;
+  if(!matches.length){
     hdr.textContent = "Match predictions";
-    el.innerHTML = '<div class="empty">No predictions yet. Run the daily agent to populate this board.</div>';
+    el.innerHTML = `<div class="empty">No ${esc(C.short)} predictions yet. ${esc(roundCopy(C))}</div>`;
     return;
   }
   if(focusTeam){
-    const list = MATCHES.filter(p => p.home_team===focusTeam || p.away_team===focusTeam);
+    const list = matches.filter(p => p.home_team===focusTeam || p.away_team===focusTeam);
     const g = list.filter(p => p.actual).length;
     const c = list.filter(p => p.actual && p.actual.pick_hit).length;
     hdr.textContent = "Club focus";
     el.innerHTML = `<div class="focusbar">
-        <span>${crest(focusTeam)}</span><span class="fname">${esc(focusTeam)}</span>
+        <span>${crest(C,focusTeam)}</span><span class="fname">${esc(focusTeam)}</span>
         <span class="frec">${list.length} fixture${list.length===1?'':'s'} predicted${
           g ? ` \\u00b7 ${c}/${g} calls right` : ""}</span>
         <span class="fclear" id="fclear">\\u21BA back to matchdays</span>
-      </div>` + (list.length ? list.map((p,i) => card(p,i)).join("")
+      </div>` + (list.length ? list.map((p,i) => card(C,p,i)).join("")
         : '<div class="empty">No predictions for this club yet.</div>');
-    document.getElementById("fclear").onclick = () => { focusTeam = null; renderFixtures(); renderRail(); };
+    document.getElementById("fclear").onclick = () => { focusTeam = null; renderFixtures(C); renderRail(C); };
     applyFold();
     return;
   }
-  hdr.textContent = `Match predictions \\u00b7 ${MATCHES.length}`;
-  el.innerHTML = sectionsHtml();
+  hdr.textContent = `Match predictions \\u00b7 ${matches.length}`;
+  el.innerHTML = sectionsHtml(C);
   applyFold();
 }
 
-function renderRail(){
+function renderRail(C){
   const el = document.getElementById("rail");
-  if(!GROUPS.length){ el.innerHTML = ""; return; }
-  el.innerHTML = GROUPS.map(g => {
+  if(!C._groups.length){ el.innerHTML = ""; return; }
+  el.innerHTML = C._groups.map(g => {
     const sub = g.graded ? `${g.hits}/${g.graded} \\u2713` : `${g.items.length} matches`;
     return `<div class="mdchip" data-k="${esc(g.key)}">
       <span class="cl">${esc(g.label)}</span><span class="cs">${sub}</span></div>`;
   }).join("");
-  el.querySelectorAll(".mdchip").forEach(c => c.onclick = () => openMatchday(c.dataset.k));
+  el.querySelectorAll(".mdchip").forEach(c => c.onclick = () => openMatchday(C, c.dataset.k));
   syncRail();
 }
 
@@ -1440,8 +1631,8 @@ function syncRail(){
     c.classList.toggle("on", !focusTeam && !!open[c.dataset.k]));
 }
 
-function openMatchday(key){
-  if(focusTeam){ focusTeam = null; renderFixtures(); }
+function openMatchday(C, key){
+  if(focusTeam){ focusTeam = null; renderFixtures(C); }
   showView("fixtures");
   let target = null;
   eachSection(s => { const on = s.dataset.k === key; s.open = on; if(on) target = s; });
@@ -1449,10 +1640,10 @@ function openMatchday(key){
   if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
-function focusClub(name){
+function focusClub(C, name){
   focusTeam = name;
   showView("fixtures");
-  renderFixtures();
+  renderFixtures(C);
   syncRail();
   document.getElementById("mhdr").scrollIntoView({behavior:"smooth", block:"start"});
 }
@@ -1466,15 +1657,86 @@ function showView(v){
 }
 document.querySelectorAll("#switch button").forEach(b => b.onclick = () => showView(b.dataset.v));
 
+/* ---------- competition switcher ---------- */
+let activeComp = null;
+
+function renderTabs(){
+  const el = document.getElementById("comptabs");
+  el.innerHTML = ORDER.map(k => {
+    const C = DATA.comps[k], s = C.summary || {};
+    const on = k === activeComp;
+    const hr = s.graded && s.hit_rate != null ? `<b>${s.hit_rate}%</b>` : "";
+    return `<button class="comptab${on ? " on" : ""}" role="tab" data-k="${esc(k)}"
+      aria-selected="${on}" tabindex="${on ? 0 : -1}" title="${esc(C.name)}"><span class="full"
+      >${esc(C.name)}</span><span class="abbr">${esc(C.short)}</span>${hr}</button>`;
+  }).join("");
+  el.querySelectorAll(".comptab").forEach(b => b.onclick = () => goComp(b.dataset.k));
+}
+
+function selectComp(k){
+  const C = DATA.comps[k];
+  activeComp = k;
+  focusTeam = null;
+  document.documentElement.dataset.comp = k;  // CSS swaps accent + mark on this
+  const title = `${C.name} ${DATA.season||""}`.trim();
+  document.title = `${title} \\u2014 Predictions`;
+  document.getElementById("wordmark").textContent = title;
+  renderTabs();
+  renderStats(C.summary||{});
+  renderSplit(C.summary||{});
+  renderOutrights(C);
+  renderPostmortem(C.postmortem);
+  renderTable(C);
+  renderFixtures(C);
+  renderRail(C);
+  document.getElementById("openall").innerHTML = "\\u2630 open every matchday";
+}
+
+// Tabs rewrite the hash without adding history entries; a typed or pasted
+// hash is picked up by the hashchange listener below. Some browsers refuse
+// replaceState on file:// pages, so fall back to a plain hash assignment
+// (selectComp runs first, so the resulting hashchange is a no-op).
+function goComp(k){
+  if(k !== activeComp) selectComp(k);
+  try { history.replaceState(null, "", "#" + k); } catch(_) { location.hash = k; }
+}
+
+const compFromHash = () => { const k = location.hash.slice(1); return ORDER.includes(k) ? k : null; };
+
+// No hash: open the competition whose next unplayed predicted fixture is
+// soonest (a kick-off within the last LIVE_MS still counts as unplayed);
+// with none anywhere, the first competition in registry order.
+const LIVE_MS = 3 * 3600 * 1000;
+function defaultComp(){
+  const from = Date.now() - LIVE_MS;
+  let best = null, bestT = Infinity;
+  ORDER.forEach(k => DATA.comps[k]._matches.forEach(p => {
+    const t = Date.parse(p.commence_time || "");
+    if(!p.actual && t >= from && t < bestT){ bestT = t; best = k; }
+  }));
+  return best || ORDER[0];
+}
+
+document.getElementById("comptabs").addEventListener("keydown", e => {
+  const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+  const i = ORDER.indexOf(activeComp);
+  if(!step || i < 0) return;
+  e.preventDefault();
+  goComp(ORDER[(i + step + ORDER.length) % ORDER.length]);
+  const on = document.querySelector("#comptabs .comptab.on");
+  if(on) on.focus();
+});
+window.addEventListener("hashchange", () => {
+  const k = compFromHash();
+  if(k && k !== activeComp) selectComp(k);
+});
+
 /* ---------- boot ---------- */
 document.getElementById("gen").textContent = "updated " + (DATA.generated_at||"");
-renderStats(DATA.summary||{});
-renderSplit(DATA.summary||{});
-renderOutrights(DATA.outrights||{});
-renderPostmortem(DATA.postmortem);
-renderTable();
-renderFixtures();
-renderRail();
+ORDER.forEach(k => prepare(DATA.comps[k]));
+if(ORDER.length) selectComp(compFromHash() || defaultComp());
+else document.getElementById("mdwrap").innerHTML =
+  '<div class="empty">No competitions configured yet (config/competitions.json).</div>';
 document.getElementById("expandall").onclick = () => setExpandAll(!allOpen);
 document.getElementById("openall").onclick = () => {
   const anyClosed = [...document.querySelectorAll("#mdwrap .mdsec")].some(s => !s.open);
@@ -1490,11 +1752,12 @@ document.addEventListener("toggle", e => {
 """
 
 
-def validate_predictions(teams: dict | None = None) -> list[str]:
-    """Sanity-check the newest predictions file before it goes on the board.
+def validate_predictions(data_dir: str, teams_path: str, teams: dict) -> list[str]:
+    """Sanity-check one competition's newest predictions file before it goes on the board.
 
-    Three classes of bug, all of which have actually happened:
-      * a team name that isn't in config/teams.json — the name is the join key
+    Checked against THAT competition's teams file only — the registries are
+    never merged. Three classes of bug, all of which have actually happened:
+      * a team name that isn't in the teams file — the name is the join key
         across odds, scores and predictions, so a typo silently un-grades the
         match forever;
       * a `depth` that is neither deep nor quick — it drops out of the
@@ -1507,19 +1770,22 @@ def validate_predictions(teams: dict | None = None) -> list[str]:
     Only the newest predictions file is checked: that's the current run, the
     one place the error is introduced. Past files are immutable and stay put.
     """
-    teams = load_teams() if teams is None else teams
     problems = []
-    files = sorted(glob.glob("data/predictions-*.json"))
+    files = data_files(data_dir, "predictions")
     for path in files[-1:]:
         base = os.path.basename(path)
-        for p in load_json(path).get("predictions", []):
+        preds = load_json(path).get("predictions", [])
+        if preds and not teams:
+            problems.append(f"{base} — {teams_path} is missing or empty; "
+                            f"team names were not checked")
+        for p in preds:
             home, away = p.get("home_team"), p.get("away_team")
             where = f"{base}: {home} vs {away}"
             if teams:
                 for t in (home, away):
                     if t not in teams:
                         problems.append(
-                            f"{where} — unknown team {t!r}; not in {TEAMS_PATH} "
+                            f"{where} — unknown team {t!r}; not in {teams_path} "
                             f"(names must match the odds feed byte-for-byte)")
             depth = p.get("depth")
             if depth not in ("deep", "quick"):
@@ -1543,33 +1809,53 @@ def validate_predictions(teams: dict | None = None) -> list[str]:
     return problems
 
 
+def summary_line(comp: dict) -> str:
+    """One stdout line: predictions, hit rate, deep/quick split, table state."""
+    s, table = comp["summary"], comp["table"]
+    n = sum(len(d["predictions"]) for d in comp["days"])
+    deep, quick = s["depth"]["deep"], s["depth"]["quick"]
+    parts = [f"{n} prediction(s) in {len(comp['days'])} file(s)",
+             f"hit rate {s['hit_rate']}% ({s['correct']}/{s['graded']})"
+             if s["graded"] else "nothing graded yet"]
+    if s["graded"]:
+        parts.append(f"deep {deep['correct']}/{deep['graded']}"
+                     f" · quick {quick['correct']}/{quick['graded']}")
+    if table["provisional"]:
+        parts.append("table provisional (no standings file yet"
+                     + ("" if table["rows"] else ", no club list") + ")")
+    elif table["matchdays_played"] >= 1:
+        parts.append(f"table {len(table['rows'])} clubs after MD{table['matchdays_played']}")
+    else:
+        parts.append(f"table {len(table['rows'])} clubs, MD1 in progress")
+    return f"   {comp['short']:<4} " + " · ".join(parts)
+
+
 def main():
-    problems = validate_predictions()
+    season, registry = load_registry()
+    if not registry:
+        print(f"!! {REGISTRY_PATH} is missing or has no competitions — the page will be empty.")
+    teams_by_comp = {key: load_teams(comp.get("teams_file") or "")
+                     for key, comp in registry.items()}
+    problems = [f"[{comp.get('short') or key.upper()}] {msg}"
+                for key, comp in registry.items()
+                for msg in validate_predictions(os.path.join(DATA_ROOT, key),
+                                                comp.get("teams_file") or "",
+                                                teams_by_comp[key])]
     if problems:
         print("\n!! PREDICTION FILE PROBLEMS — fix before publishing:")
         for msg in problems:
             print(f"   - {msg}")
         print()
-    data = build_data()
+    data = build_data(season, registry, teams_by_comp)
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     html = HTML.replace("__DATA__", payload)
     # Write both: dashboard.html (local convention) and index.html (Pages root).
     for name in ("dashboard.html", "index.html"):
         with open(name, "w", encoding="utf-8") as f:
             f.write(html)
-    s = data["summary"]
-    n = sum(len(d["predictions"]) for d in data["days"])
-    table = data["table"]
-    deep, quick = s["depth"]["deep"], s["depth"]["quick"]
-    print(f"Wrote dashboard.html — {len(data['days'])} file(s), {n} prediction(s)"
-          + (f", hit rate {s['hit_rate']}%" if s.get("hit_rate") is not None else ""))
-    if s["graded"]:
-        print(f"   deep {deep['correct']}/{deep['graded']}"
-              f" · quick {quick['correct']}/{quick['graded']}")
-    print("   league table: " + ("provisional (no standings file yet)"
-                                 if table["provisional"]
-                                 else f"{len(table['rows'])} clubs after "
-                                      f"MD{table['matchdays_played']}"))
+    print(f"Wrote dashboard.html — {len(data['order'])} competition(s)")
+    for key in data["order"]:
+        print(summary_line(data["comps"][key]))
     print("Open it with:  open dashboard.html")
 
 

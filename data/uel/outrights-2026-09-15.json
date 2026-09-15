@@ -1,0 +1,83 @@
+{
+  "lock_deadline": "2026-09-16T16:45:00Z",
+  "generated_at": "2026-09-15",
+  "markets": [
+    {
+      "key": "winner",
+      "question": "Europa League winner",
+      "pick": "Juventus",
+      "confidence": 2,
+      "note": "Market favorite by consensus: Scotsman, Racing Post and gg.co.uk all had Juventus at 7/1 (captured 15 Sep 2026), just clear of AC Milan at 15/2 and Bayer Leverkusen at 9/1 — a genuinely flat market with no club shorter than 7/1 in a wide-open post-Aston Villa field. Worth flagging a bigger-than-usual gap between market and model here: Polymarket's exchange pricing has it closer still, with AC Milan (15%) marginally ahead of Juventus (14%), and Opta's supercomputer (10,000 simulations) disagrees more sharply again — its top two are Bournemouth (14.3%) and Benfica (14.0%), with Juventus only 6th (7.8%) and Milan 8th (5.3%). Going with the bookmaker-consensus favorite per market-first doctrine, but confidence held to 2 (below the UCL equivalent) because three separate sources (fixed-odds books, an exchange, and a leading model) each point at a different favorite.",
+      "alternatives": [
+        "AC Milan (15/2)",
+        "Bayer Leverkusen (9/1)",
+        "Bournemouth (10/1)",
+        "Marseille (10/1)",
+        "Real Sociedad (11/1)"
+      ],
+      "result": null
+    },
+    {
+      "key": "top_8",
+      "question": "Top 8 (proxy for deepest run — no fixed knockout-seeding threshold published yet)",
+      "picks": [
+        "Juventus",
+        "AC Milan",
+        "Bayer Leverkusen",
+        "Bournemouth",
+        "Marseille",
+        "Real Sociedad",
+        "Celta Vigo",
+        "Crystal Palace"
+      ],
+      "confidence": 3,
+      "note": "The eight shortest-priced clubs on the bookmaker-consensus winner market (Juventus 7/1 through Crystal Palace 14/1), used as a proxy for overall squad strength across the league phase. Opta's model tells a different story: three of its five highest win-probability clubs sit outside this set entirely — Benfica (14.0%, 2nd in the model, no bookmaker price found for them anywhere researched), Union Saint-Gilloise (8.6%, 4th) and Sunderland (8.3%, 5th, with an Opta-quoted 82.3% chance of reaching the last 16) — while Juventus and Milan, the market's top two, rank only 6th (7.8%) and 8th (5.3%) in the model. Kept the set to market pricing since a top-8 pick set from 36 teams and 8 slots is inherently noisy regardless of read quality.",
+      "result": null
+    },
+    {
+      "key": "semi_finalists",
+      "question": "The four semi-finalists",
+      "picks": [
+        "Juventus",
+        "AC Milan",
+        "Bayer Leverkusen",
+        "Bournemouth"
+      ],
+      "confidence": 2,
+      "note": "The four shortest-priced clubs on the bookmaker-consensus winner market (Juventus 7/1, AC Milan 15/2, Bayer Leverkusen 9/1, Bournemouth 10/1). Leverkusen and Bournemouth get real model backing too — Opta has Leverkusen 3rd (10.2%) and Bournemouth 1st (14.3%) of all 36 clubs — but Juventus (7.8%, 6th) and Milan (5.3%, 8th) are market-led picks the model actively downgrades, taken here on market-first doctrine rather than model conviction. Benfica (14.0% in the model, 2nd overall, but no bookmaker price found), Union Saint-Gilloise (8.6%, 4th) and Sunderland (18/1 market, 8.3%/4th-in-last-16-odds model) are the live alternatives if the model turns out to be closer to right than the books. Honesty note: this is a low-hit-rate market — each pick is roughly a 25-35% shot to reach the semis from a 36-team field, so realistically expect only around 1-1.5 of 4 correct, and all four landing together is a long shot.",
+      "alternatives": [
+        "Benfica (no bookmaker price found, Opta 14.0%)",
+        "Union Saint-Gilloise (Opta 8.6%)",
+        "Sunderland (18/1, Opta 8.3%)"
+      ],
+      "result": null
+    },
+    {
+      "key": "finalists",
+      "question": "The two finalists",
+      "picks": [
+        "Juventus",
+        "Bournemouth"
+      ],
+      "confidence": 2,
+      "note": "Juventus as the bookmaker-consensus favorite (7/1) is the straightforward half of this pick. For the second finalist, going with Bournemouth over the similarly-priced Marseille (10/1) and Real Sociedad (11/1): Bournemouth is Opta's single highest-rated club to win the whole competition (14.3% across 10,000 simulations, and the best projected league-phase finish at 15.1%), which as a proxy suggests the model likes their route through the bracket specifically rather than just their overall squad. This pairs the market's top pick with the model's top pick rather than doubling up on either source alone. Confidence held low (2) because picking 2 exact finalists from a 36-team field, in a market that only opened odds in the days after the 28 Aug league-phase draw, is inherently a low-hit-rate call regardless of read quality.",
+      "result": null
+    },
+    {
+      "key": "top_scorer",
+      "question": "Europa League top scorer",
+      "pick": "Christian Pulisic (AC Milan)",
+      "confidence": 2,
+      "note": "No sportsbook has opened a 2026-27 Europa League top-scorer market yet: bettingodds.com's dedicated top-scorer page states outright that odds 'are not available yet,' and no other tracker checked (Scotsman, Racing Post, gg.co.uk, Squawka) surfaced one either. In the absence of any price, this is a qualitative read tied to the winner market rather than a researched quote: Christian Pulisic is the attacking focal point of an AC Milan side priced among the top two or three outright favorites (15/2 bookmaker consensus, and marginally ahead of the field on Polymarket at 15%). Uncertainty flagged clearly: no specific top-scorer price or model projection exists for him or any rival, so this pick could look very different once books open the market.",
+      "result": null
+    },
+    {
+      "key": "dark_horse",
+      "question": "Dark horse — a club outside the favourites that over-performs",
+      "pick": "Benfica",
+      "confidence": 2,
+      "note": "Benfica sit well outside the bookmaker top 8 found in research — no outright price for them turned up across Scotsman, Racing Post, gg.co.uk or bettingodds.com — yet Opta's supercomputer rates them the 2nd most likely winner of all 36 clubs (14.0%, in the same range as market favorite Bournemouth at 14.3%, well clear of market favorite Juventus at 7.8%). That combination of an apparently unpriced club and one of the model's two highest win probabilities is unusual and exactly what a dark-horse pick should look for. Uncertainty flagged: this is a model-only read with no market check — no bookmaker has priced Benfica at all in anything found in research.",
+      "result": null
+    }
+  ]
+}

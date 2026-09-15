@@ -1,0 +1,259 @@
+{
+  "season": "2026-27",
+  "competition": "UEFA Europa League",
+  "note": "Team names must match The Odds API exactly (soccer_uefa_europa_league).",
+  "teams": {
+    "AC Milan": {
+      "short": "MIL",
+      "country": "ITA",
+      "flag": "🇮🇹",
+      "colors": ["#FB090B", "#000000"],
+      "pattern": "stripes"
+    },
+    "AZ Alkmaar": {
+      "short": "ALK",
+      "country": "NED",
+      "flag": "🇳🇱",
+      "colors": ["#D2122E", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Anderlecht": {
+      "short": "AND",
+      "country": "BEL",
+      "flag": "🇧🇪",
+      "colors": ["#5F259F", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Bayer Leverkusen": {
+      "short": "LEV",
+      "country": "GER",
+      "flag": "🇩🇪",
+      "colors": ["#E32221", "#000000"],
+      "pattern": "solid"
+    },
+    "Benfica": {
+      "short": "BEN",
+      "country": "POR",
+      "flag": "🇵🇹",
+      "colors": ["#E31B23", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Besiktas JK": {
+      "short": "BJK",
+      "country": "TUR",
+      "flag": "🇹🇷",
+      "colors": ["#000000", "#FFFFFF"],
+      "pattern": "stripes"
+    },
+    "Bournemouth": {
+      "short": "BOU",
+      "country": "ENG",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "colors": ["#DA291C", "#000000"],
+      "pattern": "stripes"
+    },
+    "Celta Vigo": {
+      "short": "VIG",
+      "country": "ESP",
+      "flag": "🇪🇸",
+      "colors": ["#4A90D9", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Celtic": {
+      "short": "CEL",
+      "country": "SCO",
+      "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "colors": ["#018749", "#FFFFFF"],
+      "pattern": "hoops"
+    },
+    "Crystal Palace": {
+      "short": "CRY",
+      "country": "ENG",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "colors": ["#1B458F", "#C4122E"],
+      "pattern": "stripes"
+    },
+    "Dinamo Zagreb": {
+      "short": "DIN",
+      "country": "CRO",
+      "flag": "🇭🇷",
+      "colors": ["#0033A0", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "FC Ararat-Armenia": {
+      "short": "ARA",
+      "country": "ARM",
+      "flag": "🇦🇲",
+      "colors": ["#D0021B", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Ferencváros TC": {
+      "short": "FTC",
+      "country": "HUN",
+      "flag": "🇭🇺",
+      "colors": ["#00693E", "#FFFFFF"],
+      "pattern": "stripes"
+    },
+    "Hapoel Be'er Sheva": {
+      "short": "HBS",
+      "country": "ISR",
+      "flag": "🇮🇱",
+      "colors": ["#ED1C24", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Jagiellonia Białystok": {
+      "short": "JAG",
+      "country": "POL",
+      "flag": "🇵🇱",
+      "colors": ["#FFD500", "#CC0000"],
+      "pattern": "solid"
+    },
+    "Juventus": {
+      "short": "JUV",
+      "country": "ITA",
+      "flag": "🇮🇹",
+      "colors": ["#000000", "#FFFFFF"],
+      "pattern": "stripes"
+    },
+    "Lech Poznań": {
+      "short": "LEC",
+      "country": "POL",
+      "flag": "🇵🇱",
+      "colors": ["#003DA5", "#FFFFFF"],
+      "pattern": "stripes"
+    },
+    "Lillestrom": {
+      "short": "LSK",
+      "country": "NOR",
+      "flag": "🇳🇴",
+      "colors": ["#FFD400", "#000000"],
+      "pattern": "solid"
+    },
+    "Lyon": {
+      "short": "LYO",
+      "country": "FRA",
+      "flag": "🇫🇷",
+      "colors": ["#FFFFFF", "#0A3B7C"],
+      "pattern": "solid"
+    },
+    "Marseille": {
+      "short": "MAR",
+      "country": "FRA",
+      "flag": "🇫🇷",
+      "colors": ["#FFFFFF", "#0F76BC"],
+      "pattern": "solid"
+    },
+    "NEC Nijmegen": {
+      "short": "NEC",
+      "country": "NED",
+      "flag": "🇳🇱",
+      "colors": ["#E2001A", "#00843D"],
+      "pattern": "sash"
+    },
+    "NK Celje": {
+      "short": "CEJ",
+      "country": "SVN",
+      "flag": "🇸🇮",
+      "colors": ["#0C2340", "#FFD100"],
+      "pattern": "solid"
+    },
+    "OFI Crete": {
+      "short": "OFI",
+      "country": "GRE",
+      "flag": "🇬🇷",
+      "colors": ["#000000", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Olympiakos Piraeus": {
+      "short": "OLY",
+      "country": "GRE",
+      "flag": "🇬🇷",
+      "colors": ["#E2001A", "#FFFFFF"],
+      "pattern": "stripes"
+    },
+    "Omonoia FC": {
+      "short": "OMO",
+      "country": "CYP",
+      "flag": "🇨🇾",
+      "colors": ["#00843D", "#FFFFFF"],
+      "pattern": "stripes"
+    },
+    "PFC Levski Sofia": {
+      "short": "LSF",
+      "country": "BUL",
+      "flag": "🇧🇬",
+      "colors": ["#0033A0", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Real Sociedad": {
+      "short": "RSO",
+      "country": "ESP",
+      "flag": "🇪🇸",
+      "colors": ["#0D3F8C", "#FFFFFF"],
+      "pattern": "stripes"
+    },
+    "Rennes": {
+      "short": "REN",
+      "country": "FRA",
+      "flag": "🇫🇷",
+      "colors": ["#E3242B", "#000000"],
+      "pattern": "solid"
+    },
+    "SK Sturm Graz": {
+      "short": "STG",
+      "country": "AUT",
+      "flag": "🇦🇹",
+      "colors": ["#000000", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Salzburg": {
+      "short": "SAL",
+      "country": "AUT",
+      "flag": "🇦🇹",
+      "colors": ["#ED1C24", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Sparta Prague": {
+      "short": "SPA",
+      "country": "CZE",
+      "flag": "🇨🇿",
+      "colors": ["#9E1B32", "#000000"],
+      "pattern": "solid"
+    },
+    "Sunderland": {
+      "short": "SUN",
+      "country": "ENG",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "colors": ["#E03A3E", "#FFFFFF"],
+      "pattern": "stripes"
+    },
+    "TSG Hoffenheim": {
+      "short": "HOF",
+      "country": "GER",
+      "flag": "🇩🇪",
+      "colors": ["#1C63B7", "#FFFFFF"],
+      "pattern": "solid"
+    },
+    "Torreense": {
+      "short": "TOR",
+      "country": "POR",
+      "flag": "🇵🇹",
+      "colors": ["#1E4C9A", "#B22234"],
+      "pattern": "halves"
+    },
+    "Union Saint-Gilloise": {
+      "short": "USG",
+      "country": "BEL",
+      "flag": "🇧🇪",
+      "colors": ["#F5C300", "#00246B"],
+      "pattern": "solid"
+    },
+    "Viktoria Plzeň": {
+      "short": "VPL",
+      "country": "CZE",
+      "flag": "🇨🇿",
+      "colors": ["#C8102E", "#00338D"],
+      "pattern": "stripes"
+    }
+  }
+}

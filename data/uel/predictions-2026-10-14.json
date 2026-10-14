@@ -1,0 +1,343 @@
+{
+  "matchday": "MD2",
+  "predictions": [
+    {
+      "home_team": "Salzburg",
+      "away_team": "AC Milan",
+      "commence_time": "2026-10-15T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.2784,
+        "draw": 0.2576,
+        "away": 0.464
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; AC Milan priced at 46% to win away at Salzburg.",
+      "sources": []
+    },
+    {
+      "home_team": "AZ Alkmaar",
+      "away_team": "Hapoel Be'er Sheva",
+      "commence_time": "2026-10-15T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.7404,
+        "draw": 0.1607,
+        "away": 0.0989
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; AZ Alkmaar priced at 74% to win at home to Hapoel Be'er Sheva.",
+      "sources": []
+    },
+    {
+      "home_team": "Lech Poznań",
+      "away_team": "Bayer Leverkusen",
+      "commence_time": "2026-10-15T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {
+        "home": 0.2035,
+        "draw": 0.217,
+        "away": 0.5795
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Bayer Leverkusen priced at 58% to win away at Lech Poznań.",
+      "sources": []
+    },
+    {
+      "home_team": "Lyon",
+      "away_team": "Crystal Palace",
+      "commence_time": "2026-10-15T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 3,
+      "market": {
+        "home": 0.4336,
+        "draw": 0.258,
+        "away": 0.3084
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Lyon priced at 43% to win at home to Crystal Palace.",
+      "sources": []
+    },
+    {
+      "home_team": "Sparta Prague",
+      "away_team": "Lillestrom",
+      "commence_time": "2026-10-15T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.7049,
+        "draw": 0.1795,
+        "away": 0.1156
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Sparta Prague priced at 70% to win at home to Lillestrom.",
+      "sources": []
+    },
+    {
+      "home_team": "NK Celje",
+      "away_team": "Omonoia FC",
+      "commence_time": "2026-10-15T16:45:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 2,
+      "market": {
+        "home": 0.3824,
+        "draw": 0.2776,
+        "away": 0.34
+      },
+      "rationale": "The closest line on the card (38/28/34) and research barely moves it: coverage is thin, with no team news found for either side. Celje lost 0-2 at Leverkusen on MD1 with credit for their keeper, while Omonoia's 1-0 over Celta came from an 88th-minute goal after being out-shot 19-11; one stats site notes Omonoia have not scored more than once in eight straight European away games. Home pick held at the market read, low-scoring 1-0, confidence 2.",
+      "disagreement": "No human tipsters found; the only model (Kickoff.co.uk) mirrors the market at 40/25/36 with 1-1 its most likely score.",
+      "sources": [
+        {
+          "title": "Kickoff.co.uk — Celje vs Omonia Nicosia preview and stats",
+          "url": "https://www.kickoff.co.uk/uefa-europa-league-predictions-stats-odds/celje-vs-omonia-nicosia/"
+        },
+        {
+          "title": "Flashscore — Omonia v Celta Vigo report, 16 Sep 2026",
+          "url": "https://www.flashscore.com/news/soccer-europa-league-omonia-celta-vigo-report-september-16-2026/844LqtBC/"
+        },
+        {
+          "title": "Flashscore — Bayer Leverkusen v Celje report, 16 Sep 2026",
+          "url": "https://www.flashscore.com/news/soccer-europa-league-bayer-leverkusen-celje-report-16-09-2026/IPjGzckd/"
+        }
+      ]
+    },
+    {
+      "home_team": "Union Saint-Gilloise",
+      "away_team": "Real Sociedad",
+      "commence_time": "2026-10-15T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 2,
+      "market": {
+        "home": 0.3914,
+        "draw": 0.2606,
+        "away": 0.3479
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Union Saint-Gilloise priced at 39% to win at home to Real Sociedad.",
+      "sources": []
+    },
+    {
+      "home_team": "Torreense",
+      "away_team": "Sunderland",
+      "commence_time": "2026-10-15T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {
+        "home": 0.129,
+        "draw": 0.1838,
+        "away": 0.6872
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Sunderland priced at 69% to win away at Torreense.",
+      "sources": []
+    },
+    {
+      "home_team": "Dinamo Zagreb",
+      "away_team": "Anderlecht",
+      "commence_time": "2026-10-15T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.4703,
+        "draw": 0.2641,
+        "away": 0.2656
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Dinamo Zagreb priced at 47% to win at home to Anderlecht.",
+      "sources": []
+    },
+    {
+      "home_team": "Benfica",
+      "away_team": "Celtic",
+      "commence_time": "2026-10-15T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.7615,
+        "draw": 0.151,
+        "away": 0.0876
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Benfica priced at 76% to win at home to Celtic.",
+      "sources": []
+    },
+    {
+      "home_team": "TSG Hoffenheim",
+      "away_team": "Besiktas JK",
+      "commence_time": "2026-10-15T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.4852,
+        "draw": 0.2373,
+        "away": 0.2775
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; TSG Hoffenheim priced at 49% to win at home to Besiktas JK.",
+      "sources": []
+    },
+    {
+      "home_team": "Bournemouth",
+      "away_team": "SK Sturm Graz",
+      "commence_time": "2026-10-15T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.7936,
+        "draw": 0.1321,
+        "away": 0.0742
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Bournemouth priced at 79% to win at home to SK Sturm Graz.",
+      "sources": []
+    },
+    {
+      "home_team": "Celta Vigo",
+      "away_team": "Juventus",
+      "commence_time": "2026-10-15T19:00:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.2742,
+        "draw": 0.2831,
+        "away": 0.4427
+      },
+      "rationale": "Juventus are a 44% away favourite. They arrive without Yildiz, Locatelli, Thuram, Boga and Ekhator (TuttoMercatoWeb, 12 Oct), but that list predates the 14 Oct odds and is already priced; Celta's own absences are reported only by unverified sources. Juve won 5-0 on MD1 while Celta lost late at Omonoia with set-piece defending flagged as the weakness, so the away pick stands with a tight 0-1, matching models that lean under 2.5 goals.",
+      "disagreement": "None against the market; the Wincomparator model is more bullish on Juventus (54%) than the books.",
+      "sources": [
+        {
+          "title": "TuttoMercatoWeb — Juventus, testa all'Europa League: Celta Vigo",
+          "url": "https://www.tuttomercatoweb.com/serie-a/juventus-testa-europa-league-celta-vigo-spalletti-recupera-2282398"
+        },
+        {
+          "title": "Flashscore — Omonia v Celta Vigo report, 16 Sep 2026",
+          "url": "https://www.flashscore.com/news/soccer-europa-league-omonia-celta-vigo-report-september-16-2026/844LqtBC/"
+        },
+        {
+          "title": "Wincomparator — Celta Vigo v Juventus prediction",
+          "url": "https://www.wincomparator.com/predictions/celta-vigo-juventus-8786967/"
+        },
+        {
+          "title": "Kickoff.co.uk — Celta vs Juventus preview",
+          "url": "https://www.kickoff.co.uk/uefa-europa-league-predictions-stats-odds/celta-vs-juventus/"
+        }
+      ]
+    },
+    {
+      "home_team": "Jagiellonia Białystok",
+      "away_team": "FC Ararat-Armenia",
+      "commence_time": "2026-10-15T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.6727,
+        "draw": 0.1952,
+        "away": 0.1321
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Jagiellonia Białystok priced at 67% to win at home to FC Ararat-Armenia.",
+      "sources": []
+    },
+    {
+      "home_team": "Ferencváros TC",
+      "away_team": "Viktoria Plzeň",
+      "commence_time": "2026-10-15T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.4881,
+        "draw": 0.2499,
+        "away": 0.262
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Ferencváros TC priced at 49% to win at home to Viktoria Plzeň.",
+      "sources": []
+    },
+    {
+      "home_team": "Marseille",
+      "away_team": "Olympiakos Piraeus",
+      "commence_time": "2026-10-15T19:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 3,
+      "market": {
+        "home": 0.4116,
+        "draw": 0.2685,
+        "away": 0.32
+      },
+      "rationale": "Marseille are only a 41% home favourite, the tightest line on the 19:00 slate. Their MD1 4-1 collapse at Besiktas contrasts with Olympiakos' late 2-1 comeback win over Jagiellonia, and Gouiri picked up a quad injury on international duty, though his status for Thursday is unconfirmed. Nothing verified is fresh enough to beat the price, so the home pick stands, with a 1-0 that reflects a model leaning heavily toward under 2.5 goals.",
+      "disagreement": "No human tipsters found; the Wincomparator model leans Marseille slightly harder (49%) than the market.",
+      "sources": [
+        {
+          "title": "To Vima — Olympiacos completes comeback against Jagiellonia",
+          "url": "https://www.tovima.com/sports/olympiacos-completes-comeback-against-jagiellonia-with-2-1-europa-league-win/"
+        },
+        {
+          "title": "Africa Soccer — Gouiri returns to Marseille after Algeria injury",
+          "url": "https://africasoccer.com/?p=624993"
+        },
+        {
+          "title": "Wincomparator — Marseille v Olympiacos prediction",
+          "url": "https://www.wincomparator.com/predictions/marseille-olympiacos-8786966/"
+        },
+        {
+          "title": "Starting11 — Marseille vs Olympiakos Piraeus",
+          "url": "https://starting11.com/fixtures/marseille-vs-olympiakos-piraeus"
+        }
+      ]
+    },
+    {
+      "home_team": "NEC Nijmegen",
+      "away_team": "PFC Levski Sofia",
+      "commence_time": "2026-10-15T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.5043,
+        "draw": 0.2549,
+        "away": 0.2408
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; NEC Nijmegen priced at 50% to win at home to PFC Levski Sofia.",
+      "sources": []
+    },
+    {
+      "home_team": "Rennes",
+      "away_team": "OFI Crete",
+      "commence_time": "2026-10-15T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.7608,
+        "draw": 0.1519,
+        "away": 0.0873
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Rennes priced at 76% to win at home to OFI Crete.",
+      "sources": []
+    }
+  ]
+}

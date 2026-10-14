@@ -3,13 +3,14 @@
 Immutable record of calls vs outcomes. Never edit a prediction after kickoff.
 
 ## Running tally
-- Matches predicted (graded): 18
-- Correct picks (1X2): 13 — hit rate 72% (13/18)
+- Matches predicted (graded): 27
+- Correct picks (1X2): 18 — hit rate 67% (18/27)
 - Exact scoreline hits: 2 (Real Madrid 2-1, Liverpool 2-1)
-- Avg confidence of correct picks: 4.08
-- Avg confidence of wrong picks: 3.20
-- Deep: 2/6 (33%), 1 exact. Quick: 11/12 (92%), 1 exact.
-- Blind market-favourite control: 13/18 — identical, because no pick on this card deviated from the favourite.
+- Avg confidence of correct picks: 3.94
+- Avg confidence of wrong picks: 3.44
+- Deep: 4/9 (44%), 1 exact. Quick: 14/18 (78%), 1 exact.
+- Blind market-favourite control: 18/27 — identical, because no pick on either card so far deviated from the favourite.
+- MD2 night one (13 Oct): 5/9. Deep 2/3 (Atlético Madrid, Villarreal hit; RC Lens missed). Quick 3/6 — two 5-confidence favourites failed to win: Bayern Munich drew 3-3 at Viking FK, Inter Milan lost 3-4 at home to Club Brugge.
 
 **Notes:**
 The night-one note compared deep and quick hit rates as if that measured research. It does not, and that note was wrong. Deep picks are selected as the tightest lines on the card, while quick picks include 85-92% favourites, so deep picks will always hit less often. The 33% vs 92% gap is a selection effect, not evidence that research hurts.
@@ -38,3 +39,12 @@ Correct picks carried higher average confidence than wrong ones (4.08 vs 3.20), 
 | 2026-09-10 | Como vs RB Leipzig | Home | 1-0 | 3 | quick | 4-1 (home) | ✓ | ✗ |
 | 2026-09-10 | Manchester United vs Sabah FK | Home | 2-0 | 5 | quick | 4-0 (home) | ✓ | ✗ |
 | 2026-09-10 | Slavia Praha vs RC Lens | Home | 1-0 | 2 | deep | 2-3 (away) | ✗ | ✗ |
+| 2026-10-13 | RC Lens vs Sporting Lisbon | Home | 2-1 | 2 | deep | 0-2 (away) | ✗ | ✗ |
+| 2026-10-13 | Sabah FK vs Slavia Praha | Away | 0-1 | 3 | quick | 2-0 (home) | ✗ | ✗ |
+| 2026-10-13 | Arsenal vs Lille | Home | 2-0 | 5 | quick | 3-0 (home) | ✓ | ✗ |
+| 2026-10-13 | Atlético Madrid vs Manchester United | Home | 2-1 | 3 | deep | 2-0 (home) | ✓ | ✗ |
+| 2026-10-13 | Galatasaray vs Barcelona | Away | 1-2 | 5 | quick | 1-4 (away) | ✓ | ✗ |
+| 2026-10-13 | Viking FK vs Bayern Munich | Away | 0-3 | 5 | quick | 3-3 (draw) | ✗ | ✗ |
+| 2026-10-13 | Inter Milan vs Club Brugge | Home | 2-0 | 5 | quick | 3-4 (away) | ✗ | ✗ |
+| 2026-10-13 | Villarreal vs Napoli | Home | 1-0 | 2 | deep | 3-1 (home) | ✓ | ✗ |
+| 2026-10-13 | RB Leipzig vs PSV Eindhoven | Home | 2-1 | 3 | quick | 1-0 (home) | ✓ | ✗ |

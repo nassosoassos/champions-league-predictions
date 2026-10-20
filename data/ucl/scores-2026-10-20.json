@@ -1,0 +1,161 @@
+{
+  "generated_at": "2026-10-20T12:05:17Z",
+  "source": "manual — web sources; The Odds API scores endpoint only reaches back 3 days",
+  "sources": {
+    "Feyenoord|Como": [
+      "https://www.excelsior.com.mx/deportes/champions-league-posiciones-miercoles-14-octubre-resultados",
+      "https://radionacional.co/actualidad/deportes/champions-jornada-2",
+      "https://cameroun24.net/article/76477-ligue-des-champions-le-psg-renverse-city-aston-villa-humilie-fenerbahce-6-0-le-real-madrid-sarrache-tous-les-resultats-du-14-octobre-2026.html"
+    ],
+    "LASK|Liverpool": [
+      "https://www.excelsior.com.mx/deportes/champions-league-posiciones-miercoles-14-octubre-resultados",
+      "https://radionacional.co/actualidad/deportes/champions-jornada-2",
+      "https://cameroun24.net/article/76477-ligue-des-champions-le-psg-renverse-city-aston-villa-humilie-fenerbahce-6-0-le-real-madrid-sarrache-tous-les-resultats-du-14-octobre-2026.html"
+    ],
+    "Shakhtar Donetsk|AEK Athens": [
+      "https://www.excelsior.com.mx/deportes/champions-league-posiciones-miercoles-14-octubre-resultados",
+      "https://radionacional.co/actualidad/deportes/champions-jornada-2",
+      "https://cameroun24.net/article/76477-ligue-des-champions-le-psg-renverse-city-aston-villa-humilie-fenerbahce-6-0-le-real-madrid-sarrache-tous-les-resultats-du-14-octobre-2026.html"
+    ],
+    "AS Roma|Real Madrid": [
+      "https://www.excelsior.com.mx/deportes/champions-league-posiciones-miercoles-14-octubre-resultados",
+      "https://radionacional.co/actualidad/deportes/champions-jornada-2",
+      "https://cameroun24.net/article/76477-ligue-des-champions-le-psg-renverse-city-aston-villa-humilie-fenerbahce-6-0-le-real-madrid-sarrache-tous-les-resultats-du-14-octobre-2026.html"
+    ],
+    "Aston Villa|Fenerbahce": [
+      "https://www.excelsior.com.mx/deportes/champions-league-posiciones-miercoles-14-octubre-resultados",
+      "https://radionacional.co/actualidad/deportes/champions-jornada-2",
+      "https://cameroun24.net/article/76477-ligue-des-champions-le-psg-renverse-city-aston-villa-humilie-fenerbahce-6-0-le-real-madrid-sarrache-tous-les-resultats-du-14-octobre-2026.html"
+    ],
+    "Bodø/Glimt|Borussia Dortmund": [
+      "https://www.excelsior.com.mx/deportes/champions-league-posiciones-miercoles-14-octubre-resultados",
+      "https://radionacional.co/actualidad/deportes/champions-jornada-2",
+      "https://cameroun24.net/article/76477-ligue-des-champions-le-psg-renverse-city-aston-villa-humilie-fenerbahce-6-0-le-real-madrid-sarrache-tous-les-resultats-du-14-octobre-2026.html"
+    ],
+    "Manchester City|Paris Saint Germain": [
+      "https://www.excelsior.com.mx/deportes/champions-league-posiciones-miercoles-14-octubre-resultados",
+      "https://radionacional.co/actualidad/deportes/champions-jornada-2",
+      "https://cameroun24.net/article/76477-ligue-des-champions-le-psg-renverse-city-aston-villa-humilie-fenerbahce-6-0-le-real-madrid-sarrache-tous-les-resultats-du-14-octobre-2026.html"
+    ],
+    "Real Betis|Porto": [
+      "https://www.excelsior.com.mx/deportes/champions-league-posiciones-miercoles-14-octubre-resultados",
+      "https://radionacional.co/actualidad/deportes/champions-jornada-2",
+      "https://cameroun24.net/article/76477-ligue-des-champions-le-psg-renverse-city-aston-villa-humilie-fenerbahce-6-0-le-real-madrid-sarrache-tous-les-resultats-du-14-octobre-2026.html"
+    ],
+    "ŠK Slovan Bratislava|VfB Stuttgart": [
+      "https://www.excelsior.com.mx/deportes/champions-league-posiciones-miercoles-14-octubre-resultados",
+      "https://radionacional.co/actualidad/deportes/champions-jornada-2",
+      "https://cameroun24.net/article/76477-ligue-des-champions-le-psg-renverse-city-aston-villa-humilie-fenerbahce-6-0-le-real-madrid-sarrache-tous-les-resultats-du-14-octobre-2026.html"
+    ]
+  },
+  "matches": [
+    {
+      "match": "Feyenoord vs Como",
+      "home_team": "Feyenoord",
+      "away_team": "Como",
+      "commence_time": "2026-10-14T16:45:00Z",
+      "completed": true,
+      "home_score": "3",
+      "away_score": "2",
+      "final_score": "3-2",
+      "result": "home",
+      "last_update": "2026-10-20T12:05:17Z"
+    },
+    {
+      "match": "LASK vs Liverpool",
+      "home_team": "LASK",
+      "away_team": "Liverpool",
+      "commence_time": "2026-10-14T16:45:00Z",
+      "completed": true,
+      "home_score": "3",
+      "away_score": "6",
+      "final_score": "3-6",
+      "result": "away",
+      "last_update": "2026-10-20T12:05:17Z"
+    },
+    {
+      "match": "Shakhtar Donetsk vs AEK Athens",
+      "home_team": "Shakhtar Donetsk",
+      "away_team": "AEK Athens",
+      "commence_time": "2026-10-14T19:00:00Z",
+      "completed": true,
+      "home_score": "3",
+      "away_score": "1",
+      "final_score": "3-1",
+      "result": "home",
+      "last_update": "2026-10-20T12:05:17Z"
+    },
+    {
+      "match": "AS Roma vs Real Madrid",
+      "home_team": "AS Roma",
+      "away_team": "Real Madrid",
+      "commence_time": "2026-10-14T19:00:00Z",
+      "completed": true,
+      "home_score": "3",
+      "away_score": "4",
+      "final_score": "3-4",
+      "result": "away",
+      "last_update": "2026-10-20T12:05:17Z"
+    },
+    {
+      "match": "Aston Villa vs Fenerbahce",
+      "home_team": "Aston Villa",
+      "away_team": "Fenerbahce",
+      "commence_time": "2026-10-14T19:00:00Z",
+      "completed": true,
+      "home_score": "6",
+      "away_score": "0",
+      "final_score": "6-0",
+      "result": "home",
+      "last_update": "2026-10-20T12:05:17Z"
+    },
+    {
+      "match": "Bodø/Glimt vs Borussia Dortmund",
+      "home_team": "Bodø/Glimt",
+      "away_team": "Borussia Dortmund",
+      "commence_time": "2026-10-14T19:00:00Z",
+      "completed": true,
+      "home_score": "1",
+      "away_score": "0",
+      "final_score": "1-0",
+      "result": "home",
+      "last_update": "2026-10-20T12:05:17Z"
+    },
+    {
+      "match": "Manchester City vs Paris Saint Germain",
+      "home_team": "Manchester City",
+      "away_team": "Paris Saint Germain",
+      "commence_time": "2026-10-14T19:00:00Z",
+      "completed": true,
+      "home_score": "2",
+      "away_score": "4",
+      "final_score": "2-4",
+      "result": "away",
+      "last_update": "2026-10-20T12:05:17Z"
+    },
+    {
+      "match": "Real Betis vs Porto",
+      "home_team": "Real Betis",
+      "away_team": "Porto",
+      "commence_time": "2026-10-14T19:00:00Z",
+      "completed": true,
+      "home_score": "3",
+      "away_score": "2",
+      "final_score": "3-2",
+      "result": "home",
+      "last_update": "2026-10-20T12:05:17Z"
+    },
+    {
+      "match": "ŠK Slovan Bratislava vs VfB Stuttgart",
+      "home_team": "ŠK Slovan Bratislava",
+      "away_team": "VfB Stuttgart",
+      "commence_time": "2026-10-14T19:00:00Z",
+      "completed": true,
+      "home_score": "0",
+      "away_score": "3",
+      "final_score": "0-3",
+      "result": "away",
+      "last_update": "2026-10-20T12:05:17Z"
+    }
+  ]
+}

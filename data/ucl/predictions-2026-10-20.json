@@ -1,0 +1,385 @@
+{
+  "matchday": "MD3",
+  "predictions": [
+    {
+      "home_team": "Sabah FK",
+      "away_team": "Borussia Dortmund",
+      "commence_time": "2026-10-20T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-2",
+      "confidence": 5,
+      "market": {
+        "home": 0.1,
+        "draw": 0.16,
+        "away": 0.74
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Borussia Dortmund priced at 74% to beat Sabah FK away.",
+      "sources": []
+    },
+    {
+      "home_team": "Fenerbahce",
+      "away_team": "Slavia Praha",
+      "commence_time": "2026-10-20T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.61,
+        "draw": 0.21,
+        "away": 0.18
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Fenerbahce priced at 61% to beat Slavia Praha at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Manchester City",
+      "away_team": "AEK Athens",
+      "commence_time": "2026-10-20T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "3-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.85,
+        "draw": 0.1,
+        "away": 0.05
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Manchester City priced at 85% to beat AEK Athens at home.",
+      "sources": []
+    },
+    {
+      "home_team": "AS Roma",
+      "away_team": "ŠK Slovan Bratislava",
+      "commence_time": "2026-10-20T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "3-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.85,
+        "draw": 0.1,
+        "away": 0.05
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; AS Roma priced at 85% to beat ŠK Slovan Bratislava at home.",
+      "sources": []
+    },
+    {
+      "home_team": "VfB Stuttgart",
+      "away_team": "Atlético Madrid",
+      "commence_time": "2026-10-20T19:00:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 3,
+      "market": {
+        "home": 0.29,
+        "draw": 0.25,
+        "away": 0.46
+      },
+      "rationale": "Market makes Atlético Madrid a clear 46% favourite away. Atlético have won six straight with four clean sheets but lose Romero and probably Koke; Stuttgart have 6 UCL points yet have lost three of their last four in the Bundesliga and have defensive absences (Al-Dakhil, Diehl). Tipster consensus matches the market, so no adjustment: Atlético by one.",
+      "disagreement": "",
+      "sources": [
+        {
+          "title": "Sports Mole — Stuttgart vs Atlético preview",
+          "url": "https://www.sportsmole.co.uk/football/stuttgart/champions-league/preview/stuttgart-vs-atletico-prediction-team-news-lineups_607188.html"
+        },
+        {
+          "title": "Stuttgarter Zeitung — So will Hoeneß spielen lassen",
+          "url": "https://www.stuttgarter-zeitung.de/sport/vfb-stuttgart/vfb-stuttgart-atletico-madrid-so-will-sebastian-hoeness-spielen-lassen-79585681.html"
+        },
+        {
+          "title": "WinDrawWin — VfB Stuttgart v Atlético Madrid tip",
+          "url": "https://www.windrawwin.com/tips/champions-league/vfb-stuttgart-v-atletico-madrid/898336/"
+        }
+      ]
+    },
+    {
+      "home_team": "Paris Saint Germain",
+      "away_team": "Barcelona",
+      "commence_time": "2026-10-20T19:00:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "2-3",
+      "confidence": 1,
+      "market": {
+        "home": 0.39,
+        "draw": 0.22,
+        "away": 0.4
+      },
+      "rationale": "The market splits this almost exactly (39/22/40), with Barcelona a fraction ahead. Barcelona are without Koundé, Eric García and Christensen at the back, while PSG lose Nuno Mendes but rested seven expected starters at the weekend; both sides lean slightly toward PSG and both are unconfirmed. Not enough to overturn a line this flat, so we stay with the hair-width favourite at minimum confidence and expect goals.",
+      "disagreement": "Tipsters are split three ways (Covers and CBS back PSG, bets.com.au Barcelona, Football Whispers and footballpredictions a draw); the near-unanimous call is on goals, not the winner.",
+      "sources": [
+        {
+          "title": "Maxifoot — Paris SG-Barça, les compos probables",
+          "url": "https://news.maxifoot.fr/ligue-champions/paris-sg-barca-les-compos-probables-foot-466026.htm"
+        },
+        {
+          "title": "BeFoot — PSG - FC Barcelone : compositions probables",
+          "url": "https://www.befoot.net/psg-fc-barcelone-compos-probables-chaine-tv-heure/"
+        },
+        {
+          "title": "Covers — PSG vs Barcelona prediction",
+          "url": "https://www.covers.com/soccer/psg-vs-barcelona-predictions-picks-oct-20-2026"
+        },
+        {
+          "title": "bet365 News — PSG v Barcelona prediction",
+          "url": "https://news.bet365.com/en-gb/article/football-paris-saint-germain-barcelona-prediction-and-tips/2026101919471615585"
+        }
+      ]
+    },
+    {
+      "home_team": "Napoli",
+      "away_team": "Bodø/Glimt",
+      "commence_time": "2026-10-20T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.54,
+        "draw": 0.24,
+        "away": 0.22
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Napoli priced at 54% to beat Bodø/Glimt at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Liverpool",
+      "away_team": "Villarreal",
+      "commence_time": "2026-10-20T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.64,
+        "draw": 0.2,
+        "away": 0.16
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Liverpool priced at 64% to beat Villarreal at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Porto",
+      "away_team": "PSV Eindhoven",
+      "commence_time": "2026-10-20T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.62,
+        "draw": 0.21,
+        "away": 0.17
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Porto priced at 62% to beat PSV Eindhoven at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Como",
+      "away_team": "Manchester United",
+      "commence_time": "2026-10-21T16:45:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.43,
+        "draw": 0.25,
+        "away": 0.32
+      },
+      "rationale": "Market has Como at 43% at home. Manchester United arrive with Yoro suspended, Sesko, Ugarte, Mainoo and Dorgu injured and Lisandro Martínez, Heaven and Shaw all needing fitness checks, plus no league win since 10 September per Il Veggente; Como won 3-1 at Fiorentina with a rotated side. The intel runs the market's way and a touch further, but it is preview-sourced, so we hold the pick at 3 rather than add confidence.",
+      "disagreement": "Tipsters (Racing Post, Il Veggente, Khelnow) lean Como more firmly than the 43% price.",
+      "sources": [
+        {
+          "title": "Racing Post — Como vs Manchester United tips",
+          "url": "https://www.racingpost.com/sport/football-tips/champions-league/como-vs-manchester-united-predictions-team-news-odds-betting-tips-bet-builder-aUGxa5G89tZx/"
+        },
+        {
+          "title": "Il Veggente — Pronostico Como-Manchester United",
+          "url": "https://www.ilveggente.it/2026/10/20/pronostico-como-manchester-united-la-pressione-e-tutta-sui-red-devils/"
+        },
+        {
+          "title": "Tuttosport — Como-Manchester United probabili formazioni",
+          "url": "https://www.tuttosport.com/news/calcio/champions-league/2026/10/20-152015231/como-manchester_united_probabili_formazioni_orario_e_dove_vedere_in_tv_e_streaming_la_champions_league"
+        }
+      ]
+    },
+    {
+      "home_team": "Lille",
+      "away_team": "Galatasaray",
+      "commence_time": "2026-10-21T16:45:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.44,
+        "draw": 0.26,
+        "away": 0.31
+      },
+      "rationale": "Market has Lille 44% at home in a meeting of two pointless sides with leaky defences (6 and 7 conceded). Lille miss Tiago Santos and the suspended Ethan Mbappé; Sports Mole expects Galatasaray to lose Leão, though Squawka disagrees, so that is unconfirmed. Tipsters line up behind Lille 2-1, the same as the market: no adjustment.",
+      "disagreement": "",
+      "sources": [
+        {
+          "title": "Sports Mole — Lille vs Galatasaray preview",
+          "url": "https://www.sportsmole.co.uk/football/lille/champions-league/preview/lille-vs-galatasaray-prediction-team-news-lineups_607256.html"
+        },
+        {
+          "title": "Squawka — Lille vs Galatasaray match preview",
+          "url": "https://www.squawka.com/us/news/champions-league/match-preview-lille-vs-galatasaray-21-10-26-champions-league/"
+        },
+        {
+          "title": "Football Whispers — Lille vs Galatasaray prediction",
+          "url": "https://footballwhispers.com/blog/lille-vs-galatasaray-prediction-21-10-2026/"
+        }
+      ]
+    },
+    {
+      "home_team": "Bayern Munich",
+      "away_team": "Arsenal",
+      "commence_time": "2026-10-21T19:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 2,
+      "market": {
+        "home": 0.47,
+        "draw": 0.25,
+        "away": 0.28
+      },
+      "rationale": "Market makes Bayern Munich a 47% home favourite. Bayern are without Olise (suspended) and Musiala, with Neuer a late fitness call, while Arsenal miss Saliba and Hincapié but have won 10 of 11 and kept two UCL clean sheets. We keep the favourite but drop confidence to 2: the absences cut both ways and the tipster lean is toward a draw.",
+      "disagreement": "Sports Mole predicts 1-1; Khelnow and RotoWire narrowly back Bayern — consensus leans toward the draw more than the market does.",
+      "sources": [
+        {
+          "title": "Sports Mole — Bayern vs Arsenal preview",
+          "url": "https://www.sportsmole.co.uk/football/arsenal/champions-league/preview/bayern-vs-arsenal-prediction-team-news-lineups_607219.html"
+        },
+        {
+          "title": "ESPN — Bayern Munich vs Arsenal predicted lineups",
+          "url": "https://www.espn.com/soccer/story/_/id/50216509/bayern-munich-vs-arsenal-tv-channel-how-watch-kick-live-stream-referee-injury-predicted-lineups-uefa-champions-league-2026-27"
+        },
+        {
+          "title": "Bulinews — FC Bayern vs Arsenal",
+          "url": "https://bulinews.com/news/39069/fc-bayern-arsenal"
+        },
+        {
+          "title": "Khelnow — Bayern Munich vs Arsenal preview",
+          "url": "https://khelnow.com/football/bayern-munich-vs-arsenal-preview-champions-league-202610"
+        }
+      ]
+    },
+    {
+      "home_team": "Aston Villa",
+      "away_team": "Viking FK",
+      "commence_time": "2026-10-21T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.78,
+        "draw": 0.14,
+        "away": 0.08
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Aston Villa priced at 78% to beat Viking FK at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Club Brugge",
+      "away_team": "RC Lens",
+      "commence_time": "2026-10-21T19:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.47,
+        "draw": 0.24,
+        "away": 0.29
+      },
+      "rationale": "Market has Club Brugge 47% at home. Brugge won 4-3 at Inter and are second in Belgium; Lens, under new coach Cahuzac, miss Nawrocki and Sima long-term and have led at half-time in only 1 of their last 20 UCL games. Every preview we found backs Brugge, in line with the market: no adjustment.",
+      "disagreement": "",
+      "sources": [
+        {
+          "title": "Sports Mole — Club Brugge vs Lens preview",
+          "url": "https://www.sportsmole.co.uk/football/club-brugge/champions-league/preview/brugge-vs-lens-prediction-team-news-lineups_607212.html"
+        },
+        {
+          "title": "The Stats Zone — Club Brugge vs Lens preview",
+          "url": "https://www.thestatszone.com/club-brugge-vs-lens-preview-team-news-prediction-2026-27-uefa-champions-league-league-phase-231324"
+        },
+        {
+          "title": "Football Whispers — Club Brugge vs Lens prediction",
+          "url": "https://footballwhispers.com/blog/club-brugge-vs-lens-prediction-21-10-26/"
+        }
+      ]
+    },
+    {
+      "home_team": "Real Betis",
+      "away_team": "Feyenoord",
+      "commence_time": "2026-10-21T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.61,
+        "draw": 0.2,
+        "away": 0.19
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Real Betis priced at 61% to beat Feyenoord at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Inter Milan",
+      "away_team": "Shakhtar Donetsk",
+      "commence_time": "2026-10-21T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.79,
+        "draw": 0.13,
+        "away": 0.08
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Inter Milan priced at 79% to beat Shakhtar Donetsk at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Sporting Lisbon",
+      "away_team": "LASK",
+      "commence_time": "2026-10-21T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.79,
+        "draw": 0.13,
+        "away": 0.08
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Sporting Lisbon priced at 79% to beat LASK at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Real Madrid",
+      "away_team": "RB Leipzig",
+      "commence_time": "2026-10-21T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 5,
+      "market": {
+        "home": 0.77,
+        "draw": 0.14,
+        "away": 0.1
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Real Madrid priced at 76% to beat RB Leipzig at home.",
+      "sources": []
+    }
+  ]
+}

@@ -3,13 +3,14 @@
 Immutable record of calls vs outcomes. Never edit a prediction after kickoff.
 
 ## Running tally
-- Matches predicted (graded): 27
-- Correct picks (1X2): 18 — hit rate 67% (18/27)
+- Matches predicted (graded): 36
+- Correct picks (1X2): 23 — hit rate 64% (23/36)
 - Exact scoreline hits: 2 (Real Madrid 2-1, Liverpool 2-1)
-- Avg confidence of correct picks: 3.94
-- Avg confidence of wrong picks: 3.44
-- Deep: 4/9 (44%), 1 exact. Quick: 14/18 (78%), 1 exact.
-- Blind market-favourite control: 18/27 — identical, because no pick on either card so far deviated from the favourite.
+- Avg confidence of correct picks: 3.91
+- Avg confidence of wrong picks: 3.15
+- Deep: 5/12 (42%), 1 exact. Quick: 18/24 (75%), 1 exact.
+- Blind market-favourite control: 23/36 — identical, because no pick on any card so far deviated from the favourite.
+- MD2 night two (14 Oct): 5/9. Deep 1/3 (Real Madrid won 4-3 at Roma; Shakhtar Donetsk beat AEK Athens 3-1 and Paris Saint Germain won 4-2 at Manchester City). Quick 4/6; the misses were Feyenoord 3-2 over Como and Bodø/Glimt 1-0 over Borussia Dortmund. A goal-heavy night: 46 goals in 9 matches, so no scoreline came close.
 - MD2 night one (13 Oct): 5/9. Deep 2/3 (Atlético Madrid, Villarreal hit; RC Lens missed). Quick 3/6 — two 5-confidence favourites failed to win: Bayern Munich drew 3-3 at Viking FK, Inter Milan lost 3-4 at home to Club Brugge.
 
 **Notes:**
@@ -48,3 +49,12 @@ Correct picks carried higher average confidence than wrong ones (4.08 vs 3.20), 
 | 2026-10-13 | Inter Milan vs Club Brugge | Home | 2-0 | 5 | quick | 3-4 (away) | ✗ | ✗ |
 | 2026-10-13 | Villarreal vs Napoli | Home | 1-0 | 2 | deep | 3-1 (home) | ✓ | ✗ |
 | 2026-10-13 | RB Leipzig vs PSV Eindhoven | Home | 2-1 | 3 | quick | 1-0 (home) | ✓ | ✗ |
+| 2026-10-14 | Feyenoord vs Como | Away | 1-2 | 3 | quick | 3-2 (home) | ✗ | ✗ |
+| 2026-10-14 | LASK vs Liverpool | Away | 0-2 | 5 | quick | 3-6 (away) | ✓ | ✗ |
+| 2026-10-14 | Shakhtar Donetsk vs AEK Athens | Away | 0-1 | 1 | deep | 3-1 (home) | ✗ | ✗ |
+| 2026-10-14 | AS Roma vs Real Madrid | Away | 1-2 | 2 | deep | 3-4 (away) | ✓ | ✗ |
+| 2026-10-14 | Aston Villa vs Fenerbahce | Home | 2-1 | 4 | quick | 6-0 (home) | ✓ | ✗ |
+| 2026-10-14 | Bodø/Glimt vs Borussia Dortmund | Away | 1-2 | 3 | quick | 1-0 (home) | ✗ | ✗ |
+| 2026-10-14 | Manchester City vs Paris Saint Germain | Home | 2-1 | 3 | deep | 2-4 (away) | ✗ | ✗ |
+| 2026-10-14 | Real Betis vs Porto | Home | 1-0 | 3 | quick | 3-2 (home) | ✓ | ✗ |
+| 2026-10-14 | ŠK Slovan Bratislava vs VfB Stuttgart | Away | 0-2 | 5 | quick | 0-3 (away) | ✓ | ✗ |

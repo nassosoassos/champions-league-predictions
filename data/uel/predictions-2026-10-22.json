@@ -1,0 +1,359 @@
+{
+  "matchday": "MD3",
+  "predictions": [
+    {
+      "home_team": "FC Ararat-Armenia",
+      "away_team": "AZ Alkmaar",
+      "commence_time": "2026-10-22T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {
+        "home": 0.1214,
+        "draw": 0.1832,
+        "away": 0.6954
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; AZ Alkmaar priced at 70% to win away at FC Ararat-Armenia."
+    },
+    {
+      "home_team": "OFI Crete",
+      "away_team": "Bayer Leverkusen",
+      "commence_time": "2026-10-22T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-2",
+      "confidence": 5,
+      "market": {
+        "home": 0.0772,
+        "draw": 0.1284,
+        "away": 0.7944
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Bayer Leverkusen priced at 79% to win away at OFI Crete."
+    },
+    {
+      "home_team": "Dinamo Zagreb",
+      "away_team": "NEC Nijmegen",
+      "commence_time": "2026-10-22T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.6466,
+        "draw": 0.1996,
+        "away": 0.1537
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Dinamo Zagreb priced at 65% to beat NEC Nijmegen at home."
+    },
+    {
+      "home_team": "Ferencváros TC",
+      "away_team": "Torreense",
+      "commence_time": "2026-10-22T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.7351,
+        "draw": 0.1691,
+        "away": 0.0958
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Ferencváros TC priced at 74% to beat Torreense at home."
+    },
+    {
+      "home_team": "Union Saint-Gilloise",
+      "away_team": "Hapoel Be'er Sheva",
+      "commence_time": "2026-10-22T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.6874,
+        "draw": 0.1876,
+        "away": 0.125
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Union Saint-Gilloise priced at 69% to beat Hapoel Be'er Sheva at home."
+    },
+    {
+      "home_team": "Juventus",
+      "away_team": "Rennes",
+      "commence_time": "2026-10-22T16:45:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.6817,
+        "draw": 0.1883,
+        "away": 0.1301
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Juventus priced at 68% to beat Rennes at home."
+    },
+    {
+      "home_team": "Lech Poznań",
+      "away_team": "Sunderland",
+      "commence_time": "2026-10-22T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {
+        "home": 0.2053,
+        "draw": 0.2359,
+        "away": 0.5588
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Sunderland priced at 56% to win away at Lech Poznań."
+    },
+    {
+      "home_team": "SK Sturm Graz",
+      "away_team": "Marseille",
+      "commence_time": "2026-10-22T16:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 3,
+      "market": {
+        "home": 0.2386,
+        "draw": 0.2427,
+        "away": 0.5187
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Marseille priced at 52% to win away at SK Sturm Graz."
+    },
+    {
+      "home_team": "Bournemouth",
+      "away_team": "AC Milan",
+      "commence_time": "2026-10-22T19:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.495,
+        "draw": 0.253,
+        "away": 0.2521
+      },
+      "rationale": "The market makes Bournemouth a 49.5% home favourite, with AC Milan only 25%. Amorim has confirmed Milan will rotate again with the Inter derby ahead, and Terracciano is suspended, while Bournemouth (2/2 in Europe, back-to-back league wins) intend to go all-in despite Manchester United on Sunday; the rotation is already in the price, so no adjustment: Bournemouth 2-1.",
+      "disagreement": "Journalists split evenly: Sports Mole (2-2), SempreMilan (2-2) and Racing Post lean to the draw, while Sportsgambler, Eurosport.it (2-1) and 101greatgoals (2-0) back Bournemouth. None picks a Milan win.",
+      "sources": [
+        {
+          "title": "AC Milan — Amorim press conference: an important test in Bournemouth (21 Oct)",
+          "url": "https://www.acmilan.com/en/news/articles/press-conference/2026-10-21/amorim-an-important-test-in-bournemouth"
+        },
+        {
+          "title": "SempreMilan — Europa League preview: Bournemouth vs AC Milan (21 Oct)",
+          "url": "https://sempremilan.com/europa-league-preview-bournemouth-ac-milan-2026-27"
+        },
+        {
+          "title": "Yahoo Sports / Daily Echo — Rose on injuries and momentum (21 Oct)",
+          "url": "https://sports.yahoo.com/articles/rose-injuries-using-good-momentum-133043348.html"
+        },
+        {
+          "title": "Sports Mole — Bournemouth vs AC Milan prediction, team news, lineups (20 Oct)",
+          "url": "https://www.sportsmole.co.uk/football/bournemouth/europa-league/preview/bournemouth-vs-ac-milan-prediction-team-news-lineups_607303.html"
+        },
+        {
+          "title": "Racing Post — Bournemouth vs Milan betting tips (21 Oct)",
+          "url": "https://www.racingpost.com/sport/football-tips/europa-league/bournemouth-vs-milan-betting-tips-predictions-team-news-odds-bet-builder-ahe3C3h6VwrJ/"
+        }
+      ]
+    },
+    {
+      "home_team": "Jagiellonia Białystok",
+      "away_team": "Anderlecht",
+      "commence_time": "2026-10-22T19:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.3094,
+        "draw": 0.2671,
+        "away": 0.4236
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Anderlecht priced at 42% to win away at Jagiellonia Białystok."
+    },
+    {
+      "home_team": "Omonoia FC",
+      "away_team": "Benfica",
+      "commence_time": "2026-10-22T19:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-2",
+      "confidence": 5,
+      "market": {
+        "home": 0.1096,
+        "draw": 0.1719,
+        "away": 0.7185
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Benfica priced at 72% to win away at Omonoia FC."
+    },
+    {
+      "home_team": "Besiktas JK",
+      "away_team": "Crystal Palace",
+      "commence_time": "2026-10-22T19:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.4325,
+        "draw": 0.2527,
+        "away": 0.3148
+      },
+      "rationale": "The market makes Besiktas a 43% home favourite against Crystal Palace (31%). Palace's manager confirmed on 21 Oct that Timber, Tomiyasu and Henderson are out, leaving a makeshift back line after a 5-0 league defeat at Brighton, while Besiktas (two wins from two) are without Kökçü and Rashica; that news was public before today's prices, so no adjustment beyond leaning to goals: Besiktas 2-1.",
+      "disagreement": "Tipsters lean harder than the market: every editorial pick found (Sports Mole 2-1, Goal 3-1, Sportsgambler, footballpredictions.com 2-1) backs Besiktas; only the Kickoff and Statz models sit at or below the market.",
+      "sources": [
+        {
+          "title": "beIN Sports — Palace must show our real face against Besiktas (21 Oct)",
+          "url": "https://www.beinsports.com/en-nz/football/uefa-europa-league/articles/palace-must-show-our-real-face-against-besiktas-in-europe-says-sage-2026-10-21"
+        },
+        {
+          "title": "Sports Mole — Besiktas vs Crystal Palace prediction, team news, lineups (20 Oct)",
+          "url": "https://www.sportsmole.co.uk/football/besiktas/europa-league/preview/besiktas-vs-crystal-palace-prediction-team-news-lineups_607276.html"
+        },
+        {
+          "title": "Racing Post — Besiktas vs Crystal Palace predictions (21 Oct)",
+          "url": "https://www.racingpost.com/sport/football-tips/europa-league/besiktas-vs-crystal-palace-predictions-team-news-odds-betting-tips-bet-builder-aESPy8D0B0cj/"
+        },
+        {
+          "title": "Goal — Besiktas vs Crystal Palace predictions (22 Oct)",
+          "url": "https://www.goal.com/en-in/betting/tips/besiktas-vs-crystal-palace-predictions-23-10-2026/A%3Ablte1f833f7937a3d02"
+        },
+        {
+          "title": "Posta — Vlahovic sevinci, Orkun şoku (18 Oct)",
+          "url": "https://www.posta.com.tr/spor/vlahovic-sevinci-orkun-soku-3053145"
+        }
+      ]
+    },
+    {
+      "home_team": "Celtic",
+      "away_team": "Celta Vigo",
+      "commence_time": "2026-10-22T19:00:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 2,
+      "market": {
+        "home": 0.3537,
+        "draw": 0.2671,
+        "away": 0.3792
+      },
+      "rationale": "The market has Celta Vigo a marginal 38% away favourite over Celtic (35%), the closest line on the card, with both sides pointless after two matchdays. Celtic are without Carter-Vickers and Yang and their back four is unsettled, while Celta miss Borja Iglesias and Starfelt and are unbeaten in six La Liga games; no adjustment, Celta by one in a game where previews expect both sides to score.",
+      "disagreement": "No tipster consensus: Racing Post and 101greatgoals back Celta, Sports Mole goes 1-1, and Sportsgambler leans Celtic (2-1 correct score).",
+      "sources": [
+        {
+          "title": "Sports Mole — Celtic vs Celta Vigo prediction, team news, lineups (20 Oct)",
+          "url": "https://www.sportsmole.co.uk/football/celtic/europa-league/preview/celtic-vs-celta-vigo-prediction-team-news-lineups_607300.html"
+        },
+        {
+          "title": "Racing Post — Celtic vs Celta Vigo betting tips (21 Oct)",
+          "url": "https://www.racingpost.com/sport/football-tips/europa-league/celtic-vs-celta-vigo-betting-tips-predictions-team-news-odds-bet-builder-aQUrg2x12C8T/"
+        },
+        {
+          "title": "Jornada Perfecta — Giráldez previa Celtic-Celta (21 Oct)",
+          "url": "https://www.jornadaperfecta.com/blog/giraldez-previa-celtic-celta-j3-europa/"
+        },
+        {
+          "title": "Mundiario — Glasgow pone a prueba las aspiraciones europeas del Celta (22 Oct)",
+          "url": "https://www.mundiario.com/articulo/deportes/glasgow-pone-prueba-aspiraciones-europeas-celta/20261022115311448379.html"
+        },
+        {
+          "title": "COPE — Giráldez pide al Celta jugar liberado en Glasgow (22 Oct)",
+          "url": "https://www.cope.es/emisoras/galicia/pontevedra-provincia/vigo/deportes-vigo/noticias/giraldez-pide-celta-jugar-liberados-glasgow-esto-sueno-disfrutar-20261022_3460875.html"
+        }
+      ]
+    },
+    {
+      "home_team": "Lillestrom",
+      "away_team": "Real Sociedad",
+      "commence_time": "2026-10-22T19:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {
+        "home": 0.1498,
+        "draw": 0.1899,
+        "away": 0.6603
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Real Sociedad priced at 66% to win away at Lillestrom."
+    },
+    {
+      "home_team": "TSG Hoffenheim",
+      "away_team": "Lyon",
+      "commence_time": "2026-10-22T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.4739,
+        "draw": 0.2334,
+        "away": 0.2928
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; TSG Hoffenheim priced at 47% to beat Lyon at home."
+    },
+    {
+      "home_team": "NK Celje",
+      "away_team": "Salzburg",
+      "commence_time": "2026-10-22T19:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {
+        "home": 0.1634,
+        "draw": 0.2086,
+        "away": 0.628
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Salzburg priced at 63% to win away at NK Celje."
+    },
+    {
+      "home_team": "Olympiakos Piraeus",
+      "away_team": "Sparta Prague",
+      "commence_time": "2026-10-22T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.6347,
+        "draw": 0.2141,
+        "away": 0.1512
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Olympiakos Piraeus priced at 63% to beat Sparta Prague at home."
+    },
+    {
+      "home_team": "Viktoria Plzeň",
+      "away_team": "PFC Levski Sofia",
+      "commence_time": "2026-10-22T19:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.5566,
+        "draw": 0.2407,
+        "away": 0.2027
+      },
+      "sources": [],
+      "rationale": "Market-derived pick, no dedicated research this round; Viktoria Plzeň priced at 56% to beat PFC Levski Sofia at home."
+    }
+  ]
+}

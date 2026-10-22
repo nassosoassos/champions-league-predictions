@@ -3,13 +3,15 @@
 Immutable record of calls vs outcomes. Never edit a prediction after kickoff.
 
 ## Running tally
-- Matches predicted (graded): 36
-- Correct picks (1X2): 23 — hit rate 64% (23/36)
+- Matches predicted (graded): 54
+- Correct picks (1X2): 34 — hit rate 63% (34/54)
 - Exact scoreline hits: 2 (Real Madrid 2-1, Liverpool 2-1)
-- Avg confidence of correct picks: 3.91
+- Avg confidence of correct picks: 4.03
 - Avg confidence of wrong picks: 3.15
-- Deep: 5/12 (42%), 1 exact. Quick: 18/24 (75%), 1 exact.
-- Blind market-favourite control: 23/36 — identical, because no pick on any card so far deviated from the favourite.
+- Deep: 7/18 (39%), 1 exact. Quick: 27/36 (75%), 1 exact.
+- Blind market-favourite control: 34/54 — identical, because no pick on any card so far deviated from the favourite.
+- MD3 night two (21 Oct): 6/9. Deep 2/4 (Como beat Manchester United 4-1 and Club Brugge beat RC Lens 3-0; Galatasaray won 4-2 at Lille and Bayern Munich drew 2-2 with Arsenal). Quick 4/5; the miss was a 5-confidence pick, LASK winning 3-2 at Sporting Lisbon.
+- MD3 night one (20 Oct): 5/9. Deep 0/2 (VfB Stuttgart drew 1-1 with Atlético Madrid; Paris Saint Germain beat Barcelona 4-2 in the 39/22/40 coin-flip). Quick 5/7; the misses were Fenerbahce 2-2 Slavia Praha and Porto 0-1 PSV Eindhoven. No exact scores all matchday, again.
 - MD2 night two (14 Oct): 5/9. Deep 1/3 (Real Madrid won 4-3 at Roma; Shakhtar Donetsk beat AEK Athens 3-1 and Paris Saint Germain won 4-2 at Manchester City). Quick 4/6; the misses were Feyenoord 3-2 over Como and Bodø/Glimt 1-0 over Borussia Dortmund. A goal-heavy night: 46 goals in 9 matches, so no scoreline came close.
 - MD2 night one (13 Oct): 5/9. Deep 2/3 (Atlético Madrid, Villarreal hit; RC Lens missed). Quick 3/6 — two 5-confidence favourites failed to win: Bayern Munich drew 3-3 at Viking FK, Inter Milan lost 3-4 at home to Club Brugge.
 
@@ -58,3 +60,21 @@ Correct picks carried higher average confidence than wrong ones (4.08 vs 3.20), 
 | 2026-10-14 | Manchester City vs Paris Saint Germain | Home | 2-1 | 3 | deep | 2-4 (away) | ✗ | ✗ |
 | 2026-10-14 | Real Betis vs Porto | Home | 1-0 | 3 | quick | 3-2 (home) | ✓ | ✗ |
 | 2026-10-14 | ŠK Slovan Bratislava vs VfB Stuttgart | Away | 0-2 | 5 | quick | 0-3 (away) | ✓ | ✗ |
+| 2026-10-20 | Sabah FK vs Borussia Dortmund | Away | 0-2 | 5 | quick | 1-2 (away) | ✓ | ✗ |
+| 2026-10-20 | Fenerbahce vs Slavia Praha | Home | 2-1 | 4 | quick | 2-2 (draw) | ✗ | ✗ |
+| 2026-10-20 | Manchester City vs AEK Athens | Home | 3-0 | 5 | quick | 5-1 (home) | ✓ | ✗ |
+| 2026-10-20 | AS Roma vs ŠK Slovan Bratislava | Home | 3-0 | 5 | quick | 4-0 (home) | ✓ | ✗ |
+| 2026-10-20 | VfB Stuttgart vs Atlético Madrid | Away | 1-2 | 3 | deep | 1-1 (draw) | ✗ | ✗ |
+| 2026-10-20 | Paris Saint Germain vs Barcelona | Away | 2-3 | 1 | deep | 4-2 (home) | ✗ | ✗ |
+| 2026-10-20 | Napoli vs Bodø/Glimt | Home | 2-1 | 3 | quick | 4-3 (home) | ✓ | ✗ |
+| 2026-10-20 | Liverpool vs Villarreal | Home | 2-1 | 4 | quick | 4-3 (home) | ✓ | ✗ |
+| 2026-10-20 | Porto vs PSV Eindhoven | Home | 2-1 | 4 | quick | 0-1 (away) | ✗ | ✗ |
+| 2026-10-21 | Como vs Manchester United | Home | 2-1 | 3 | deep | 4-1 (home) | ✓ | ✗ |
+| 2026-10-21 | Lille vs Galatasaray | Home | 2-1 | 3 | deep | 2-4 (away) | ✗ | ✗ |
+| 2026-10-21 | Bayern Munich vs Arsenal | Home | 2-1 | 2 | deep | 2-2 (draw) | ✗ | ✗ |
+| 2026-10-21 | Aston Villa vs Viking FK | Home | 2-0 | 5 | quick | 3-1 (home) | ✓ | ✗ |
+| 2026-10-21 | Club Brugge vs RC Lens | Home | 2-1 | 3 | deep | 3-0 (home) | ✓ | ✗ |
+| 2026-10-21 | Real Betis vs Feyenoord | Home | 2-1 | 4 | quick | 1-0 (home) | ✓ | ✗ |
+| 2026-10-21 | Inter Milan vs Shakhtar Donetsk | Home | 2-0 | 5 | quick | 1-0 (home) | ✓ | ✗ |
+| 2026-10-21 | Sporting Lisbon vs LASK | Home | 2-0 | 5 | quick | 2-3 (away) | ✗ | ✗ |
+| 2026-10-21 | Real Madrid vs RB Leipzig | Home | 2-1 | 5 | quick | 4-1 (home) | ✓ | ✗ |

@@ -3,13 +3,15 @@
 Immutable record of calls vs outcomes. Never edit a prediction after kickoff.
 
 ## Running tally
-- Matches predicted (graded): 36
-- Correct picks (1X2): 23 — hit rate 64% (23/36)
-- Exact scoreline hits: 6 (Bayer Leverkusen 2-0, Olympiakos Piraeus 2-1, Levski Sofia 0-1, Real Sociedad 1-2, Sunderland 1-2, Ferencváros TC 2-1)
-- Avg confidence of correct picks: 3.70
-- Avg confidence of wrong picks: 3.23
-- Deep: 3/6 (50%), 1 exact. Quick: 20/30 (67%), 5 exact.
-- Blind market-favourite control: 23/36. Identical to our record because no pick on either card deviated from the favourite.
+- Matches predicted (graded): 54
+- Correct picks (1X2): 34 — hit rate 63% (34/54)
+- Exact scoreline hits: 8 (Bayer Leverkusen 2-0, Olympiakos Piraeus 2-1, Levski Sofia 0-1, Real Sociedad 1-2, Sunderland 1-2, Ferencváros TC 2-1, OFI Crete–Bayer Leverkusen 0-2, Celtic–Celta Vigo 1-2)
+- Avg confidence of correct picks: 3.74
+- Avg confidence of wrong picks: 3.40
+- Deep: 5/9 (56%), 2 exact. Quick: 29/45 (64%), 6 exact.
+- Blind market-favourite control: 34/54. Identical to our record because no pick on any card deviated from the favourite.
+
+**Notes (MD3, 22 Oct):** 11/18, 2 exact. Deep 2/3: Bournemouth beat AC Milan 3-0 and Celta Vigo won 2-1 at Celtic (exact score, on a confidence-2 pick); Besiktas JK–Crystal Palace finished 2-2. Quick 9/15; four of the six misses were draws (Juventus–Rennes, Besiktas–Palace, NK Celje–Salzburg 2-2; Lech Poznań–Sunderland 1-1), plus away upsets at Dinamo Zagreb (2-4 to NEC Nijmegen) and Viktoria Plzeň (1-2 to Levski Sofia) and Sturm Graz's 1-0 home win over Marseille. Every miss was at confidence 3-4; all three confidence-5 picks hit.
 
 **Notes (MD2, 15 Oct):** 12/18, 2 exact. Deep 1/3: Juventus won 2-1 at Celta Vigo; Omonoia FC won 3-0 at NK Celje and Olympiakos Piraeus won 1-0 at Marseille, both against the market. Quick 11/15; three of the four misses were draws (Sparta Prague–Lillestrom, Union Saint-Gilloise–Real Sociedad, NEC Nijmegen–Levski Sofia, all 1-1). Confidence separated better than in MD1 (3.70 vs 3.23 overall).
 
@@ -56,3 +58,21 @@ Confidence barely separated correct from wrong picks (3.45 vs 3.43). That is a w
 | 2026-10-15 | Marseille vs Olympiakos Piraeus | Home | 1-0 | 3 | deep | 0-1 (away) | ✗ | ✗ |
 | 2026-10-15 | NEC Nijmegen vs PFC Levski Sofia | Home | 2-1 | 3 | quick | 1-1 (draw) | ✗ | ✗ |
 | 2026-10-15 | Rennes vs OFI Crete | Home | 2-0 | 5 | quick | 2-1 (home) | ✓ | ✗ |
+| 2026-10-22 | FC Ararat-Armenia vs AZ Alkmaar | Away | 1-2 | 4 | quick | 0-4 (away) | ✓ | ✗ |
+| 2026-10-22 | OFI Crete vs Bayer Leverkusen | Away | 0-2 | 5 | quick | 0-2 (away) | ✓ | ✓ |
+| 2026-10-22 | Dinamo Zagreb vs NEC Nijmegen | Home | 2-1 | 4 | quick | 2-4 (away) | ✗ | ✗ |
+| 2026-10-22 | Ferencváros TC vs Torreense | Home | 2-0 | 5 | quick | 4-1 (home) | ✓ | ✗ |
+| 2026-10-22 | Union Saint-Gilloise vs Hapoel Be'er Sheva | Home | 2-1 | 4 | quick | 4-0 (home) | ✓ | ✗ |
+| 2026-10-22 | Juventus vs Rennes | Home | 2-1 | 4 | quick | 2-2 (draw) | ✗ | ✗ |
+| 2026-10-22 | Lech Poznań vs Sunderland | Away | 1-2 | 4 | quick | 1-1 (draw) | ✗ | ✗ |
+| 2026-10-22 | SK Sturm Graz vs Marseille | Away | 1-2 | 3 | quick | 1-0 (home) | ✗ | ✗ |
+| 2026-10-22 | Bournemouth vs AC Milan | Home | 2-1 | 3 | deep | 3-0 (home) | ✓ | ✗ |
+| 2026-10-22 | Jagiellonia Białystok vs Anderlecht | Away | 0-1 | 3 | quick | 0-3 (away) | ✓ | ✗ |
+| 2026-10-22 | Omonoia FC vs Benfica | Away | 0-2 | 5 | quick | 1-4 (away) | ✓ | ✗ |
+| 2026-10-22 | Besiktas JK vs Crystal Palace | Home | 2-1 | 3 | deep | 2-2 (draw) | ✗ | ✗ |
+| 2026-10-22 | Celtic vs Celta Vigo | Away | 1-2 | 2 | deep | 1-2 (away) | ✓ | ✓ |
+| 2026-10-22 | Lillestrom vs Real Sociedad | Away | 1-2 | 4 | quick | 0-6 (away) | ✓ | ✗ |
+| 2026-10-22 | TSG Hoffenheim vs Lyon | Home | 2-1 | 3 | quick | 3-0 (home) | ✓ | ✗ |
+| 2026-10-22 | NK Celje vs Salzburg | Away | 1-2 | 4 | quick | 2-2 (draw) | ✗ | ✗ |
+| 2026-10-22 | Olympiakos Piraeus vs Sparta Prague | Home | 2-1 | 4 | quick | 1-0 (home) | ✓ | ✗ |
+| 2026-10-22 | Viktoria Plzeň vs PFC Levski Sofia | Home | 2-1 | 4 | quick | 1-2 (away) | ✗ | ✗ |

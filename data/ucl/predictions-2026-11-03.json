@@ -1,0 +1,387 @@
+{
+  "matchday": "MD4",
+  "predictions": [
+    {
+      "home_team": "Galatasaray",
+      "away_team": "VfB Stuttgart",
+      "commence_time": "2026-11-03T17:45:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.4742,
+        "draw": 0.2262,
+        "away": 0.2996
+      },
+      "rationale": "Market makes Galatasaray 47% at home against a Stuttgart side sitting sixth and unbeaten after three matches. Hoeneß named the 52,000-strong RAMS Park as the main challenge, and one preview lists five Stuttgart absentees including Stiller, though that list is unconfirmed. No deviation from the market: Galatasaray 2-1.",
+      "sources": [
+        {
+          "title": "Hürriyet.de: Hoeneß warnt vor Galatasaray",
+          "url": "https://www.hurriyet.de/news/sport/stuttgart-trainer-hoeness-warnt-vor-galatasaray-wir-brauchen-mut-133743511"
+        },
+        {
+          "title": "WhoScored statistical preview",
+          "url": "https://www.whoscored.com/matches/2029211/preview/europe-champions-league-2026-2027-galatasaray-vfb-stuttgart"
+        },
+        {
+          "title": "Starting11 squads and predicted XIs",
+          "url": "https://starting11.com/fixtures/galatasaray-vs-vfb-stuttgart"
+        }
+      ]
+    },
+    {
+      "home_team": "Shakhtar Donetsk",
+      "away_team": "Sporting Lisbon",
+      "commence_time": "2026-11-03T17:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.2752,
+        "draw": 0.2558,
+        "away": 0.4691
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Sporting Lisbon priced at 47% away against Shakhtar Donetsk.",
+      "sources": []
+    },
+    {
+      "home_team": "Manchester United",
+      "away_team": "AS Roma",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 2,
+      "market": {
+        "home": 0.4389,
+        "draw": 0.2376,
+        "away": 0.3235
+      },
+      "rationale": "Market prices United at 44% despite a nine-game winless run in all competitions. Roma travel without Dybala, Pellegrini, Koné and first-choice keeper Svilar, but Malen has eight league goals and scored twice against Real Madrid last month. Form and absences pull in opposite directions, so we stay with the market at low confidence.",
+      "sources": [
+        {
+          "title": "Sports Mole preview",
+          "url": "https://www.sportsmole.co.uk/football/man-utd/champions-league/preview/man-utd-vs-roma-prediction-team-news-lineups_608218.html"
+        },
+        {
+          "title": "Football Italia via LiveScore: probable line-ups",
+          "url": "https://www.livescore.com/en/news/football/champions-league/champions-league-man-united-vs-roma-probable-line-ups-where-to-watch-on-tv-football-italia/"
+        },
+        {
+          "title": "Tribuna: Gasperini press conference",
+          "url": "https://tribuna.com/en/news/2026-11-02-they-are-made-up-of-very-strong-players-gian-piero-gasperini-backs-man-united-to-overcome/"
+        },
+        {
+          "title": "Sky Sports: Malen at Roma",
+          "url": "https://www.skysports.com/football/news/13607180/donyell-malen-at-roma-man-utd-face-the-top-scorer-in-europe-s-major-leagues-in-2026-with-the-dutchman-transformed"
+        }
+      ]
+    },
+    {
+      "home_team": "Barcelona",
+      "away_team": "Aston Villa",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.7557,
+        "draw": 0.1352,
+        "away": 0.1091
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Barcelona priced at 76% at home against Aston Villa.",
+      "sources": []
+    },
+    {
+      "home_team": "Atlético Madrid",
+      "away_team": "Bayern Munich",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 2,
+      "market": {
+        "home": 0.3375,
+        "draw": 0.2512,
+        "away": 0.4113
+      },
+      "rationale": "Market has Bayern a narrow 41% to Atlético's 34%, on the card's flattest line. Bayern are without Kompany (ill, Danks deputises), Musiala, Luis Díaz and Gnabry, while Atlético lose the suspended Hjulmand and have doubts over Cardoso and Koke; Simeone has reportedly never lost at home to Bayern. The absences look public and priced, so Bayern 1-2 stands at low confidence.",
+      "sources": [
+        {
+          "title": "FC Bayern: match preview",
+          "url": "https://fcbayern.com/es/noticias/matchpreviews/2026/11/previa-champions-league-atletico-de-madrid-fc-bayern"
+        },
+        {
+          "title": "El Gol Digital: Simeone and Kompany",
+          "url": "https://www.elgoldigital.com/futbol/champions-league/atletico-bayern-previa-champions-simeone-kompany-bajas-jornada-4"
+        },
+        {
+          "title": "El Informador: las bajas marcan el duelo",
+          "url": "https://www.informador.mx/deportes/champions-league-las-bajas-marcan-el-duelo-entre-atletico-y-bayern-20261103-0032.html"
+        },
+        {
+          "title": "Esto es Atleti: las incógnitas del Bayern",
+          "url": "https://www.estoesatleti.es/noticias/alineacion-bayern-bajas-atletico-champions/20261103080000042769.html"
+        }
+      ]
+    },
+    {
+      "home_team": "Bodø/Glimt",
+      "away_team": "Lille",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.5727,
+        "draw": 0.2222,
+        "away": 0.2051
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Bodø/Glimt priced at 57% at home against Lille.",
+      "sources": []
+    },
+    {
+      "home_team": "Feyenoord",
+      "away_team": "Inter Milan",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 3,
+      "market": {
+        "home": 0.2636,
+        "draw": 0.239,
+        "away": 0.4975
+      },
+      "rationale": "Market makes Inter 50% in Rotterdam. Bastoni is suspended and Bonny declared himself available after a high fever, but Pio Esposito has recovered and Pavard and Provedel are back; Chivu is asking for a response to the derby defeat. Feyenoord are 26th with three points, so Inter 1-2 with the market.",
+      "sources": [
+        {
+          "title": "Goal: Chivu press conference",
+          "url": "https://www.goal.com/it/liste/la-conferenza-stampa-di-chivu-verso-feyenoord-inter-come-stanno-bonny-e-pio-esposito-torna-pavard/blta2bcfb2e946e488e"
+        },
+        {
+          "title": "Tuttosport: Chivu",
+          "url": "https://www.tuttosport.com/news/calcio/serie-a/inter/2026/11/02-152330418/chivu_inter_sappiamo_chi_siamo_e_cosa_vogliamo_fare_feyenoord_non_sar_facile_ma_"
+        },
+        {
+          "title": "Sky Sport: Chivu",
+          "url": "https://sport.sky.it/calcio/champions-league/2026/11/02/feyenoord-inter-chivu-conferenza-video"
+        }
+      ]
+    },
+    {
+      "home_team": "LASK",
+      "away_team": "ŠK Slovan Bratislava",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "market": {
+        "home": 0.7064,
+        "draw": 0.1681,
+        "away": 0.1255
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; LASK priced at 71% at home against ŠK Slovan Bratislava.",
+      "sources": []
+    },
+    {
+      "home_team": "Villarreal",
+      "away_team": "Paris Saint Germain",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {
+        "home": 0.2192,
+        "draw": 0.2192,
+        "away": 0.5615
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Paris Saint Germain priced at 56% away against Villarreal.",
+      "sources": []
+    },
+    {
+      "home_team": "AEK Athens",
+      "away_team": "Real Madrid",
+      "commence_time": "2026-11-04T17:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-2",
+      "confidence": 5,
+      "market": {
+        "home": 0.0929,
+        "draw": 0.1414,
+        "away": 0.7657
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Real Madrid priced at 77% away against AEK Athens.",
+      "sources": []
+    },
+    {
+      "home_team": "Fenerbahce",
+      "away_team": "Liverpool",
+      "commence_time": "2026-11-04T17:45:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {
+        "home": 0.1677,
+        "draw": 0.1999,
+        "away": 0.6324
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Liverpool priced at 63% away against Fenerbahce.",
+      "sources": []
+    },
+    {
+      "home_team": "Slavia Praha",
+      "away_team": "Arsenal",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-2",
+      "confidence": 5,
+      "market": {
+        "home": 0.0885,
+        "draw": 0.151,
+        "away": 0.7604
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Arsenal priced at 76% away against Slavia Praha.",
+      "sources": []
+    },
+    {
+      "home_team": "Borussia Dortmund",
+      "away_team": "Real Betis",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.5475,
+        "draw": 0.2328,
+        "away": 0.2197
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Borussia Dortmund priced at 55% at home against Real Betis.",
+      "sources": []
+    },
+    {
+      "home_team": "PSV Eindhoven",
+      "away_team": "Club Brugge",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 3,
+      "market": {
+        "home": 0.4608,
+        "draw": 0.2232,
+        "away": 0.316
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; PSV Eindhoven priced at 46% at home against Club Brugge.",
+      "sources": []
+    },
+    {
+      "home_team": "RC Lens",
+      "away_team": "Como",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 3,
+      "market": {
+        "home": 0.3102,
+        "draw": 0.2474,
+        "away": 0.4424
+      },
+      "rationale": "Market prefers Como 44-31 away from home. Both squads are depleted: Lens lose Édouard, Ganiou, Sima and Nawrocki, and Como lose Kean, Diao and Jesús Rodríguez with Chalobah's status reported inconsistently. Lens have lost their last two in this competition without scoring and Como have scored first in all three, so Como 1-2.",
+      "sources": [
+        {
+          "title": "Sports Mole preview",
+          "url": "https://www.sportsmole.co.uk/football/lens/champions-league/preview/lens-vs-como-prediction-team-news-lineups_608269.html"
+        },
+        {
+          "title": "UEFA: Matchday 4 predicted line-ups",
+          "url": "https://www.uefa.com/uefachampionsleague/news/02ab-21f9907f0a27-6a6a67e9775d-1000--champions-league-predicted-line-ups-matchday-4-team-news-/"
+        },
+        {
+          "title": "Football Whispers preview",
+          "url": "https://footballwhispers.com/blog/lens-vs-como-prediction-04-11-2026/"
+        }
+      ]
+    },
+    {
+      "home_team": "RB Leipzig",
+      "away_team": "Manchester City",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "market": {
+        "home": 0.1816,
+        "draw": 0.1998,
+        "away": 0.6187
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Manchester City priced at 62% away against RB Leipzig.",
+      "sources": []
+    },
+    {
+      "home_team": "Porto",
+      "away_team": "Napoli",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 3,
+      "market": {
+        "home": 0.4937,
+        "draw": 0.2552,
+        "away": 0.2511
+      },
+      "rationale": "Market makes Porto 49%, a strong price for a side still on zero points. Napoli's injury list is the story: Allegri has called up three Primavera players to reach 20, with Di Lorenzo, Buongiorno, Lobotka and Neres among the absentees and Højlund, Milinkovic-Savic and De Bruyne doubtful. Those reports came out on 2-3 November with the match still a day away, so we make no adjustment beyond the market.",
+      "sources": [
+        {
+          "title": "ANSA: Napoli in crisi, Allegri fa la conta",
+          "url": "https://www.ansa.it/sito/notizie/sport/calcio/2026/11/02/napoli-in-crisi-e-nuovi-problemi-allegri-fa-la-conta-per-oporto_227c0020-d394-4c34-9c89-543f4de64fae.html"
+        },
+        {
+          "title": "Corriere dello Sport: gli infortunati",
+          "url": "https://www.corrieredellosport.it/news/calcio/serie-a/napoli/2026/11/02-152322568/napoli_senza_due_titolari_per_il_porto_le_ultime_sugli_infortunati"
+        },
+        {
+          "title": "Fantacalcio: tre dalla Primavera",
+          "url": "https://www.fantacalcio.it/news/calcio-italia/03_11_2026/napoli-emergenza-infortuni-per-la-champions-allegri-ne-chiama-tre-dalla-primavera-500173"
+        },
+        {
+          "title": "ilNapolista: i sopravvissuti",
+          "url": "https://www.ilnapolista.it/2026/11/napoli-sono-quattordici-i-sopravvissuti-alla-peste-degli-infortuni/"
+        },
+        {
+          "title": "Forza Football: tips and odds",
+          "url": "https://forzafootball.com/sv/spela/speltips/porto-vs-napoli-champions-league-speltips-odds"
+        }
+      ]
+    },
+    {
+      "home_team": "Viking FK",
+      "away_team": "Sabah FK",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "market": {
+        "home": 0.6694,
+        "draw": 0.1845,
+        "away": 0.1461
+      },
+      "rationale": "Market-derived pick, no dedicated research this round; Viking FK priced at 67% at home against Sabah FK.",
+      "sources": []
+    }
+  ]
+}

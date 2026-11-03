@@ -1,0 +1,239 @@
+{
+  "generated_at": "2026-11-03T15:42:18.766290+00:00",
+  "matches": [
+    {
+      "match": "Rennes vs Olympiakos Piraeus",
+      "home_team": "Rennes",
+      "away_team": "Olympiakos Piraeus",
+      "commence_time": "2026-11-04T15:30:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.4232,
+        "draw": 0.2685,
+        "away": 0.3083
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "AC Milan vs Ferencv\u00e1ros TC",
+      "home_team": "AC Milan",
+      "away_team": "Ferencv\u00e1ros TC",
+      "commence_time": "2026-11-05T17:45:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.7209,
+        "draw": 0.1726,
+        "away": 0.1064
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Anderlecht vs Salzburg",
+      "home_team": "Anderlecht",
+      "away_team": "Salzburg",
+      "commence_time": "2026-11-05T17:45:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.4894,
+        "draw": 0.2474,
+        "away": 0.2631
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Sparta Prague vs Bournemouth",
+      "home_team": "Sparta Prague",
+      "away_team": "Bournemouth",
+      "commence_time": "2026-11-05T17:45:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.1589,
+        "draw": 0.2101,
+        "away": 0.631
+      },
+      "market_favorite": "away"
+    },
+    {
+      "match": "Crystal Palace vs TSG Hoffenheim",
+      "home_team": "Crystal Palace",
+      "away_team": "TSG Hoffenheim",
+      "commence_time": "2026-11-05T17:45:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.4861,
+        "draw": 0.2448,
+        "away": 0.2691
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "PFC Levski Sofia vs Jagiellonia Bia\u0142ystok",
+      "home_team": "PFC Levski Sofia",
+      "away_team": "Jagiellonia Bia\u0142ystok",
+      "commence_time": "2026-11-05T17:45:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.4761,
+        "draw": 0.2626,
+        "away": 0.2613
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Lillestrom vs Viktoria Plze\u0148",
+      "home_team": "Lillestrom",
+      "away_team": "Viktoria Plze\u0148",
+      "commence_time": "2026-11-05T17:45:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.3167,
+        "draw": 0.2535,
+        "away": 0.4298
+      },
+      "market_favorite": "away"
+    },
+    {
+      "match": "Real Sociedad vs Lyon",
+      "home_team": "Real Sociedad",
+      "away_team": "Lyon",
+      "commence_time": "2026-11-05T17:45:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.5195,
+        "draw": 0.2401,
+        "away": 0.2403
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "NEC Nijmegen vs Omonoia FC",
+      "home_team": "NEC Nijmegen",
+      "away_team": "Omonoia FC",
+      "commence_time": "2026-11-05T17:45:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.5267,
+        "draw": 0.2384,
+        "away": 0.2348
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "AZ Alkmaar vs Juventus",
+      "home_team": "AZ Alkmaar",
+      "away_team": "Juventus",
+      "commence_time": "2026-11-05T20:00:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.2603,
+        "draw": 0.2581,
+        "away": 0.4816
+      },
+      "market_favorite": "away"
+    },
+    {
+      "match": "Bayer Leverkusen vs Marseille",
+      "home_team": "Bayer Leverkusen",
+      "away_team": "Marseille",
+      "commence_time": "2026-11-05T20:00:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.6829,
+        "draw": 0.1821,
+        "away": 0.135
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Benfica vs Lech Pozna\u0144",
+      "home_team": "Benfica",
+      "away_team": "Lech Pozna\u0144",
+      "commence_time": "2026-11-05T20:00:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.8248,
+        "draw": 0.1134,
+        "away": 0.0617
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Celtic vs Besiktas JK",
+      "home_team": "Celtic",
+      "away_team": "Besiktas JK",
+      "commence_time": "2026-11-05T20:00:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.3074,
+        "draw": 0.2504,
+        "away": 0.4422
+      },
+      "market_favorite": "away"
+    },
+    {
+      "match": "Celta Vigo vs Union Saint-Gilloise",
+      "home_team": "Celta Vigo",
+      "away_team": "Union Saint-Gilloise",
+      "commence_time": "2026-11-05T20:00:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.43,
+        "draw": 0.262,
+        "away": 0.308
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Sunderland vs Dinamo Zagreb",
+      "home_team": "Sunderland",
+      "away_team": "Dinamo Zagreb",
+      "commence_time": "2026-11-05T20:00:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.645,
+        "draw": 0.207,
+        "away": 0.148
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Torreense vs FC Ararat-Armenia",
+      "home_team": "Torreense",
+      "away_team": "FC Ararat-Armenia",
+      "commence_time": "2026-11-05T20:00:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.5364,
+        "draw": 0.2535,
+        "away": 0.2101
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "Hapoel Be'er Sheva vs OFI Crete",
+      "home_team": "Hapoel Be'er Sheva",
+      "away_team": "OFI Crete",
+      "commence_time": "2026-11-05T20:00:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.4506,
+        "draw": 0.2604,
+        "away": 0.289
+      },
+      "market_favorite": "home"
+    },
+    {
+      "match": "SK Sturm Graz vs NK Celje",
+      "home_team": "SK Sturm Graz",
+      "away_team": "NK Celje",
+      "commence_time": "2026-11-05T20:00:00Z",
+      "books_counted": 34,
+      "prob": {
+        "home": 0.6078,
+        "draw": 0.2172,
+        "away": 0.175
+      },
+      "market_favorite": "home"
+    }
+  ]
+}

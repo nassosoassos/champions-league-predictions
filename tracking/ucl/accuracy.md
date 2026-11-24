@@ -3,13 +3,14 @@
 Immutable record of calls vs outcomes. Never edit a prediction after kickoff.
 
 ## Running tally
-- Matches predicted (graded): 54
-- Correct picks (1X2): 34 — hit rate 63% (34/54)
-- Exact scoreline hits: 2 (Real Madrid 2-1, Liverpool 2-1)
-- Avg confidence of correct picks: 4.03
-- Avg confidence of wrong picks: 3.15
-- Deep: 7/18 (39%), 1 exact. Quick: 27/36 (75%), 1 exact.
-- Blind market-favourite control: 34/54 — identical, because no pick on any card so far deviated from the favourite.
+- Matches predicted (graded): 72
+- Correct picks (1X2): 49 — hit rate 68% (49/72)
+- Exact scoreline hits: 4 (Real Madrid 2-1, Liverpool 2-1, Shakhtar Donetsk 0-1 Sporting Lisbon, Borussia Dortmund 2-1 Real Betis)
+- Avg confidence of correct picks: 3.90
+- Avg confidence of wrong picks: 3.22
+- Deep: 13/24 (54%), 1 exact. Quick: 36/48 (75%), 3 exact.
+- Blind market-favourite control: 49/72 — identical, because no pick on any card so far deviated from the favourite.
+- MD4 (3-4 Nov): 15/18. Deep 6/6 — the first perfect deep card: Galatasaray 2-0 VfB Stuttgart, Manchester United 3-2 AS Roma, Atlético Madrid 0-2 Bayern Munich, Feyenoord 0-3 Inter Milan, RC Lens 1-9 Como (a record-equalling margin, picked at confidence 3) and Porto 4-1 Napoli; every one of them was a market favourite, so the blind control scored the same. Quick 9/12; the misses were Bodø/Glimt 0-0 Lille (conf 4), Fenerbahce 3-2 Liverpool (conf 4, Liverpool's first league-phase defeat) and PSV Eindhoven 1-2 Club Brugge (conf 3). Two exact scores, Shakhtar Donetsk 0-1 Sporting Lisbon and Borussia Dortmund 2-1 Real Betis, the first exact hits since MD1. Cutlines moved between the MD3 and MD4 tables: Como (9th to 4th) and Manchester City (10th to 7th) climbed into the top eight, pushing out Real Betis (5th to 11th) and VfB Stuttgart (6th to 14th); Fenerbahce (31st to 19th) and Viking FK (33rd to 22nd) climbed into the knockout play-off places, while Napoli (22nd to 27th) and Villarreal (19th to 28th) fell out of them.
 - MD3 night two (21 Oct): 6/9. Deep 2/4 (Como beat Manchester United 4-1 and Club Brugge beat RC Lens 3-0; Galatasaray won 4-2 at Lille and Bayern Munich drew 2-2 with Arsenal). Quick 4/5; the miss was a 5-confidence pick, LASK winning 3-2 at Sporting Lisbon.
 - MD3 night one (20 Oct): 5/9. Deep 0/2 (VfB Stuttgart drew 1-1 with Atlético Madrid; Paris Saint Germain beat Barcelona 4-2 in the 39/22/40 coin-flip). Quick 5/7; the misses were Fenerbahce 2-2 Slavia Praha and Porto 0-1 PSV Eindhoven. No exact scores all matchday, again.
 - MD2 night two (14 Oct): 5/9. Deep 1/3 (Real Madrid won 4-3 at Roma; Shakhtar Donetsk beat AEK Athens 3-1 and Paris Saint Germain won 4-2 at Manchester City). Quick 4/6; the misses were Feyenoord 3-2 over Como and Bodø/Glimt 1-0 over Borussia Dortmund. A goal-heavy night: 46 goals in 9 matches, so no scoreline came close.
@@ -78,3 +79,21 @@ Correct picks carried higher average confidence than wrong ones (4.08 vs 3.20), 
 | 2026-10-21 | Inter Milan vs Shakhtar Donetsk | Home | 2-0 | 5 | quick | 1-0 (home) | ✓ | ✗ |
 | 2026-10-21 | Sporting Lisbon vs LASK | Home | 2-0 | 5 | quick | 2-3 (away) | ✗ | ✗ |
 | 2026-10-21 | Real Madrid vs RB Leipzig | Home | 2-1 | 5 | quick | 4-1 (home) | ✓ | ✗ |
+| 2026-11-03 | Galatasaray vs VfB Stuttgart | Home | 2-1 | 3 | deep | 2-0 (home) | ✓ | ✗ |
+| 2026-11-03 | Shakhtar Donetsk vs Sporting Lisbon | Away | 0-1 | 3 | quick | 0-1 (away) | ✓ | ✓ |
+| 2026-11-03 | Manchester United vs AS Roma | Home | 2-1 | 2 | deep | 3-2 (home) | ✓ | ✗ |
+| 2026-11-03 | Barcelona vs Aston Villa | Home | 2-0 | 5 | quick | 3-0 (home) | ✓ | ✗ |
+| 2026-11-03 | Atlético Madrid vs Bayern Munich | Away | 1-2 | 2 | deep | 0-2 (away) | ✓ | ✗ |
+| 2026-11-03 | Bodø/Glimt vs Lille | Home | 2-1 | 4 | quick | 0-0 (draw) | ✗ | ✗ |
+| 2026-11-03 | Feyenoord vs Inter Milan | Away | 1-2 | 3 | deep | 0-3 (away) | ✓ | ✗ |
+| 2026-11-03 | LASK vs ŠK Slovan Bratislava | Home | 2-0 | 5 | quick | 4-0 (home) | ✓ | ✗ |
+| 2026-11-03 | Villarreal vs Paris Saint Germain | Away | 1-2 | 4 | quick | 0-6 (away) | ✓ | ✗ |
+| 2026-11-04 | AEK Athens vs Real Madrid | Away | 0-2 | 5 | quick | 2-3 (away) | ✓ | ✗ |
+| 2026-11-04 | Fenerbahce vs Liverpool | Away | 1-2 | 4 | quick | 3-2 (home) | ✗ | ✗ |
+| 2026-11-04 | Slavia Praha vs Arsenal | Away | 0-2 | 5 | quick | 1-2 (away) | ✓ | ✗ |
+| 2026-11-04 | Borussia Dortmund vs Real Betis | Home | 2-1 | 3 | quick | 2-1 (home) | ✓ | ✓ |
+| 2026-11-04 | PSV Eindhoven vs Club Brugge | Home | 1-0 | 3 | quick | 1-2 (away) | ✗ | ✗ |
+| 2026-11-04 | RC Lens vs Como | Away | 1-2 | 3 | deep | 1-9 (away) | ✓ | ✗ |
+| 2026-11-04 | RB Leipzig vs Manchester City | Away | 1-2 | 4 | quick | 2-3 (away) | ✓ | ✗ |
+| 2026-11-04 | Porto vs Napoli | Home | 2-1 | 3 | deep | 4-1 (home) | ✓ | ✗ |
+| 2026-11-04 | Viking FK vs Sabah FK | Home | 2-1 | 4 | quick | 4-1 (home) | ✓ | ✗ |

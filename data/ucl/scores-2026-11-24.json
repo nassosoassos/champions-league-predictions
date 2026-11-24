@@ -1,0 +1,314 @@
+{
+  "generated_at": "2026-11-24T09:02:32.927638+00:00",
+  "source": "Written by hand from web sources, not the fetcher: The Odds API scores endpoint only reaches back 3 days and these matches (3-4 Nov 2026) are 20 days old. Every score confirmed by at least two independent sources: the Wikipedia 2026-27 UEFA Champions League league phase page and the uefa.com Matchday 4 round-up, plus footballwebpages.co.uk (Tuesday matches) or Sports Mole's Wednesday round-up (Wednesday matches); Villarreal-PSG also on psg.fr. Also cross-checked in aggregate: MD3 table + these 18 results reproduces the published post-MD4 table exactly. Team names copied from the predictions file.",
+  "sources": {
+    "Galatasaray|VfB Stuttgart": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.footballwebpages.co.uk/uefa-champions-league/fixtures-results/matchday-4"
+    ],
+    "Shakhtar Donetsk|Sporting Lisbon": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.footballwebpages.co.uk/uefa-champions-league/fixtures-results/matchday-4"
+    ],
+    "Manchester United|AS Roma": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.footballwebpages.co.uk/uefa-champions-league/fixtures-results/matchday-4"
+    ],
+    "Barcelona|Aston Villa": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.footballwebpages.co.uk/uefa-champions-league/fixtures-results/matchday-4"
+    ],
+    "Atl\u00e9tico Madrid|Bayern Munich": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.footballwebpages.co.uk/uefa-champions-league/fixtures-results/matchday-4"
+    ],
+    "Bod\u00f8/Glimt|Lille": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.footballwebpages.co.uk/uefa-champions-league/fixtures-results/matchday-4"
+    ],
+    "Feyenoord|Inter Milan": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.footballwebpages.co.uk/uefa-champions-league/fixtures-results/matchday-4"
+    ],
+    "LASK|\u0160K Slovan Bratislava": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.footballwebpages.co.uk/uefa-champions-league/fixtures-results/matchday-4"
+    ],
+    "Villarreal|Paris Saint Germain": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.footballwebpages.co.uk/uefa-champions-league/fixtures-results/matchday-4"
+    ],
+    "AEK Athens|Real Madrid": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.sportsmole.co.uk/football/fenerbahce/champions-league/feature/como-make-champions-league-history-as-real-madrid-leave-it-late-wednesdays-champions-league-roundup_608419.html"
+    ],
+    "Fenerbahce|Liverpool": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.sportsmole.co.uk/football/fenerbahce/champions-league/feature/como-make-champions-league-history-as-real-madrid-leave-it-late-wednesdays-champions-league-roundup_608419.html"
+    ],
+    "Slavia Praha|Arsenal": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.sportsmole.co.uk/football/fenerbahce/champions-league/feature/como-make-champions-league-history-as-real-madrid-leave-it-late-wednesdays-champions-league-roundup_608419.html"
+    ],
+    "Borussia Dortmund|Real Betis": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.sportsmole.co.uk/football/fenerbahce/champions-league/feature/como-make-champions-league-history-as-real-madrid-leave-it-late-wednesdays-champions-league-roundup_608419.html"
+    ],
+    "PSV Eindhoven|Club Brugge": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.sportsmole.co.uk/football/fenerbahce/champions-league/feature/como-make-champions-league-history-as-real-madrid-leave-it-late-wednesdays-champions-league-roundup_608419.html"
+    ],
+    "RC Lens|Como": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.sportsmole.co.uk/football/fenerbahce/champions-league/feature/como-make-champions-league-history-as-real-madrid-leave-it-late-wednesdays-champions-league-roundup_608419.html"
+    ],
+    "RB Leipzig|Manchester City": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.sportsmole.co.uk/football/fenerbahce/champions-league/feature/como-make-champions-league-history-as-real-madrid-leave-it-late-wednesdays-champions-league-roundup_608419.html"
+    ],
+    "Porto|Napoli": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.sportsmole.co.uk/football/fenerbahce/champions-league/feature/como-make-champions-league-history-as-real-madrid-leave-it-late-wednesdays-champions-league-roundup_608419.html"
+    ],
+    "Viking FK|Sabah FK": [
+      "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase",
+      "https://uefa.com/uefachampionsleague/news/02ab-21fe508a035b-5eed0199e0b2-1000--champions-league-highlights-and-round-up-como-equal-bigges/",
+      "https://www.sportsmole.co.uk/football/fenerbahce/champions-league/feature/como-make-champions-league-history-as-real-madrid-leave-it-late-wednesdays-champions-league-roundup_608419.html"
+    ]
+  },
+  "matches": [
+    {
+      "match": "Galatasaray vs VfB Stuttgart",
+      "home_team": "Galatasaray",
+      "away_team": "VfB Stuttgart",
+      "commence_time": "2026-11-03T17:45:00Z",
+      "completed": true,
+      "home_score": "2",
+      "away_score": "0",
+      "final_score": "2-0",
+      "result": "home",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Shakhtar Donetsk vs Sporting Lisbon",
+      "home_team": "Shakhtar Donetsk",
+      "away_team": "Sporting Lisbon",
+      "commence_time": "2026-11-03T17:45:00Z",
+      "completed": true,
+      "home_score": "0",
+      "away_score": "1",
+      "final_score": "0-1",
+      "result": "away",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Manchester United vs AS Roma",
+      "home_team": "Manchester United",
+      "away_team": "AS Roma",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "completed": true,
+      "home_score": "3",
+      "away_score": "2",
+      "final_score": "3-2",
+      "result": "home",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Barcelona vs Aston Villa",
+      "home_team": "Barcelona",
+      "away_team": "Aston Villa",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "completed": true,
+      "home_score": "3",
+      "away_score": "0",
+      "final_score": "3-0",
+      "result": "home",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Atl\u00e9tico Madrid vs Bayern Munich",
+      "home_team": "Atl\u00e9tico Madrid",
+      "away_team": "Bayern Munich",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "completed": true,
+      "home_score": "0",
+      "away_score": "2",
+      "final_score": "0-2",
+      "result": "away",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Bod\u00f8/Glimt vs Lille",
+      "home_team": "Bod\u00f8/Glimt",
+      "away_team": "Lille",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "completed": true,
+      "home_score": "0",
+      "away_score": "0",
+      "final_score": "0-0",
+      "result": "draw",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Feyenoord vs Inter Milan",
+      "home_team": "Feyenoord",
+      "away_team": "Inter Milan",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "completed": true,
+      "home_score": "0",
+      "away_score": "3",
+      "final_score": "0-3",
+      "result": "away",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "LASK vs \u0160K Slovan Bratislava",
+      "home_team": "LASK",
+      "away_team": "\u0160K Slovan Bratislava",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "completed": true,
+      "home_score": "4",
+      "away_score": "0",
+      "final_score": "4-0",
+      "result": "home",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Villarreal vs Paris Saint Germain",
+      "home_team": "Villarreal",
+      "away_team": "Paris Saint Germain",
+      "commence_time": "2026-11-03T20:00:00Z",
+      "completed": true,
+      "home_score": "0",
+      "away_score": "6",
+      "final_score": "0-6",
+      "result": "away",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "AEK Athens vs Real Madrid",
+      "home_team": "AEK Athens",
+      "away_team": "Real Madrid",
+      "commence_time": "2026-11-04T17:45:00Z",
+      "completed": true,
+      "home_score": "2",
+      "away_score": "3",
+      "final_score": "2-3",
+      "result": "away",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Fenerbahce vs Liverpool",
+      "home_team": "Fenerbahce",
+      "away_team": "Liverpool",
+      "commence_time": "2026-11-04T17:45:00Z",
+      "completed": true,
+      "home_score": "3",
+      "away_score": "2",
+      "final_score": "3-2",
+      "result": "home",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Slavia Praha vs Arsenal",
+      "home_team": "Slavia Praha",
+      "away_team": "Arsenal",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "completed": true,
+      "home_score": "1",
+      "away_score": "2",
+      "final_score": "1-2",
+      "result": "away",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Borussia Dortmund vs Real Betis",
+      "home_team": "Borussia Dortmund",
+      "away_team": "Real Betis",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "completed": true,
+      "home_score": "2",
+      "away_score": "1",
+      "final_score": "2-1",
+      "result": "home",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "PSV Eindhoven vs Club Brugge",
+      "home_team": "PSV Eindhoven",
+      "away_team": "Club Brugge",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "completed": true,
+      "home_score": "1",
+      "away_score": "2",
+      "final_score": "1-2",
+      "result": "away",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "RC Lens vs Como",
+      "home_team": "RC Lens",
+      "away_team": "Como",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "completed": true,
+      "home_score": "1",
+      "away_score": "9",
+      "final_score": "1-9",
+      "result": "away",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "RB Leipzig vs Manchester City",
+      "home_team": "RB Leipzig",
+      "away_team": "Manchester City",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "completed": true,
+      "home_score": "2",
+      "away_score": "3",
+      "final_score": "2-3",
+      "result": "away",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Porto vs Napoli",
+      "home_team": "Porto",
+      "away_team": "Napoli",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "completed": true,
+      "home_score": "4",
+      "away_score": "1",
+      "final_score": "4-1",
+      "result": "home",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    },
+    {
+      "match": "Viking FK vs Sabah FK",
+      "home_team": "Viking FK",
+      "away_team": "Sabah FK",
+      "commence_time": "2026-11-04T20:00:00Z",
+      "completed": true,
+      "home_score": "4",
+      "away_score": "1",
+      "final_score": "4-1",
+      "result": "home",
+      "last_update": "2026-11-24T09:02:32.927638+00:00"
+    }
+  ]
+}

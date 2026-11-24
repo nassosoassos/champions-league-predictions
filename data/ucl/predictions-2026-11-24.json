@@ -1,0 +1,358 @@
+{
+  "matchday": "MD5",
+  "predictions": [
+    {
+      "home_team": "Galatasaray",
+      "away_team": "Aston Villa",
+      "commence_time": "2026-11-24T17:45:00Z",
+      "market": {
+        "home": 0.3182,
+        "draw": 0.2503,
+        "away": 0.4314
+      },
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 2,
+      "rationale": "Market makes Villa 43% in Istanbul on one of the card's flattest lines. Previews say Galatasaray are on a seven-game winning run and Villa are winless in five, and one aggregator lists Villa absentees including Cash, but the injury lists conflict across sources and none is confirmed. Too thin to move off the market: Villa 1-2 at low confidence.",
+      "disagreement": "Models split: Sports Mole's model leans Galatasaray 52/21/27 (2-1) and footballpredictions tips a 1-1 draw, against the market's Villa lean.",
+      "sources": [
+        {
+          "title": "Sports Mole: Galatasaray vs Aston Villa",
+          "url": "https://www.sportsmole.co.uk/football/champions-league/galatasaray-vs-aston-villa_game_263351.html"
+        },
+        {
+          "title": "Footballpredictions: Galatasaray vs Aston Villa prediction",
+          "url": "https://footballpredictions.com/footballpredictions/championsleaguepredictions/galatasaray-vs-aston-villa-prediction-24-11-2026/"
+        },
+        {
+          "title": "Squawka preview",
+          "url": "https://www.squawka.com/us/?p=99631"
+        }
+      ]
+    },
+    {
+      "home_team": "Bodø/Glimt",
+      "away_team": "LASK",
+      "commence_time": "2026-11-24T17:45:00Z",
+      "market": {
+        "home": 0.6517,
+        "draw": 0.1804,
+        "away": 0.1679
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Bodø/Glimt priced at 65% at home against LASK.",
+      "sources": []
+    },
+    {
+      "home_team": "Como",
+      "away_team": "AEK Athens",
+      "commence_time": "2026-11-24T20:00:00Z",
+      "market": {
+        "home": 0.764,
+        "draw": 0.1419,
+        "away": 0.0941
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Como priced at 76% at home against AEK Athens.",
+      "sources": []
+    },
+    {
+      "home_team": "Arsenal",
+      "away_team": "Borussia Dortmund",
+      "commence_time": "2026-11-24T20:00:00Z",
+      "market": {
+        "home": 0.6589,
+        "draw": 0.2047,
+        "away": 0.1364
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Arsenal priced at 66% at home against Borussia Dortmund.",
+      "sources": []
+    },
+    {
+      "home_team": "Feyenoord",
+      "away_team": "Porto",
+      "commence_time": "2026-11-24T20:00:00Z",
+      "market": {
+        "home": 0.3057,
+        "draw": 0.2589,
+        "away": 0.4353
+      },
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 3,
+      "rationale": "Market has Porto 44% in Rotterdam, with both sides on three points near the elimination zone. Porto arrive off a 4-1 win over Napoli and concede far less than Feyenoord over their last ten (0.9 vs 1.9 a game, per one aggregator); Feyenoord's Hadj Moussa is reported doubtful but unconfirmed. Porto 1-2 with the market.",
+      "disagreement": "Squawka's model leans Feyenoord (49%); the form-based previews lean Porto.",
+      "sources": [
+        {
+          "title": "Footballpredictions: Feyenoord vs Porto prediction",
+          "url": "https://footballpredictions.com/footballpredictions/championsleaguepredictions/feyenoord-vs-porto-prediction-24-11-2026/"
+        },
+        {
+          "title": "Squawka preview",
+          "url": "https://www.squawka.com/us/?p=99642"
+        },
+        {
+          "title": "Kickoff.co.uk stats and model",
+          "url": "https://www.kickoff.co.uk/uefa-champions-league-predictions-stats-odds/feyenoord-vs-porto/"
+        }
+      ]
+    },
+    {
+      "home_team": "Manchester City",
+      "away_team": "Napoli",
+      "commence_time": "2026-11-24T20:00:00Z",
+      "market": {
+        "home": 0.7378,
+        "draw": 0.1514,
+        "away": 0.1108
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Manchester City priced at 74% at home against Napoli.",
+      "sources": []
+    },
+    {
+      "home_team": "Real Madrid",
+      "away_team": "PSV Eindhoven",
+      "commence_time": "2026-11-24T20:00:00Z",
+      "market": {
+        "home": 0.8413,
+        "draw": 0.0967,
+        "away": 0.0621
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Real Madrid priced at 84% at home against PSV Eindhoven.",
+      "sources": []
+    },
+    {
+      "home_team": "RB Leipzig",
+      "away_team": "RC Lens",
+      "commence_time": "2026-11-24T20:00:00Z",
+      "market": {
+        "home": 0.6971,
+        "draw": 0.1676,
+        "away": 0.1353
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; RB Leipzig priced at 70% at home against RC Lens.",
+      "sources": []
+    },
+    {
+      "home_team": "ŠK Slovan Bratislava",
+      "away_team": "Real Betis",
+      "commence_time": "2026-11-24T20:00:00Z",
+      "market": {
+        "home": 0.0923,
+        "draw": 0.1463,
+        "away": 0.7615
+      },
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-2",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Real Betis priced at 76% away against ŠK Slovan Bratislava.",
+      "sources": []
+    },
+    {
+      "home_team": "Sabah FK",
+      "away_team": "Barcelona",
+      "commence_time": "2026-11-25T17:45:00Z",
+      "market": {
+        "home": 0.0469,
+        "draw": 0.0758,
+        "away": 0.8773
+      },
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-3",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Barcelona priced at 88% away against Sabah FK.",
+      "sources": []
+    },
+    {
+      "home_team": "Slavia Praha",
+      "away_team": "Villarreal",
+      "commence_time": "2026-11-25T17:45:00Z",
+      "market": {
+        "home": 0.3066,
+        "draw": 0.2481,
+        "away": 0.4453
+      },
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 2,
+      "rationale": "Market makes Villarreal 45% in Prague. Slavia are reported 34th with one point and missing Moses and Ogbu, but Villarreal have their own reported absences (Foyth, Akhomach) and may rotate after a weekend league game; all team news is single-source and unconfirmed. Villarreal 1-2 with the market at low confidence.",
+      "disagreement": "The only tipster found (footballpredictions) goes 2-2 draw.",
+      "sources": [
+        {
+          "title": "Footballpredictions: Slavia Praha vs Villarreal prediction",
+          "url": "https://footballpredictions.com/footballpredictions/championsleaguepredictions/slavia-praha-vs-villarreal-prediction-25-11-2026/"
+        },
+        {
+          "title": "Starting11: Slavia Praha vs Villarreal",
+          "url": "https://starting11.com/fixtures/slavia-praha-vs-villarreal"
+        }
+      ]
+    },
+    {
+      "home_team": "Paris Saint Germain",
+      "away_team": "AS Roma",
+      "commence_time": "2026-11-25T20:00:00Z",
+      "market": {
+        "home": 0.6728,
+        "draw": 0.1836,
+        "away": 0.1436
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Paris Saint Germain priced at 67% at home against AS Roma.",
+      "sources": []
+    },
+    {
+      "home_team": "Atlético Madrid",
+      "away_team": "Viking FK",
+      "commence_time": "2026-11-25T20:00:00Z",
+      "market": {
+        "home": 0.8645,
+        "draw": 0.091,
+        "away": 0.0445
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "3-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Atlético Madrid priced at 86% at home against Viking FK.",
+      "sources": []
+    },
+    {
+      "home_team": "Lille",
+      "away_team": "Bayern Munich",
+      "commence_time": "2026-11-25T20:00:00Z",
+      "market": {
+        "home": 0.1887,
+        "draw": 0.2225,
+        "away": 0.5888
+      },
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Bayern Munich priced at 59% away against Lille.",
+      "sources": []
+    },
+    {
+      "home_team": "Club Brugge",
+      "away_team": "Liverpool",
+      "commence_time": "2026-11-25T20:00:00Z",
+      "market": {
+        "home": 0.2147,
+        "draw": 0.2065,
+        "away": 0.5788
+      },
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Liverpool priced at 58% away against Club Brugge.",
+      "sources": []
+    },
+    {
+      "home_team": "Shakhtar Donetsk",
+      "away_team": "Fenerbahce",
+      "commence_time": "2026-11-25T20:00:00Z",
+      "market": {
+        "home": 0.3619,
+        "draw": 0.2718,
+        "away": 0.3663
+      },
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 2,
+      "rationale": "The flattest line on the card: 36/27/37, with Fenerbahce a hair ahead. Shakhtar's 'home' game is again away from Ukraine (venue not confirmed by a source we could read), Shakhtar lost 1-0 to Sporting on MD4, and no injury news surfaced for either side. A coin-flip; Fenerbahce 0-1 by the narrowest of margins.",
+      "disagreement": "Algorithmic models (Squawka 48/26/26, Wincomparator ~41%) lean Shakhtar against the market.",
+      "sources": [
+        {
+          "title": "Sky Sport Italia match page",
+          "url": "https://sport.sky.it/calcio/champions-league/partite/2026/giornata-5/shakhtar-donetsk-fenerbahce"
+        },
+        {
+          "title": "Wincomparator prediction",
+          "url": "https://www.wincomparator.com/predictions/shakhtar-donetsk-fenerbahce-8786676/"
+        },
+        {
+          "title": "Foresportia prediction",
+          "url": "https://www.foresportia.com/en/prediction/champions-league/fk-shakhtar-donetsk-fenerbahce-2026-11-25/"
+        }
+      ]
+    },
+    {
+      "home_team": "Inter Milan",
+      "away_team": "VfB Stuttgart",
+      "commence_time": "2026-11-25T20:00:00Z",
+      "market": {
+        "home": 0.6715,
+        "draw": 0.173,
+        "away": 0.1555
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Inter Milan priced at 67% at home against VfB Stuttgart.",
+      "sources": []
+    },
+    {
+      "home_team": "Sporting Lisbon",
+      "away_team": "Manchester United",
+      "commence_time": "2026-11-25T20:00:00Z",
+      "market": {
+        "home": 0.3877,
+        "draw": 0.2558,
+        "away": 0.3565
+      },
+      "depth": "deep",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 2,
+      "rationale": "Market has Sporting a narrow 39% to United's 36% at Alvalade. Sporting are reported 10th on nine points having conceded four in four, while United's reported absence list is long (Sesko out, Baleba and Dorgu hamstrings, Shaw and de Ligt doubts) under a new head coach — all from one aggregator and unconfirmed. Leans the same way as the market: Sporting 2-1 at low confidence.",
+      "sources": [
+        {
+          "title": "Forza Football: Sporting vs Manchester United tips",
+          "url": "https://forzafootball.com/gb/play/betting-tips/sporting-vs-manchester-united-champions-league-predictions-odds"
+        },
+        {
+          "title": "Starting11: Sporting CP vs Manchester United",
+          "url": "https://starting11.com/fixtures/sporting-cp-vs-manchester-united"
+        },
+        {
+          "title": "Squawka preview",
+          "url": "https://www.squawka.com/us/?p=102826"
+        }
+      ]
+    }
+  ]
+}

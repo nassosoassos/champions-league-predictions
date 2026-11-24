@@ -3,13 +3,15 @@
 Immutable record of calls vs outcomes. Never edit a prediction after kickoff.
 
 ## Running tally
-- Matches predicted (graded): 54
-- Correct picks (1X2): 34 — hit rate 63% (34/54)
-- Exact scoreline hits: 8 (Bayer Leverkusen 2-0, Olympiakos Piraeus 2-1, Levski Sofia 0-1, Real Sociedad 1-2, Sunderland 1-2, Ferencváros TC 2-1, OFI Crete–Bayer Leverkusen 0-2, Celtic–Celta Vigo 1-2)
-- Avg confidence of correct picks: 3.74
-- Avg confidence of wrong picks: 3.40
-- Deep: 5/9 (56%), 2 exact. Quick: 29/45 (64%), 6 exact.
-- Blind market-favourite control: 34/54. Identical to our record because no pick on any card deviated from the favourite.
+- Matches predicted (graded): 72
+- Correct picks (1X2): 42 — hit rate 58% (42/72)
+- Exact scoreline hits: 10 (Bayer Leverkusen 2-0, Olympiakos Piraeus 2-1, Levski Sofia 0-1, Real Sociedad 1-2, Sunderland 1-2, Ferencváros TC 2-1, OFI Crete–Bayer Leverkusen 0-2, Celtic–Celta Vigo 1-2, PFC Levski Sofia–Jagiellonia Białystok 1-0, Lillestrom–Viktoria Plzeň 0-1)
+- Avg confidence of correct picks: 3.67
+- Avg confidence of wrong picks: 3.37
+- Deep: 5/12 (42%), 2 exact. Quick: 37/60 (62%), 8 exact.
+- Blind market-favourite control: 42/72. Identical to our record because no pick on any card deviated from the favourite.
+
+**Notes (MD4, 4-5 Nov):** 8/18, 2 exact (Levski Sofia 1-0 Jagiellonia Białystok, Lillestrom 0-1 Viktoria Plzeň). Deep 0/3, the worst round for research so far, and again the blind favourite went the same 0/3 because every pick sat on the favourite. Rennes 0-0 Olympiakos Piraeus was a draw against a 2-1 home call at confidence 2; Celta Vigo lost 1-2 at home to Union Saint-Gilloise (confidence 2); Hapoel Be'er Sheva lost 0-2 at home to OFI Crete (confidence 3). Quick 8/15. Biggest misses were at high confidence: AC Milan lost 0-2 at home to Ferencváros TC (confidence 5, the only confidence-5 miss in the round; Benfica 3-1 Lech Poznań was the other 5 and hit), Bayer Leverkusen 0-1 Marseille at home (4), Sunderland 0-2 Dinamo Zagreb (4) and Sturm Graz 2-3 NK Celje (4). Draws also cost Crystal Palace-Hoffenheim and Real Sociedad-Lyon (both 1-1) and Celtic beat Besiktas JK 3-2 against an away pick. Confidence separated only slightly in MD4 alone (3.38 correct vs 3.30 wrong). Table: Olympiakos Piraeus slip from 5th to 6th (10 pts, unbeaten, 3W 1D), still inside the top 8; OFI Crete jump from 26th to 16th (6 pts), crossing the 24th/25th cutline into the seeded play-off places (9-16), and Torreense (28th to 19th) crossed the same line into the unseeded places. Falling out of the 9-24 play-off zone: AC Milan (24th to 28th) and Salzburg (21st to 26th). The top 8 is unchanged as a set (Benfica, Bournemouth, Ferencváros TC, Union Saint-Gilloise, Juventus, Olympiakos Piraeus, Bayer Leverkusen, Besiktas JK), though Bayer Leverkusen fell from 2nd to 7th and Besiktas JK hold 8th only on goal difference (+3 against Dinamo Zagreb's +1, both on 7 points). Sturm Graz hold the last play-off spot, 24th, by goal difference (-3) over 25th-placed NK Celje (-4), both on 4 points (Celje rose from 29th).
 
 **Notes (MD3, 22 Oct):** 11/18, 2 exact. Deep 2/3: Bournemouth beat AC Milan 3-0 and Celta Vigo won 2-1 at Celtic (exact score, on a confidence-2 pick); Besiktas JK–Crystal Palace finished 2-2. Quick 9/15; four of the six misses were draws (Juventus–Rennes, Besiktas–Palace, NK Celje–Salzburg 2-2; Lech Poznań–Sunderland 1-1), plus away upsets at Dinamo Zagreb (2-4 to NEC Nijmegen) and Viktoria Plzeň (1-2 to Levski Sofia) and Sturm Graz's 1-0 home win over Marseille. Every miss was at confidence 3-4; all three confidence-5 picks hit.
 
@@ -76,3 +78,21 @@ Confidence barely separated correct from wrong picks (3.45 vs 3.43). That is a w
 | 2026-10-22 | NK Celje vs Salzburg | Away | 1-2 | 4 | quick | 2-2 (draw) | ✗ | ✗ |
 | 2026-10-22 | Olympiakos Piraeus vs Sparta Prague | Home | 2-1 | 4 | quick | 1-0 (home) | ✓ | ✗ |
 | 2026-10-22 | Viktoria Plzeň vs PFC Levski Sofia | Home | 2-1 | 4 | quick | 1-2 (away) | ✗ | ✗ |
+| 2026-11-04 | Rennes vs Olympiakos Piraeus | Home | 2-1 | 2 | deep | 0-0 (draw) | ✗ | ✗ |
+| 2026-11-05 | AC Milan vs Ferencváros TC | Home | 2-0 | 5 | quick | 0-2 (away) | ✗ | ✗ |
+| 2026-11-05 | Anderlecht vs Salzburg | Home | 1-0 | 3 | quick | 2-0 (home) | ✓ | ✗ |
+| 2026-11-05 | Sparta Prague vs Bournemouth | Away | 1-2 | 4 | quick | 1-3 (away) | ✓ | ✗ |
+| 2026-11-05 | Crystal Palace vs TSG Hoffenheim | Home | 1-0 | 3 | quick | 1-1 (draw) | ✗ | ✗ |
+| 2026-11-05 | PFC Levski Sofia vs Jagiellonia Białystok | Home | 1-0 | 3 | quick | 1-0 (home) | ✓ | ✓ |
+| 2026-11-05 | Lillestrom vs Viktoria Plzeň | Away | 0-1 | 3 | quick | 0-1 (away) | ✓ | ✓ |
+| 2026-11-05 | Real Sociedad vs Lyon | Home | 2-1 | 3 | quick | 1-1 (draw) | ✗ | ✗ |
+| 2026-11-05 | NEC Nijmegen vs Omonoia FC | Home | 2-1 | 3 | quick | 3-1 (home) | ✓ | ✗ |
+| 2026-11-05 | AZ Alkmaar vs Juventus | Away | 0-1 | 3 | quick | 1-2 (away) | ✓ | ✗ |
+| 2026-11-05 | Bayer Leverkusen vs Marseille | Home | 2-1 | 4 | quick | 0-1 (away) | ✗ | ✗ |
+| 2026-11-05 | Benfica vs Lech Poznań | Home | 2-0 | 5 | quick | 3-1 (home) | ✓ | ✗ |
+| 2026-11-05 | Celtic vs Besiktas JK | Away | 0-1 | 3 | quick | 3-2 (home) | ✗ | ✗ |
+| 2026-11-05 | Celta Vigo vs Union Saint-Gilloise | Home | 2-1 | 2 | deep | 1-2 (away) | ✗ | ✗ |
+| 2026-11-05 | Sunderland vs Dinamo Zagreb | Home | 2-1 | 4 | quick | 0-2 (away) | ✗ | ✗ |
+| 2026-11-05 | Torreense vs FC Ararat-Armenia | Home | 2-1 | 3 | quick | 3-2 (home) | ✓ | ✗ |
+| 2026-11-05 | Hapoel Be'er Sheva vs OFI Crete | Home | 2-1 | 3 | deep | 0-2 (away) | ✗ | ✗ |
+| 2026-11-05 | SK Sturm Graz vs NK Celje | Home | 2-1 | 4 | quick | 2-3 (away) | ✗ | ✗ |

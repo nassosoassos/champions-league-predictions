@@ -1,0 +1,296 @@
+{
+ "generated_at": "2026-11-24T09:00:00Z",
+ "source": "manual — web sources (Wikipedia league-phase page + uefa.com Matchday 4 highlights and round-up); The Odds API scores endpoint only reaches back 3 days",
+ "sources": {
+  "Rennes|Olympiakos Piraeus": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "AC Milan|Ferencváros TC": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Anderlecht|Salzburg": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Sparta Prague|Bournemouth": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Crystal Palace|TSG Hoffenheim": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "PFC Levski Sofia|Jagiellonia Białystok": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Lillestrom|Viktoria Plzeň": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Real Sociedad|Lyon": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "NEC Nijmegen|Omonoia FC": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "AZ Alkmaar|Juventus": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Bayer Leverkusen|Marseille": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Benfica|Lech Poznań": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Celtic|Besiktas JK": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Celta Vigo|Union Saint-Gilloise": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Sunderland|Dinamo Zagreb": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Torreense|FC Ararat-Armenia": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "Hapoel Be'er Sheva|OFI Crete": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ],
+  "SK Sturm Graz|NK Celje": [
+   "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League_league_phase",
+   "https://www.uefa.com/uefaeuropaleague/news/02ab-22004d716327-dd7c42bc0d91-1000--europa-league-matchday-4-highlights-and-round-up-ferencva"
+  ]
+ },
+ "matches": [
+  {
+   "match": "Rennes vs Olympiakos Piraeus",
+   "home_team": "Rennes",
+   "away_team": "Olympiakos Piraeus",
+   "commence_time": "2026-11-04T15:30:00Z",
+   "completed": true,
+   "home_score": "0",
+   "away_score": "0",
+   "final_score": "0-0",
+   "result": "draw",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "AC Milan vs Ferencváros TC",
+   "home_team": "AC Milan",
+   "away_team": "Ferencváros TC",
+   "commence_time": "2026-11-05T17:45:00Z",
+   "completed": true,
+   "home_score": "0",
+   "away_score": "2",
+   "final_score": "0-2",
+   "result": "away",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Anderlecht vs Salzburg",
+   "home_team": "Anderlecht",
+   "away_team": "Salzburg",
+   "commence_time": "2026-11-05T17:45:00Z",
+   "completed": true,
+   "home_score": "2",
+   "away_score": "0",
+   "final_score": "2-0",
+   "result": "home",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Sparta Prague vs Bournemouth",
+   "home_team": "Sparta Prague",
+   "away_team": "Bournemouth",
+   "commence_time": "2026-11-05T17:45:00Z",
+   "completed": true,
+   "home_score": "1",
+   "away_score": "3",
+   "final_score": "1-3",
+   "result": "away",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Crystal Palace vs TSG Hoffenheim",
+   "home_team": "Crystal Palace",
+   "away_team": "TSG Hoffenheim",
+   "commence_time": "2026-11-05T17:45:00Z",
+   "completed": true,
+   "home_score": "1",
+   "away_score": "1",
+   "final_score": "1-1",
+   "result": "draw",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "PFC Levski Sofia vs Jagiellonia Białystok",
+   "home_team": "PFC Levski Sofia",
+   "away_team": "Jagiellonia Białystok",
+   "commence_time": "2026-11-05T17:45:00Z",
+   "completed": true,
+   "home_score": "1",
+   "away_score": "0",
+   "final_score": "1-0",
+   "result": "home",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Lillestrom vs Viktoria Plzeň",
+   "home_team": "Lillestrom",
+   "away_team": "Viktoria Plzeň",
+   "commence_time": "2026-11-05T17:45:00Z",
+   "completed": true,
+   "home_score": "0",
+   "away_score": "1",
+   "final_score": "0-1",
+   "result": "away",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Real Sociedad vs Lyon",
+   "home_team": "Real Sociedad",
+   "away_team": "Lyon",
+   "commence_time": "2026-11-05T17:45:00Z",
+   "completed": true,
+   "home_score": "1",
+   "away_score": "1",
+   "final_score": "1-1",
+   "result": "draw",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "NEC Nijmegen vs Omonoia FC",
+   "home_team": "NEC Nijmegen",
+   "away_team": "Omonoia FC",
+   "commence_time": "2026-11-05T17:45:00Z",
+   "completed": true,
+   "home_score": "3",
+   "away_score": "1",
+   "final_score": "3-1",
+   "result": "home",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "AZ Alkmaar vs Juventus",
+   "home_team": "AZ Alkmaar",
+   "away_team": "Juventus",
+   "commence_time": "2026-11-05T20:00:00Z",
+   "completed": true,
+   "home_score": "1",
+   "away_score": "2",
+   "final_score": "1-2",
+   "result": "away",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Bayer Leverkusen vs Marseille",
+   "home_team": "Bayer Leverkusen",
+   "away_team": "Marseille",
+   "commence_time": "2026-11-05T20:00:00Z",
+   "completed": true,
+   "home_score": "0",
+   "away_score": "1",
+   "final_score": "0-1",
+   "result": "away",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Benfica vs Lech Poznań",
+   "home_team": "Benfica",
+   "away_team": "Lech Poznań",
+   "commence_time": "2026-11-05T20:00:00Z",
+   "completed": true,
+   "home_score": "3",
+   "away_score": "1",
+   "final_score": "3-1",
+   "result": "home",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Celtic vs Besiktas JK",
+   "home_team": "Celtic",
+   "away_team": "Besiktas JK",
+   "commence_time": "2026-11-05T20:00:00Z",
+   "completed": true,
+   "home_score": "3",
+   "away_score": "2",
+   "final_score": "3-2",
+   "result": "home",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Celta Vigo vs Union Saint-Gilloise",
+   "home_team": "Celta Vigo",
+   "away_team": "Union Saint-Gilloise",
+   "commence_time": "2026-11-05T20:00:00Z",
+   "completed": true,
+   "home_score": "1",
+   "away_score": "2",
+   "final_score": "1-2",
+   "result": "away",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Sunderland vs Dinamo Zagreb",
+   "home_team": "Sunderland",
+   "away_team": "Dinamo Zagreb",
+   "commence_time": "2026-11-05T20:00:00Z",
+   "completed": true,
+   "home_score": "0",
+   "away_score": "2",
+   "final_score": "0-2",
+   "result": "away",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Torreense vs FC Ararat-Armenia",
+   "home_team": "Torreense",
+   "away_team": "FC Ararat-Armenia",
+   "commence_time": "2026-11-05T20:00:00Z",
+   "completed": true,
+   "home_score": "3",
+   "away_score": "2",
+   "final_score": "3-2",
+   "result": "home",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "Hapoel Be'er Sheva vs OFI Crete",
+   "home_team": "Hapoel Be'er Sheva",
+   "away_team": "OFI Crete",
+   "commence_time": "2026-11-05T20:00:00Z",
+   "completed": true,
+   "home_score": "0",
+   "away_score": "2",
+   "final_score": "0-2",
+   "result": "away",
+   "last_update": "2026-11-24T09:00:00Z"
+  },
+  {
+   "match": "SK Sturm Graz vs NK Celje",
+   "home_team": "SK Sturm Graz",
+   "away_team": "NK Celje",
+   "commence_time": "2026-11-05T20:00:00Z",
+   "completed": true,
+   "home_score": "2",
+   "away_score": "3",
+   "final_score": "2-3",
+   "result": "away",
+   "last_update": "2026-11-24T09:00:00Z"
+  }
+ ]
+}

@@ -1,0 +1,334 @@
+{
+  "matchday": "MD5",
+  "predictions": [
+    {
+      "home_team": "Olympiakos Piraeus",
+      "away_team": "AC Milan",
+      "commence_time": "2026-11-26T17:45:00Z",
+      "market": {
+        "home": 0.3383,
+        "draw": 0.2755,
+        "away": 0.3862
+      },
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 2,
+      "rationale": "The market makes Milan slight favourites (34/28/39), one of the closest lines on the card. Milan travel without nine players, among them Modrić (thigh), Camarda (ankle), Bartesaghi (tendinitis), Saelemaekers and Pavlovic, so Gonçalo Ramos is the only senior striker; Tomori is back in training. Milan are 28th on three points after three defeats in four, Olympiakos sixth on ten. The absences were public before today's prices, so the pick stays with the market, but at the lowest confidence.",
+      "disagreement": "Team news leans against the favourite; no tipster consensus found.",
+      "sources": [
+        {
+          "title": "beIN Sports — Modrić ruled out of Milan's Europa League clash",
+          "url": "https://www.beinsports.com/en-us/soccer/uefa-europa-league/articles/luka-modri-suffers-injury-leaving-milan-without-its-midfield-leader-for-the-europa-league-2026-11-24"
+        },
+        {
+          "title": "Goal — Camarda ankle problem, Tomori returns, predicted line-up for Olympiacos",
+          "url": "https://www.goal.com/en-in/news/milan-suffer-another-setback-as-camarda-has-ankle-problem-tomori-returns-to-training-predicted-line-up-for-olympiacos/blt4b1a342a297e061e"
+        },
+        {
+          "title": "ANSA — Olympiacos-Milan, giovedì alle 18.45",
+          "url": "https://www.ansa.it/sito/notizie/sport/calcio/2026/11/25/europa-league-olympiacos-milan-in-campo-giovedi-alle-18.45-diretta_33d004e6-854b-4e78-b6b5-71c30d90edb2.html"
+        }
+      ]
+    },
+    {
+      "home_team": "Dinamo Zagreb",
+      "away_team": "Bayer Leverkusen",
+      "commence_time": "2026-11-26T17:45:00Z",
+      "market": {
+        "home": 0.2149,
+        "draw": 0.222,
+        "away": 0.5632
+      },
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Bayer Leverkusen priced at 56% to beat Dinamo Zagreb away.",
+      "sources": []
+    },
+    {
+      "home_team": "Viktoria Plzeň",
+      "away_team": "Benfica",
+      "commence_time": "2026-11-26T17:45:00Z",
+      "market": {
+        "home": 0.1602,
+        "draw": 0.1907,
+        "away": 0.649
+      },
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Benfica priced at 65% to beat Viktoria Plzeň away.",
+      "sources": []
+    },
+    {
+      "home_team": "Besiktas JK",
+      "away_team": "Hapoel Be'er Sheva",
+      "commence_time": "2026-11-26T17:45:00Z",
+      "market": {
+        "home": 0.7804,
+        "draw": 0.1354,
+        "away": 0.0841
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Besiktas JK priced at 78% to beat Hapoel Be'er Sheva at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Celta Vigo",
+      "away_team": "Bournemouth",
+      "commence_time": "2026-11-26T17:45:00Z",
+      "market": {
+        "home": 0.2647,
+        "draw": 0.2692,
+        "away": 0.4661
+      },
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "rationale": "Market-derived pick, no dedicated research this round; Bournemouth priced at 47% to beat Celta Vigo away.",
+      "sources": []
+    },
+    {
+      "home_team": "Salzburg",
+      "away_team": "FC Ararat-Armenia",
+      "commence_time": "2026-11-26T17:45:00Z",
+      "market": {
+        "home": 0.8148,
+        "draw": 0.118,
+        "away": 0.0672
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Salzburg priced at 81% to beat FC Ararat-Armenia at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Union Saint-Gilloise",
+      "away_team": "Lech Poznań",
+      "commence_time": "2026-11-26T17:45:00Z",
+      "market": {
+        "home": 0.7085,
+        "draw": 0.1707,
+        "away": 0.1208
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Union Saint-Gilloise priced at 71% to beat Lech Poznań at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Marseille",
+      "away_team": "PFC Levski Sofia",
+      "commence_time": "2026-11-26T17:45:00Z",
+      "market": {
+        "home": 0.6936,
+        "draw": 0.1861,
+        "away": 0.1203
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Marseille priced at 69% to beat PFC Levski Sofia at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Sparta Prague",
+      "away_team": "AZ Alkmaar",
+      "commence_time": "2026-11-26T20:00:00Z",
+      "market": {
+        "home": 0.3273,
+        "draw": 0.2624,
+        "away": 0.4104
+      },
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 3,
+      "rationale": "The market makes AZ narrow favourites (33/26/41). Previews describe Sparta, 22nd on four points, as winless in five in all competitions and unsettled after a change of coach; this run did not verify the coaching change independently. AZ are 14th on six points. Tipsters lean AZ, so the pick follows the market.",
+      "disagreement": "Sportskeeda goes for a 2-2 draw; an AI-model panel picks AZ 1-2.",
+      "sources": [
+        {
+          "title": "Sportskeeda — Sparta Prague vs AZ Alkmaar prediction",
+          "url": "https://www.sportskeeda.com/football/sparta-prague-vs-az-alkmaar-prediction-betting-tips-november-26th-2026"
+        },
+        {
+          "title": "The Football Faithful — Sparta Praha vs AZ Alkmaar prediction",
+          "url": "https://thefootballfaithful.com/sparta-praha-vs-az-alkmaar-prediction-betting-tips-26-11-2026/"
+        },
+        {
+          "title": "ScoreGPT — Sparta Praha vs AZ Alkmaar",
+          "url": "https://scoregpt.app/ai-football-predictions/europa-league/sparta-praha-vs-az-alkmaar-2026-11-26"
+        }
+      ]
+    },
+    {
+      "home_team": "OFI Crete",
+      "away_team": "Anderlecht",
+      "commence_time": "2026-11-26T20:00:00Z",
+      "market": {
+        "home": 0.2215,
+        "draw": 0.2499,
+        "away": 0.5286
+      },
+      "depth": "deep",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 3,
+      "rationale": "The market makes Anderlecht favourites (22/25/53) in Heraklion. One stats site reports that OFI lost five of their last six matches, while Anderlecht have averaged 2.67 goals over their last 15. Anderlecht also have a Pro League match three days later, so some rotation is likely. Both sides sit on six points (OFI 16th, Anderlecht 15th). The pick follows the market.",
+      "sources": [
+        {
+          "title": "Starting11 — OFI vs Anderlecht predicted line-ups",
+          "url": "https://starting11.com/fixtures/ofi-vs-anderlecht"
+        },
+        {
+          "title": "DailySports — OFI Crete vs Anderlecht stats",
+          "url": "https://dailysports.net/stat/football/anderlecht-vs-ofi-crete/"
+        },
+        {
+          "title": "UEFA — OFI vs Anderlecht match page",
+          "url": "https://www.uefa.com/uefaeuropaleague/match/2050146--ofi-crete-vs-anderlecht/lineups/"
+        }
+      ]
+    },
+    {
+      "home_team": "Torreense",
+      "away_team": "Celtic",
+      "commence_time": "2026-11-26T20:00:00Z",
+      "market": {
+        "home": 0.2038,
+        "draw": 0.2272,
+        "away": 0.569
+      },
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "1-2",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Celtic priced at 57% to beat Torreense away.",
+      "sources": []
+    },
+    {
+      "home_team": "Crystal Palace",
+      "away_team": "Real Sociedad",
+      "commence_time": "2026-11-26T20:00:00Z",
+      "market": {
+        "home": 0.4631,
+        "draw": 0.2432,
+        "away": 0.2937
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "1-0",
+      "confidence": 3,
+      "rationale": "Market-derived pick, no dedicated research this round; Crystal Palace priced at 46% to beat Real Sociedad at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Ferencváros TC",
+      "away_team": "NK Celje",
+      "commence_time": "2026-11-26T20:00:00Z",
+      "market": {
+        "home": 0.6965,
+        "draw": 0.1809,
+        "away": 0.1226
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-1",
+      "confidence": 4,
+      "rationale": "Market-derived pick, no dedicated research this round; Ferencváros TC priced at 70% to beat NK Celje at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Sunderland",
+      "away_team": "Jagiellonia Białystok",
+      "commence_time": "2026-11-26T20:00:00Z",
+      "market": {
+        "home": 0.7682,
+        "draw": 0.1524,
+        "away": 0.0794
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Sunderland priced at 77% to beat Jagiellonia Białystok at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Juventus",
+      "away_team": "Omonoia FC",
+      "commence_time": "2026-11-26T20:00:00Z",
+      "market": {
+        "home": 0.8047,
+        "draw": 0.1268,
+        "away": 0.0685
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Juventus priced at 80% to beat Omonoia FC at home.",
+      "sources": []
+    },
+    {
+      "home_team": "Lyon",
+      "away_team": "Lillestrom",
+      "commence_time": "2026-11-26T20:00:00Z",
+      "market": {
+        "home": 0.8014,
+        "draw": 0.1262,
+        "away": 0.0724
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; Lyon priced at 80% to beat Lillestrom at home.",
+      "sources": []
+    },
+    {
+      "home_team": "NEC Nijmegen",
+      "away_team": "Rennes",
+      "commence_time": "2026-11-26T20:00:00Z",
+      "market": {
+        "home": 0.3119,
+        "draw": 0.247,
+        "away": 0.4411
+      },
+      "depth": "quick",
+      "pick": "away",
+      "scoreline": "0-1",
+      "confidence": 3,
+      "rationale": "Market-derived pick, no dedicated research this round; Rennes priced at 44% to beat NEC Nijmegen away.",
+      "sources": []
+    },
+    {
+      "home_team": "TSG Hoffenheim",
+      "away_team": "SK Sturm Graz",
+      "commence_time": "2026-11-26T20:00:00Z",
+      "market": {
+        "home": 0.7103,
+        "draw": 0.1672,
+        "away": 0.1225
+      },
+      "depth": "quick",
+      "pick": "home",
+      "scoreline": "2-0",
+      "confidence": 5,
+      "rationale": "Market-derived pick, no dedicated research this round; TSG Hoffenheim priced at 71% to beat SK Sturm Graz at home.",
+      "sources": []
+    }
+  ]
+}
